@@ -3,7 +3,7 @@ title: "Sanjay Singh"
 subtitle: "Infra • Kubernetes • Zero Trust"
 ---
 
-Hi, I’m **Sanjay Singh** — Staff Software Engineer at LinkedIn. I build **scalable, reliable, and secure distributed systems**, and I love turning complex infra problems into simple, resilient solutions.
+Hi, I’m **Sanjay Singh**! Currently working as Staff Software Engineer at LinkedIn. I build **scalable, reliable, and secure distributed systems**, and I love turning complex infra problems into simple, resilient solutions.
 
 ### What I’m focused on
 - Kubernetes platform engineering (controllers, schedulers, developer tooling)
@@ -18,6 +18,10 @@ Hi, I’m **Sanjay Singh** — Staff Software Engineer at LinkedIn. I build **sc
 - Rolled out **mTLS authorization** & **SSO** across production traffic
 
 ---
+
+### Connect
+- 🔗 **LinkedIn:** [linkedin.com/in/singhsanjay12](https://linkedin.com/in/singhsanjay12)
+- ✉️ **Email:** [gargwanshi.sanjay@gmail.com](mailto:gargwanshi.sanjay@gmail.com)
 
 I’ll use this space to publish notes and deep dives on Kubernetes, HAProxy, networking, and security.  
 If you’re into similar problems, stick around — more posts are coming.
