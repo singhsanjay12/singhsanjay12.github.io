@@ -40,6 +40,16 @@ comments:
 
 plugins:
   - jekyll-sitemap
+  - jekyll-archives
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
 
 kramdown:
   syntax_highlighter_opts:
