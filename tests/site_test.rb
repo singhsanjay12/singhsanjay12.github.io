@@ -222,8 +222,8 @@ class NavigationTest < Minitest::Test
   # Every badge href must point to a page that actually exists in the built site.
   # If jekyll-archives is disabled or a link is misspelled this will catch it.
   BADGE_HREFS = %w[
-    /tags/kubernetes/
     /tags/reverse-proxy/
+    /tags/kubernetes/
     /tags/zero-trust/
     /tags/service-discovery/
     /tags/load-balancing/
