@@ -45,7 +45,7 @@ jobs:
           JEKYLL_ENV: "production"
 
       - name: Run site tests
-        run: ruby tests/site_test.rb
+        run: ruby tests/run_all.rb
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
