@@ -34,6 +34,19 @@ class PostsTest < Minitest::Test
   end
 
 
+  # Posts must not overuse em dashes — cap at 3 per post to keep prose readable.
+  EM_DASH_LIMIT = 3
+
+  def test_em_dash_count_in_post_sources
+    Dir.glob("_posts/*.md").each do |source|
+      body = File.read(source).sub(/\A---.*?---\n/m, "")
+      count = body.scan(/\u2014/).size
+      assert count <= EM_DASH_LIMIT,
+        "#{source} contains #{count} em dashes (limit: #{EM_DASH_LIMIT}). " \
+        "Use colons, commas, or parentheses for the excess."
+    end
+  end
+
   # A suspiciously small post HTML likely means content was dropped.
   def test_posts_have_minimum_content
     built_posts.each do |path|
