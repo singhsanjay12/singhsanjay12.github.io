@@ -73,7 +73,7 @@ This model gives you two independent identity signals that an attacker must comp
 
 ## Introducing TrustBridge
 
-TrustBridge is my implementation of this architecture at LinkedIn. It is a reverse proxy that integrates mTLS-based device authentication with centralized SSO user verification, and enforces access control policies — all without requiring any changes to backend services.
+TrustBridge is my implementation of this architecture. It is a reverse proxy that integrates mTLS-based device authentication with centralized SSO user verification, and enforces access control policies — all without requiring any changes to backend services.
 
 The design philosophy behind TrustBridge is straightforward: security enforcement should be infrastructure, not application logic. Teams building services should not need to implement their own auth stack. They should be able to rely on TrustBridge to enforce the right policies, and focus on the problem their service actually exists to solve.
 
@@ -85,6 +85,6 @@ This separation has practical consequences:
 
 ## What's Next
 
-This post covered the *why* and the *what* of Zero Trust with a reverse proxy. Part Two will go inside TrustBridge: how the mTLS handshake is structured, how device certificates are issued and validated, how the SSO integration works, and the architecture decisions that came with operating this at LinkedIn scale.
+This post covered the *why* and the *what* of Zero Trust with a reverse proxy. Part Two will go inside TrustBridge: how the mTLS handshake is structured, how device certificates are issued and validated, how the SSO integration works, and the architecture decisions that came with operating this at enterprise scale.
 
 If you are working on similar problems — or thinking about how to approach Zero Trust in your own infrastructure — I would like to hear from you. You can reach me on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or by [email](mailto:gargwanshi.sanjay@gmail.com).
