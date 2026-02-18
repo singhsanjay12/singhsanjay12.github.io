@@ -76,6 +76,7 @@
     border: 1px solid var(--link-color);
     color: var(--link-color);
     background: transparent;
+    text-decoration: none;
     transition: background 0.15s, color 0.15s;
 
     &:hover {
