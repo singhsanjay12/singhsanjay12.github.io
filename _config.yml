@@ -26,6 +26,18 @@ social:
 
 theme: jekyll-theme-chirpy
 
+comments:
+  provider: giscus
+  giscus:
+    repo: singhsanjay12/singhsanjay12.github.io
+    repo_id: R_kgDONwl-Kg
+    category: General
+    category_id: DIC_kwDONwl-Ks4C2vi6
+    mapping: pathname
+    reactions_enabled: 1
+    input_position: bottom
+    lang: en
+
 plugins:
   - jekyll-sitemap
 
@@ -46,7 +58,7 @@ defaults:
       type: posts
     values:
       layout: post
-      comments: false
+      comments: true
       toc: true
       math: false
       mermaid: false
