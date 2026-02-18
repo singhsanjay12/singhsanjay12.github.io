@@ -1,0 +1,86 @@
+---
+---
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* ── Hero Section ────────────────────────────────────────── */
+
+.hero-section {
+  text-align: center;
+  padding: 3.5rem 1rem 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+
+  .hero-name {
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-role {
+    font-size: 1.05rem;
+    color: var(--text-muted-color);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted-color);
+    line-height: 1.7;
+    max-width: 560px;
+    margin: 0 auto 1.75rem;
+  }
+
+  .tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .hero-link {
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+    text-decoration: none;
+
+    i {
+      margin-right: 0.3rem;
+    }
+
+    &:hover {
+      color: var(--link-color);
+    }
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid var(--link-color);
+    color: var(--link-color);
+    background: transparent;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+      background: var(--link-color);
+      color: #fff;
+    }
+  }
+}
