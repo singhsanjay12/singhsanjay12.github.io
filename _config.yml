@@ -1,43 +1,58 @@
-title: "Sanjay Singh's Blog"
-author: "Sanjay Singh"
-description: "Notes on Infra, Kubernetes, HAProxy, and Zero Trust." # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
+lang: en
+timezone: America/Los_Angeles
+theme_mode: light
 
-# Email / Social media user names used by the minima theme:
-# All of these are optional and can be removed or commented out
-email: "gargwanshi.sanjay@gmail.com"
-twitter_username: "twitteruser"
-github_username: "singhsanjay12"
-linkedin_username: "singhsanjay12"
-#facebook_username: username
-#flickr_username: username
-#instagram_username: username
-#pinterest_username: username
-#youtube_username: username
-#googleplus_username: +username
+title: Sanjay Singh
+tagline: Staff SWE · Infra · Kubernetes · Zero Trust
+description: Notes on distributed systems, Kubernetes, reverse proxies, and Zero Trust security.
 
-#########################################################################################
-######### Nothing below needs to be changed (unless you know what you're doing) #########
-#########################################################################################
-theme: "minima"
+url: "https://singh-sanjay.com"
+baseurl: ""
 
-rss: rss
+github:
+  username: singhsanjay12
+
+linkedin:
+  username: singhsanjay12
+
+avatar: /assets/img/avatar.jpg
+
+social:
+  name: Sanjay Singh
+  email: gargwanshi.sanjay@gmail.com
+  links:
+    - https://github.com/singhsanjay12
+    - https://www.linkedin.com/in/singhsanjay12
+
+theme: jekyll-theme-chirpy
+
+plugins:
+  - jekyll-sitemap
 
 kramdown:
   syntax_highlighter_opts:
     disable: true
-    
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
 
-titles_from_headings:
-  strip_title: true
-  collections: true
+paginate: 10
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
 
 defaults:
   - scope:
       path: ""
-      type: post
+      type: posts
     values:
-      tags: Other
-
+      layout: post
+      comments: false
+      toc: true
+      math: false
+      mermaid: false
+  - scope:
+      path: "_tabs"
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/

@@ -1,7 +1,8 @@
 ---
 title: "Why Zero Trust Matters and How to Implement It with a Reverse Proxy — Part One"
-date: 2025-08-03
-categories: [security, zero-trust, reverse-proxy]
+date: 2025-08-03 00:00:00 -0700
+categories: [Security, Zero Trust]
+tags: [zero-trust, mtls, reverse-proxy, kubernetes, trustbridge]
 ---
 
 In today’s enterprise environment, trusting by default is risky. Traditional perimeter-based security assumes that once someone is inside the network, they can be trusted. This model fails under the realities of remote work, BYOD, and hybrid cloud.

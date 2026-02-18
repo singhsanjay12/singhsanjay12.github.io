@@ -8,6 +8,7 @@ _site/
 vendor/
 .bundle/
 Gemfile.lock
+.bundled_gems/
 
 # IDE files
 .vscode/
