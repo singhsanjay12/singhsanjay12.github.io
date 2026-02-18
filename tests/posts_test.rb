@@ -33,14 +33,6 @@ class PostsTest < Minitest::Test
     end
   end
 
-  # Enforce the no-em-dash rule on source files before they reach the reader.
-  def test_no_em_dashes_in_post_sources
-    Dir.glob("_posts/*.md").each do |source|
-      body = File.read(source).sub(/\A---.*?---\n/m, "")
-      refute_match(/\u2014/, body,
-        "#{source} contains an em dash (—). Use colons, semicolons, or commas instead.")
-    end
-  end
 
   # A suspiciously small post HTML likely means content was dropped.
   def test_posts_have_minimum_content

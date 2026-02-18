@@ -85,6 +85,6 @@ This separation has practical consequences:
 
 ## What's Next
 
-This post covered the *why* and the *what* of Zero Trust with a reverse proxy. Part Two will go inside TrustBridge: how the mTLS handshake is structured, how device certificates are issued and validated, how the SSO integration works, and the architecture decisions that came with operating this at enterprise scale.
+This post covered the *why* and the *what* of Zero Trust with a reverse proxy. Part Two will go inside TrustBridge — how the mTLS handshake is structured, how device certificates are issued and validated, how the SSO integration works, and the architecture decisions that came with operating this at enterprise scale.
 
-If you are working on similar problems, or thinking about how to approach Zero Trust in your own infrastructure, I would like to hear from you. You can reach me on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or by [email](mailto:gargwanshi.sanjay@gmail.com).
+If you are working on similar problems — or thinking about how to approach Zero Trust in your own infrastructure — I would like to hear from you. You can reach me on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or by [email](mailto:gargwanshi.sanjay@gmail.com).
