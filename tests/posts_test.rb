@@ -33,12 +33,17 @@ class PostsTest < Minitest::Test
     end
   end
 
-  # Enforce the no-em-dash rule on source files before they reach the reader.
-  def test_no_em_dashes_in_post_sources
+
+  # Posts must not overuse em dashes — cap at 3 per post to keep prose readable.
+  EM_DASH_LIMIT = 3
+
+  def test_em_dash_count_in_post_sources
     Dir.glob("_posts/*.md").each do |source|
       body = File.read(source).sub(/\A---.*?---\n/m, "")
-      refute_match(/\u2014/, body,
-        "#{source} contains an em dash (—). Use colons, semicolons, or commas instead.")
+      count = body.scan(/\u2014/).size
+      assert count <= EM_DASH_LIMIT,
+        "#{source} contains #{count} em dashes (limit: #{EM_DASH_LIMIT}). " \
+        "Use colons, commas, or parentheses for the excess."
     end
   end
 

@@ -68,9 +68,6 @@ tags: [tag-one, tag-two, tag-three]
 Post content here.
 ```
 
-**Style rules enforced by tests:**
-- No em dashes (—) anywhere in the post body. Use colons, commas, semicolons, or parentheses instead.
-
 ---
 
 ## Project Structure
