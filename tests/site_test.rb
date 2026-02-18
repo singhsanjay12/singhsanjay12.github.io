@@ -208,6 +208,104 @@ class PostsTest < Minitest::Test
   end
 end
 
+class NavigationTest < Minitest::Test
+  def setup
+    @html = File.read("#{SITE}/index.html")
+  end
+
+  # Hero badge pills must be <a> tags, not plain <span> elements.
+  def test_hero_badges_are_links
+    assert_match(/<a[^>]+class="badge"/, @html,
+      "Hero badge pills must be <a> anchor tags with href — plain <span> elements are not clickable")
+  end
+
+  # Every badge href must point to a page that actually exists in the built site.
+  # If jekyll-archives is disabled or a link is misspelled this will catch it.
+  BADGE_HREFS = %w[
+    /tags/kubernetes/
+    /tags/reverse-proxy/
+    /tags/zero-trust/
+    /tags/service-discovery/
+    /tags/load-balancing/
+    /tags/distributed-systems/
+  ].freeze
+
+  def test_hero_badge_hrefs_present_in_html
+    BADGE_HREFS.each do |href|
+      assert_match(/href="#{Regexp.escape(href)}"/, @html,
+        "Expected badge link href=\"#{href}\" not found on homepage")
+    end
+  end
+
+  def test_hero_badge_hrefs_resolve_to_built_pages
+    BADGE_HREFS.each do |href|
+      path = "#{SITE}#{href.chomp('/')}/index.html"
+      assert File.exist?(path),
+        "Badge href '#{href}' has no built page at #{path} — " \
+        "jekyll-archives may be disabled or the tag/category name changed"
+    end
+  end
+end
+
+class ArchivesTest < Minitest::Test
+  # Guard against jekyll-archives being accidentally disabled.
+  # Without it, /tags/<name>/ and /categories/<name>/ return 404.
+  def test_individual_tag_pages_generated
+    tag_pages = Dir.glob("#{SITE}/tags/*/index.html")
+    assert tag_pages.any?,
+      "No individual tag pages found under _site/tags/ — " \
+      "ensure jekyll-archives is enabled in Gemfile and _config.yml"
+  end
+
+  def test_individual_category_pages_generated
+    cat_pages = Dir.glob("#{SITE}/categories/*/index.html")
+    assert cat_pages.any?,
+      "No individual category pages found under _site/categories/ — " \
+      "ensure jekyll-archives is enabled in Gemfile and _config.yml"
+  end
+
+  # Every tag used in any post must have a corresponding built page.
+  def test_all_post_tags_have_pages
+    Dir.glob("_posts/*.md").each do |source|
+      front_matter = File.read(source)[/\A---.*?---/m].to_s
+      front_matter.scan(/tags:\s*\[([^\]]+)\]/).flatten.first.to_s
+        .split(",").map(&:strip).each do |tag|
+          slug = tag.downcase.gsub(/\s+/, "-")
+          assert File.exist?("#{SITE}/tags/#{slug}/index.html"),
+            "Post '#{source}' has tag '#{tag}' but no built page at _site/tags/#{slug}/"
+        end
+    end
+  end
+
+  # Every category used in any post must have a corresponding built page.
+  def test_all_post_categories_have_pages
+    Dir.glob("_posts/*.md").each do |source|
+      front_matter = File.read(source)[/\A---.*?---/m].to_s
+      front_matter.scan(/categories:\s*\[([^\]]+)\]/).flatten.first.to_s
+        .split(",").map(&:strip).each do |cat|
+          slug = cat.downcase.gsub(/\s+/, "-")
+          assert File.exist?("#{SITE}/categories/#{slug}/index.html"),
+            "Post '#{source}' has category '#{cat}' but no built page at _site/categories/#{slug}/"
+        end
+    end
+  end
+
+  # Archive pages must not be empty stubs.
+  def test_tag_pages_have_content
+    Dir.glob("#{SITE}/tags/*/index.html").each do |path|
+      assert File.size(path) > 2_000,
+        "#{path} is suspiciously small — tag archive page may be broken"
+    end
+  end
+
+  def test_category_pages_have_content
+    Dir.glob("#{SITE}/categories/*/index.html").each do |path|
+      assert File.size(path) > 2_000,
+        "#{path} is suspiciously small — category archive page may be broken"
+    end
+  end
+end
+
 class BuildIntegrityTest < Minitest::Test
   def test_site_directory_exists
     assert Dir.exist?(SITE),
