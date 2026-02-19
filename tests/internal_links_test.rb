@@ -1,24 +1,27 @@
 require_relative "test_helper"
 
-# Verifies that every internal link written in a post source file resolves to
-# a real page in the built site.  Catches broken cross-post references early,
-# before they reach production and cause 404s.
+# Verifies that every internal link and asset reference written in a post
+# source file resolves to a real file in the built site.
+# Covers:
+#   - Cross-post links:  [text](/2026/01/12/slug.html)
+#   - In-body images:    ![alt](/assets/img/posts/.../diagram.svg)
+#   - Front matter hero: image:\n  path: /assets/img/posts/.../hero.svg
 class InternalLinksTest < Minitest::Test
-  # Paths that intentionally don't produce HTML pages.
-  SKIP_PREFIXES = %w[/assets/ /feed.xml /sitemap.xml /robots.txt].freeze
+  # Only skip infrastructure paths that Jekyll never copies as pages/assets.
+  SKIP_PREFIXES = %w[/feed.xml /sitemap.xml /robots.txt].freeze
 
-  # Returns true when the href looks like an internal path we should check.
   def internal?(href)
     href.start_with?("/") &&
       !href.start_with?("//") &&
       SKIP_PREFIXES.none? { |p| href.start_with?(p) }
   end
 
-  # Check whether a site-relative path exists in the built output.
-  # Handles three common URL forms:
-  #   /2026/01/12/slug.html  -> _site/2026/01/12/slug.html  (direct file)
-  #   /archives/             -> _site/archives/index.html   (directory index)
-  #   /archives              -> _site/archives/index.html   (without trailing slash)
+  # Resolve a site-relative path to an actual file in _site/.
+  # Handles:
+  #   /2026/01/12/slug.html  -> _site/2026/01/12/slug.html   (direct file)
+  #   /archives/             -> _site/archives/index.html    (directory index)
+  #   /archives              -> _site/archives/index.html    (no trailing slash)
+  #   /assets/img/hero.svg   -> _site/assets/img/hero.svg   (static asset)
   def path_exists_in_site?(href)
     path = href.split("#").first.chomp("/")
 
@@ -29,25 +32,48 @@ class InternalLinksTest < Minitest::Test
       File.exist?("#{SITE}#{path}.html")
   end
 
-  # Scan all post markdown sources for internal Markdown links [text](/path).
-  def links_from_sources
+  # Collect all internal paths from a single source file.
+  # Scans:
+  #   1. Front matter image.path field (hero images)
+  #   2. Markdown body for [text](href) and ![alt](src) links
+  def links_from_source(source)
+    content = File.read(source)
     links = []
-    Dir.glob("_posts/*.md").each do |source|
-      File.read(source).scan(/\[[^\]]*\]\(([^)\s]+)\)/) do |match|
-        href = match.first
-        links << [source, href] if internal?(href)
+
+    if (match = content.match(/\A---(.*?)---\n(.*)\z/m))
+      front_matter, body = match.captures
+
+      # Hero image path: `image:\n  path: /assets/img/...`
+      front_matter.scan(/^\s*path:\s*(\/\S+)/) do |m|
+        href = m.first
+        links << [source, "front matter image.path", href] if internal?(href)
+      end
+
+      # In-body Markdown links [text](href) and images ![alt](src)
+      body.scan(/\[[^\]]*\]\(([^)\s]+)\)/) do |m|
+        href = m.first
+        links << [source, "body link", href] if internal?(href)
+      end
+    else
+      content.scan(/\[[^\]]*\]\(([^)\s]+)\)/) do |m|
+        href = m.first
+        links << [source, "body link", href] if internal?(href)
       end
     end
+
     links
   end
 
+  def all_links
+    Dir.glob("_posts/*.md").flat_map { |source| links_from_source(source) }
+  end
+
   def test_no_broken_internal_links
-    broken = links_from_sources.reject { |_, href| path_exists_in_site?(href) }
+    broken = all_links.reject { |_, _, href| path_exists_in_site?(href) }
 
     assert broken.empty?,
-      "Found #{broken.size} broken internal link(s) in post sources:\n" +
-      broken.map { |file, href| "  #{file}: #{href}" }.join("\n") +
-      "\nEach path must resolve to a real file in #{SITE}/ — " \
-      "check permalink format (/:year/:month/:day/:title.html)"
+      "Found #{broken.size} broken internal link(s)/asset(s):\n" +
+      broken.map { |file, location, href| "  #{file} (#{location}): #{href}" }.join("\n") +
+      "\nEach path must resolve to a real file in #{SITE}/"
   end
 end
