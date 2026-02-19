@@ -3,6 +3,9 @@ title: "The Instance Is Up. Or Is It? Health Checking in Client-Side vs Server-S
 date: 2026-01-12 12:00:00 +0000
 categories: [Distributed Systems, Load Balancing]
 tags: [load-balancing, health-checks, service-discovery, distributed-systems, client-side-lb]
+image:
+  path: /assets/img/posts/lb/hero.svg
+  alt: "A load balancer routing traffic to a zombie instance that reports healthy but returns 500 errors"
 ---
 
 A service reports healthy. The load balancer believes it. A request lands on it and times out. Another follows. Then ten more. By the time the system reacts, hundreds of requests have drained into a broken instance while users stared at a spinner.

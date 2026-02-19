@@ -1,0 +1,153 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes dash    { to { stroke-dashoffset: -20; } }
+      @keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
+      @keyframes err     { 0%,100% { opacity:0.9; } 50% { opacity:0.2; } }
+      @keyframes flicker { 0%,100% { opacity:1; } 45% { opacity:0.6; } 50% { opacity:0.1; } 55% { opacity:0.7; } }
+      .flow     { animation: dash    1.6s linear      infinite; }
+      .err-flow { animation: dash    0.9s linear      infinite; }
+      .blink    { animation: pulse   1.3s ease-in-out infinite; }
+      .err-blink{ animation: err     0.8s ease-in-out infinite; }
+      .flicker  { animation: flicker 2.4s ease-in-out infinite; }
+    </style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000020"/>
+    </filter>
+    <filter id="glow-r">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+
+  <!-- Decorative dot grid -->
+  <g fill="#c7d2fe" opacity="0.45">
+    <g id="col">
+      <circle cx="0" cy="0"   r="1.5"/><circle cx="0" cy="40"  r="1.5"/>
+      <circle cx="0" cy="80"  r="1.5"/><circle cx="0" cy="120" r="1.5"/>
+      <circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/>
+      <circle cx="0" cy="320" r="1.5"/><circle cx="0" cy="360" r="1.5"/>
+    </g>
+    <use href="#col" x="40"/><use href="#col" x="80"/> <use href="#col" x="120"/>
+    <use href="#col" x="160"/><use href="#col" x="200"/><use href="#col" x="240"/>
+    <use href="#col" x="280"/><use href="#col" x="320"/><use href="#col" x="360"/>
+    <use href="#col" x="400"/><use href="#col" x="440"/><use href="#col" x="480"/>
+    <use href="#col" x="520"/><use href="#col" x="560"/><use href="#col" x="600"/>
+    <use href="#col" x="640"/><use href="#col" x="680"/><use href="#col" x="720"/>
+    <use href="#col" x="760"/>
+  </g>
+
+  <!-- ── Title ── -->
+  <text x="400" y="14" text-anchor="middle" fill="#1e293b" font-size="19" font-weight="700" font-family="Georgia,serif" font-style="italic">"The Instance Is Up."</text>
+  <text x="400" y="38" text-anchor="middle" fill="#e74c3c" font-size="14" font-weight="600" font-style="italic">Or Is It?</text>
+
+  <!-- ── Clients ── -->
+  <rect x="28" y="58" width="98" height="44" rx="9" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="77" y="77"  text-anchor="middle" fill="#4f8ef7" font-size="10" font-weight="700">Client A</text>
+  <text x="77" y="93"  text-anchor="middle" fill="#94a3b8" font-size="8">1000 req/s</text>
+
+  <rect x="28" y="133" width="98" height="44" rx="9" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="77" y="152" text-anchor="middle" fill="#4f8ef7" font-size="10" font-weight="700">Client B</text>
+  <text x="77" y="168" text-anchor="middle" fill="#94a3b8" font-size="8">800 req/s</text>
+
+  <rect x="28" y="208" width="98" height="44" rx="9" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="77" y="227" text-anchor="middle" fill="#4f8ef7" font-size="10" font-weight="700">Client C</text>
+  <text x="77" y="243" text-anchor="middle" fill="#94a3b8" font-size="8">600 req/s</text>
+
+  <!-- Y-connector: clients → LB -->
+  <line x1="128" y1="80"  x2="163" y2="80"  stroke="#4f8ef7" stroke-width="1.4" stroke-dasharray="5 3" class="flow"/>
+  <line x1="128" y1="155" x2="163" y2="155" stroke="#4f8ef7" stroke-width="1.4" stroke-dasharray="5 3" class="flow"/>
+  <line x1="128" y1="230" x2="163" y2="230" stroke="#4f8ef7" stroke-width="1.4" stroke-dasharray="5 3" class="flow"/>
+  <line x1="163" y1="80"  x2="163" y2="230" stroke="#4f8ef7" stroke-width="1.4"/>
+  <line x1="163" y1="155" x2="184" y2="155" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arrowB)"/>
+
+  <!-- ── Load Balancer ── -->
+  <rect x="186" y="86" width="158" height="152" rx="12" fill="white" stroke="#4f8ef7" stroke-width="2.2" filter="url(#shadow)"/>
+  <!-- Header band -->
+  <path d="M198,86 L332,86 Q344,86 344,98 L344,116 L186,116 L186,98 Q186,86 198,86 Z" fill="#4f8ef7"/>
+  <text x="265" y="106" text-anchor="middle" fill="white" font-size="11" font-weight="700">Load Balancer</text>
+  <!-- Health check results -->
+  <text x="202" y="133" fill="#374151" font-size="8.5" font-weight="700">Health checks:</text>
+  <text x="202" y="149" fill="#27ae60" font-size="8.5">✓  Instance 1  —  200 OK</text>
+  <text x="202" y="163" fill="#27ae60" font-size="8.5">✓  Instance 2  —  200 OK</text>
+  <text x="202" y="177" fill="#27ae60" font-size="8.5">✓  Instance 3  —  200 OK</text>
+  <line x1="202" y1="187" x2="336" y2="187" stroke="#e2e8f0" stroke-width="1"/>
+  <!-- "This is fine" confidence badge -->
+  <rect x="202" y="194" width="128" height="22" rx="6" fill="#dcfce7"/>
+  <text x="266" y="209" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">All healthy. This is fine.</text>
+
+  <!-- ── Y-connector: LB → instances ── -->
+  <line x1="346" y1="155" x2="410" y2="155" stroke="#4f8ef7" stroke-width="1.8"/>
+  <line x1="410" y1="80"  x2="410" y2="255" stroke="#4f8ef7" stroke-width="1.4"/>
+  <line x1="410" y1="80"  x2="418" y2="80"  stroke="#4f8ef7" stroke-width="1.4" stroke-dasharray="5 3" class="flow" marker-end="url(#arrowB)"/>
+  <line x1="410" y1="155" x2="418" y2="155" stroke="#4f8ef7" stroke-width="1.4" stroke-dasharray="5 3" class="flow" marker-end="url(#arrowB)"/>
+  <line x1="410" y1="255" x2="418" y2="255" stroke="#4f8ef7" stroke-width="1.4" stroke-dasharray="5 3" class="flow" marker-end="url(#arrowB)"/>
+
+  <!-- ── Instance 1: genuinely healthy ── -->
+  <rect x="420" y="58" width="136" height="44" rx="9" fill="#f0fff4" stroke="#27ae60" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="488" y="78"  text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Instance 1</text>
+  <text x="488" y="93"  text-anchor="middle" fill="#27ae60" font-size="8.5" font-weight="600">✓  actually healthy</text>
+
+  <!-- ── Instance 2: genuinely healthy ── -->
+  <rect x="420" y="133" width="136" height="44" rx="9" fill="#f0fff4" stroke="#27ae60" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="488" y="153" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Instance 2</text>
+  <text x="488" y="168" text-anchor="middle" fill="#27ae60" font-size="8.5" font-weight="600">✓  actually healthy</text>
+
+  <!-- ══ Instance 3: THE ZOMBIE ══ -->
+  <!-- Red outer glow (blinking) -->
+  <rect x="416" y="207" width="144" height="110" rx="11" fill="#e74c3c" opacity="0.15" class="err-blink" filter="url(#glow-r)"/>
+
+  <!-- Top half: green (what health check sees) -->
+  <path d="M432,211 L548,211 Q556,211 556,219 L556,261 L420,261 L420,219 Q420,211 432,211 Z" fill="#f0fff4"/>
+  <!-- Bottom half: red (what users get) -->
+  <path d="M420,261 L556,261 L556,308 Q556,316 548,316 L432,316 Q420,316 420,308 L420,261 Z" fill="#fff0f0"/>
+  <!-- Border over both halves -->
+  <rect x="420" y="211" width="136" height="105" rx="9" fill="none" stroke="#e74c3c" stroke-width="2.5" filter="url(#shadow)"/>
+  <!-- Divider -->
+  <line x1="428" y1="261" x2="548" y2="261" stroke="#fca5a5" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Top half content -->
+  <text x="488" y="232" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Instance 3</text>
+  <text x="488" y="248" text-anchor="middle" fill="#27ae60" font-size="8.5" font-weight="600">✓ 200 OK  ← health check</text>
+
+  <!-- Bottom half content -->
+  <text x="488" y="278" text-anchor="middle" fill="#c0392b" font-size="8.5" font-weight="600">500 errors ← users</text>
+  <text x="488" y="293" text-anchor="middle" fill="#e74c3c" font-size="8" font-style="italic">memory leak · goroutine leak</text>
+  <text x="488" y="308" text-anchor="middle" fill="#e74c3c" font-size="8" font-style="italic">p99 latency: 28 s</text>
+
+  <!-- Blinking "!" badge (top-right of Instance 3) -->
+  <g class="blink" filter="url(#glow-r)">
+    <circle cx="549" cy="221" r="11" fill="#e74c3c"/>
+    <text x="549" y="226" text-anchor="middle" fill="white" font-size="13" font-weight="700">!</text>
+  </g>
+
+  <!-- ── Speech bubble: "I'm fine :)" ── -->
+  <rect x="572" y="238" width="110" height="30" rx="10" fill="white" stroke="#94a3b8" stroke-width="1.2" filter="url(#shadow)"/>
+  <!-- Bubble tail -->
+  <polygon points="572,253 558,250 572,262" fill="white"/>
+  <polygon points="572,253 558,250 572,262" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
+  <text x="627" y="258" text-anchor="middle" fill="#374151" font-size="9.5" font-weight="600">I'm fine :)</text>
+
+  <!-- Error arrows streaming back from Instance 3 -->
+  <line x1="420" y1="285" x2="355" y2="285" stroke="#e74c3c" stroke-width="1.6" stroke-dasharray="5 3" class="err-flow" marker-end="url(#arrowR)"/>
+  <text x="386" y="279" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600">500</text>
+
+  <!-- ── Caption ── -->
+  <line x1="200" y1="352" x2="600" y2="352" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="369" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Health checks see what instances show them."</text>
+  <text x="400" y="386" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-style="italic">Not what your users experience.</text>
+</svg>
