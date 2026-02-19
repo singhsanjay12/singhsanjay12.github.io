@@ -1,5 +1,9 @@
-<svg width="800" height="320" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+<svg width="800" height="360" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
   <defs>
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -20; } }
+      .push { animation: dash 1.4s linear infinite; }
+    </style>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
       <stop offset="0%" stop-color="#eef2ff"/>
       <stop offset="100%" stop-color="#f8fafc"/>
@@ -8,80 +12,88 @@
       <stop offset="0%" stop-color="#1e40af"/>
       <stop offset="100%" stop-color="#1d4ed8"/>
     </linearGradient>
-    <linearGradient id="px-grad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#3b82f6"/>
-    </linearGradient>
     <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
       <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
     </marker>
     <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
       <path d="M0,0 L0,6 L8,3 z" fill="#e74c3c"/>
     </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#94a3b8"/>
+    </marker>
     <filter id="sh">
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
     </filter>
   </defs>
 
-  <rect width="800" height="320" fill="url(#bg)"/>
+  <rect width="800" height="360" fill="url(#bg)"/>
 
   <!-- Title -->
   <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">Control Plane / Data Plane Architecture</text>
+  <text x="400" y="40" text-anchor="middle" fill="#64748b" font-size="9">Policy changes and revocations propagate to every proxy instance simultaneously.</text>
 
-  <!-- ── Control Plane (top center, wide) ── -->
-  <rect x="160" y="38" width="480" height="90" rx="10" fill="url(#cp-grad)" filter="url(#sh)"/>
-  <!-- header band already covered by gradient; add title -->
-  <text x="400" y="62" text-anchor="middle" fill="white" font-size="11" font-weight="700">Control Plane</text>
-  <line x1="168" y1="70" x2="632" y2="70" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <!-- ── Control Plane ── -->
+  <rect x="160" y="54" width="480" height="86" rx="10" fill="url(#cp-grad)" filter="url(#sh)"/>
+  <text x="400" y="76" text-anchor="middle" fill="white" font-size="11" font-weight="700">Control Plane</text>
+  <line x1="168" y1="84" x2="632" y2="84" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
   <!-- three sub-cells -->
-  <text x="248" y="89" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Policy Store</text>
-  <text x="248" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">rules · conditions · effects</text>
-  <line x1="334" y1="74" x2="334" y2="124" stroke="#3b82f6" stroke-width="0.8" opacity="0.4"/>
-  <text x="400" y="89" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Allowlist / Denylist</text>
-  <text x="400" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">device certs · user accounts</text>
-  <line x1="466" y1="74" x2="466" y2="124" stroke="#3b82f6" stroke-width="0.8" opacity="0.4"/>
-  <text x="554" y="89" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Emergency Path</text>
-  <text x="554" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">instant revocation · all instances</text>
+  <text x="248" y="103" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Policy Store</text>
+  <text x="248" y="117" text-anchor="middle" fill="#93c5fd" font-size="8">rules · conditions · effects</text>
+  <line x1="334" y1="88" x2="334" y2="136" stroke="#3b82f6" stroke-width="0.8" opacity="0.4"/>
+  <text x="400" y="103" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Allowlist / Denylist</text>
+  <text x="400" y="117" text-anchor="middle" fill="#93c5fd" font-size="8">device certs · user accounts</text>
+  <line x1="466" y1="88" x2="466" y2="136" stroke="#3b82f6" stroke-width="0.8" opacity="0.4"/>
+  <text x="554" y="103" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Emergency Broadcast</text>
+  <text x="554" y="117" text-anchor="middle" fill="#93c5fd" font-size="8">instant revocation → all instances</text>
 
-  <!-- ── Push channels: CP → proxy instances ── -->
-  <!-- Standard push (blue) -->
-  <line x1="266" y1="128" x2="148" y2="192" stroke="#4f8ef7" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
-  <line x1="400" y1="128" x2="400" y2="192" stroke="#4f8ef7" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
-  <line x1="534" y1="128" x2="652" y2="192" stroke="#4f8ef7" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
-  <text x="280" y="165" fill="#4f8ef7" font-size="7.5" font-style="italic">gRPC / xDS</text>
-  <!-- Emergency push (red from emergency cell) -->
-  <line x1="554" y1="128" x2="654" y2="190" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowR)" opacity="0.7"/>
+  <!-- ── Revocation broadcast: all 3 red arrows, animated ── -->
+  <!-- Label above arrows -->
+  <rect x="298" y="146" width="204" height="18" rx="5" fill="#fee2e2" stroke="#e74c3c" stroke-width="1"/>
+  <text x="400" y="159" text-anchor="middle" fill="#b91c1c" font-size="8.5" font-weight="700">⚡ cert #A9F2 revoked — broadcasting now</text>
+
+  <!-- Arrow to proxy-1 (left) -->
+  <line x1="286" y1="140" x2="148" y2="216" stroke="#e74c3c" stroke-width="2" stroke-dasharray="6 4" class="push" marker-end="url(#arrowR)"/>
+  <!-- Arrow to proxy-2 (center) -->
+  <line x1="400" y1="140" x2="400" y2="216" stroke="#e74c3c" stroke-width="2" stroke-dasharray="6 4" class="push" marker-end="url(#arrowR)"/>
+  <!-- Arrow to proxy-3 (right) -->
+  <line x1="514" y1="140" x2="652" y2="216" stroke="#e74c3c" stroke-width="2" stroke-dasharray="6 4" class="push" marker-end="url(#arrowR)"/>
+
+  <!-- "gRPC / xDS" label on left arrow -->
+  <text x="200" y="183" text-anchor="middle" fill="#e74c3c" font-size="7.5" font-style="italic">gRPC push</text>
 
   <!-- ── Proxy Instance 1 ── -->
-  <rect x="66" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
-  <path d="M76,192 L220,192 Q230,192 230,202 L230,216 L66,216 L66,202 Q66,192 76,192 Z" fill="#2563eb"/>
-  <text x="148" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-1</text>
-  <text x="148" y="232" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
-  <text x="148" y="246" text-anchor="middle" fill="#64748b" font-size="8">hot-reload on policy push</text>
-  <text x="148" y="260" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">▸ current policy v47</text>
+  <rect x="66" y="216" width="164" height="88" rx="10" fill="white" stroke="#e74c3c" stroke-width="2" filter="url(#sh)"/>
+  <path d="M76,216 L220,216 Q230,216 230,226 L230,240 L66,240 L66,226 Q66,216 76,216 Z" fill="#e74c3c"/>
+  <text x="148" y="232" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-1</text>
+  <text x="148" y="256" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
+  <text x="148" y="270" text-anchor="middle" fill="#64748b" font-size="8">policy updated</text>
+  <text x="148" y="286" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600">▸ cert #A9F2 → DENIED</text>
+  <text x="148" y="298" text-anchor="middle" fill="#94a3b8" font-size="7.5">all other policy: v47</text>
 
   <!-- ── Proxy Instance 2 ── -->
-  <rect x="318" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
-  <path d="M328,192 L472,192 Q482,192 482,202 L482,216 L318,216 L318,202 Q318,192 328,192 Z" fill="#2563eb"/>
-  <text x="400" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-2</text>
-  <text x="400" y="232" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
-  <text x="400" y="246" text-anchor="middle" fill="#64748b" font-size="8">hot-reload on policy push</text>
-  <text x="400" y="260" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">▸ current policy v47</text>
+  <rect x="318" y="216" width="164" height="88" rx="10" fill="white" stroke="#e74c3c" stroke-width="2" filter="url(#sh)"/>
+  <path d="M328,216 L472,216 Q482,216 482,226 L482,240 L318,240 L318,226 Q318,216 328,216 Z" fill="#e74c3c"/>
+  <text x="400" y="232" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-2</text>
+  <text x="400" y="256" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
+  <text x="400" y="270" text-anchor="middle" fill="#64748b" font-size="8">policy updated</text>
+  <text x="400" y="286" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600">▸ cert #A9F2 → DENIED</text>
+  <text x="400" y="298" text-anchor="middle" fill="#94a3b8" font-size="7.5">all other policy: v47</text>
 
   <!-- ── Proxy Instance 3 ── -->
-  <rect x="570" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
-  <path d="M580,192 L724,192 Q734,192 734,202 L734,216 L570,216 L570,202 Q570,192 580,192 Z" fill="#e74c3c"/>
-  <text x="652" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-3</text>
-  <text x="652" y="232" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
-  <text x="652" y="246" text-anchor="middle" fill="#64748b" font-size="8">revocation applied instantly</text>
-  <text x="652" y="260" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600">▸ cert #A9F2 now denied</text>
+  <rect x="570" y="216" width="164" height="88" rx="10" fill="white" stroke="#e74c3c" stroke-width="2" filter="url(#sh)"/>
+  <path d="M580,216 L724,216 Q734,216 734,226 L734,240 L570,240 L570,226 Q570,216 580,216 Z" fill="#e74c3c"/>
+  <text x="652" y="232" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-3</text>
+  <text x="652" y="256" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
+  <text x="652" y="270" text-anchor="middle" fill="#64748b" font-size="8">policy updated</text>
+  <text x="652" y="286" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600">▸ cert #A9F2 → DENIED</text>
+  <text x="652" y="298" text-anchor="middle" fill="#94a3b8" font-size="7.5">all other policy: v47</text>
 
   <!-- ── Backend tier ── -->
-  <rect x="160" y="298" width="480" height="14" rx="4" fill="#e2e8f0"/>
-  <text x="400" y="309" text-anchor="middle" fill="#94a3b8" font-size="8">Backend services (no auth code · trust TrustBridge headers only)</text>
+  <rect x="160" y="328" width="480" height="16" rx="4" fill="#e2e8f0"/>
+  <text x="400" y="340" text-anchor="middle" fill="#94a3b8" font-size="8">Backend services — trust TrustBridge headers only · no auth code required</text>
 
   <!-- arrows from proxies to backend tier -->
-  <line x1="148" y1="270" x2="148" y2="296" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
-  <line x1="400" y1="270" x2="400" y2="296" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
-  <line x1="652" y1="270" x2="652" y2="296" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="148" y1="304" x2="200" y2="326" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrowG)"/>
+  <line x1="400" y1="304" x2="400" y2="326" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrowG)"/>
+  <line x1="652" y1="304" x2="600" y2="326" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrowG)"/>
 </svg>
