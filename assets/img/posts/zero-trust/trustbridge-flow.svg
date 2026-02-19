@@ -1,0 +1,107 @@
+<svg width="800" height="308" viewBox="0 0 800 308" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="arrowL" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto">
+      <path d="M8,0 L8,6 L0,3 z" fill="#94a3b8"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="308" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">TrustBridge: Zero Trust Enforcement at the Proxy</text>
+
+  <!-- ── Client ── -->
+  <rect x="22" y="68" width="104" height="182" rx="10" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="74" y="90"  text-anchor="middle" fill="#4f8ef7" font-size="11" font-weight="700">Client</text>
+  <line x1="38" y1="98" x2="110" y2="98" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="74" y="116" text-anchor="middle" fill="#64748b" font-size="8.5">device cert</text>
+  <text x="74" y="130" text-anchor="middle" fill="#64748b" font-size="8.5">SSO token</text>
+  <text x="74" y="168" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">sends</text>
+  <text x="74" y="181" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">request</text>
+
+  <!-- ── TrustBridge box ── -->
+  <rect x="140" y="40" width="296" height="212" rx="10" fill="white" stroke="#2563eb" stroke-width="2" filter="url(#sh)"/>
+  <!-- Header band -->
+  <path d="M152,40 L424,40 Q436,40 436,52 L436,70 L140,70 L140,52 Q140,40 152,40 Z" fill="#2563eb"/>
+  <text x="288" y="59" text-anchor="middle" fill="white" font-size="11" font-weight="700">TrustBridge  (Reverse Proxy)</text>
+
+  <!-- Row dividers -->
+  <line x1="148" y1="118" x2="428" y2="118" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="148" y1="166" x2="428" y2="166" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="148" y1="214" x2="428" y2="214" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Row ①: mTLS — y=72-118 (center y=95) -->
+  <rect x="140" y="72" width="4" height="44" fill="#4f8ef7"/>
+  <circle cx="162" cy="94" r="9" fill="#4f8ef7"/>
+  <text x="162" y="98" text-anchor="middle" fill="white" font-size="9" font-weight="700">①</text>
+  <text x="178" y="88" fill="#1e293b" font-size="9.5" font-weight="700">mTLS handshake</text>
+  <text x="178" y="103" fill="#64748b" font-size="8.5">validates client certificate — device identity</text>
+
+  <!-- Row ②: SSO — y=120-166 (center y=143) -->
+  <rect x="140" y="120" width="4" height="44" fill="#4f8ef7"/>
+  <circle cx="162" cy="142" r="9" fill="#4f8ef7"/>
+  <text x="162" y="146" text-anchor="middle" fill="white" font-size="9" font-weight="700">②</text>
+  <text x="178" y="136" fill="#1e293b" font-size="9.5" font-weight="700">SSO token</text>
+  <text x="178" y="151" fill="#64748b" font-size="8.5">validates token with IdP — user identity</text>
+
+  <!-- Row ③: Policy — y=168-214 (center y=191) -->
+  <rect x="140" y="168" width="4" height="44" fill="#f59e0b"/>
+  <circle cx="162" cy="190" r="9" fill="#f59e0b"/>
+  <text x="162" y="194" text-anchor="middle" fill="white" font-size="9" font-weight="700">③</text>
+  <text x="178" y="184" fill="#1e293b" font-size="9.5" font-weight="700">Policy check</text>
+  <text x="178" y="199" fill="#64748b" font-size="8.5">device + user + resource → allow / deny</text>
+
+  <!-- Row ④: Forward — y=216-252 (center y=234) -->
+  <rect x="140" y="216" width="4" height="34" fill="#27ae60"/>
+  <circle cx="162" cy="233" r="9" fill="#27ae60"/>
+  <text x="162" y="237" text-anchor="middle" fill="white" font-size="9" font-weight="700">④</text>
+  <text x="178" y="230" fill="#1e293b" font-size="9.5" font-weight="700">Forward request</text>
+  <text x="178" y="244" fill="#64748b" font-size="8.5">backend sees clean request — no auth code needed</text>
+
+  <!-- ── Arrows: Client → TrustBridge ── -->
+  <!-- ①: at y=95 -->
+  <line x1="128" y1="95"  x2="138" y2="95"  stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arrowB)"/>
+  <!-- ②: at y=143 -->
+  <line x1="128" y1="143" x2="138" y2="143" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arrowB)"/>
+
+  <!-- ── Policy Engine ── -->
+  <rect x="550" y="172" width="210" height="42" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="655" y="189" text-anchor="middle" fill="#92400e" font-size="10" font-weight="700">Policy Engine</text>
+  <text x="655" y="204" text-anchor="middle" fill="#78350f" font-size="8.5">centralized access rules</text>
+
+  <!-- ── Backend Service ── -->
+  <rect x="550" y="220" width="210" height="42" rx="8" fill="#f0fff4" stroke="#27ae60" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="655" y="238" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Backend Service</text>
+  <text x="655" y="253" text-anchor="middle" fill="#166534" font-size="8.5">no auth code required</text>
+
+  <!-- ── Arrows: TrustBridge → Policy Engine / Backend ── -->
+  <!-- ③ Policy check: at y=191 -->
+  <line x1="438" y1="191" x2="548" y2="191" stroke="#f59e0b" stroke-width="1.8" marker-end="url(#arrowB)"/>
+  <text x="493" y="185" text-anchor="middle" fill="#f59e0b" font-size="8" font-weight="600">③ check</text>
+
+  <!-- ④ Forward: at y=234 -->
+  <line x1="438" y1="234" x2="548" y2="234" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrowG)"/>
+  <text x="493" y="228" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">④ forward</text>
+
+  <!-- ── Response path (below all boxes) ── -->
+  <line x1="655" y1="263" x2="655" y2="277" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="655" y1="277" x2="74"  y2="277" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="5 3" marker-end="url(#arrowL)"/>
+  <text x="380" y="271" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">← Response (through TrustBridge)</text>
+  <line x1="74"  y1="252" x2="74"  y2="277" stroke="#94a3b8" stroke-width="1.2"/>
+
+  <!-- Caption -->
+  <text x="400" y="300" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Two independent signals required: device certificate + user token. Either alone is not enough.</text>
+</svg>
