@@ -1,0 +1,87 @@
+<svg width="800" height="320" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="cp-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="px-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e74c3c"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="320" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">Control Plane / Data Plane Architecture</text>
+
+  <!-- ── Control Plane (top center, wide) ── -->
+  <rect x="160" y="38" width="480" height="90" rx="10" fill="url(#cp-grad)" filter="url(#sh)"/>
+  <!-- header band already covered by gradient; add title -->
+  <text x="400" y="62" text-anchor="middle" fill="white" font-size="11" font-weight="700">Control Plane</text>
+  <line x1="168" y1="70" x2="632" y2="70" stroke="#3b82f6" stroke-width="1" opacity="0.5"/>
+  <!-- three sub-cells -->
+  <text x="248" y="89" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Policy Store</text>
+  <text x="248" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">rules · conditions · effects</text>
+  <line x1="334" y1="74" x2="334" y2="124" stroke="#3b82f6" stroke-width="0.8" opacity="0.4"/>
+  <text x="400" y="89" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Allowlist / Denylist</text>
+  <text x="400" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">device certs · user accounts</text>
+  <line x1="466" y1="74" x2="466" y2="124" stroke="#3b82f6" stroke-width="0.8" opacity="0.4"/>
+  <text x="554" y="89" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Emergency Path</text>
+  <text x="554" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">instant revocation · bypass TTL</text>
+
+  <!-- ── Push channels: CP → proxy instances ── -->
+  <!-- Standard push (blue) -->
+  <line x1="266" y1="128" x2="148" y2="192" stroke="#4f8ef7" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
+  <line x1="400" y1="128" x2="400" y2="192" stroke="#4f8ef7" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
+  <line x1="534" y1="128" x2="652" y2="192" stroke="#4f8ef7" stroke-width="1.8" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
+  <text x="280" y="165" fill="#4f8ef7" font-size="7.5" font-style="italic">gRPC / xDS</text>
+  <!-- Emergency push (red from emergency cell) -->
+  <line x1="554" y1="128" x2="654" y2="190" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrowR)" opacity="0.7"/>
+
+  <!-- ── Proxy Instance 1 ── -->
+  <rect x="66" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
+  <path d="M76,192 L220,192 Q230,192 230,202 L230,216 L66,216 L66,202 Q66,192 76,192 Z" fill="#2563eb"/>
+  <text x="148" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-1</text>
+  <text x="148" y="232" text-anchor="middle" fill="#64748b" font-size="8">Envoy · xDS listener</text>
+  <text x="148" y="246" text-anchor="middle" fill="#64748b" font-size="8">hot-reload on policy push</text>
+  <text x="148" y="260" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">▸ current policy v47</text>
+
+  <!-- ── Proxy Instance 2 ── -->
+  <rect x="318" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
+  <path d="M328,192 L472,192 Q482,192 482,202 L482,216 L318,216 L318,202 Q318,192 328,192 Z" fill="#2563eb"/>
+  <text x="400" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-2</text>
+  <text x="400" y="232" text-anchor="middle" fill="#64748b" font-size="8">HAProxy · runtime API</text>
+  <text x="400" y="246" text-anchor="middle" fill="#64748b" font-size="8">hot-reload on policy push</text>
+  <text x="400" y="260" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">▸ current policy v47</text>
+
+  <!-- ── Proxy Instance 3 ── -->
+  <rect x="570" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
+  <path d="M580,192 L724,192 Q734,192 734,202 L734,216 L570,216 L570,202 Q570,192 580,192 Z" fill="#e74c3c"/>
+  <text x="652" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-3</text>
+  <text x="652" y="232" text-anchor="middle" fill="#64748b" font-size="8">Envoy · emergency update</text>
+  <text x="652" y="246" text-anchor="middle" fill="#64748b" font-size="8">revocation applied instantly</text>
+  <text x="652" y="260" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600">▸ cert #A9F2 now denied</text>
+
+  <!-- ── Backend tier ── -->
+  <rect x="160" y="298" width="480" height="14" rx="4" fill="#e2e8f0"/>
+  <text x="400" y="309" text-anchor="middle" fill="#94a3b8" font-size="8">Backend services (no auth code · trust TrustBridge headers only)</text>
+
+  <!-- arrows from proxies to backend tier -->
+  <line x1="148" y1="270" x2="148" y2="296" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="400" y1="270" x2="400" y2="296" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="652" y1="270" x2="652" y2="296" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 2"/>
+</svg>

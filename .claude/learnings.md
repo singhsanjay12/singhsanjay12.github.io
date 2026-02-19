@@ -177,12 +177,26 @@ Replace with an image reference:
 
 ---
 
+## Reference Resources for Part 3
+
+Stored in `.claude/resources/`:
+
+| File | What it is |
+|---|---|
+| `trust-bridge-slides.pdf` | RSAC 2026 talk slides — "Beyond Zero Trust: Continuous Validation for Modern Enterprise Security" (Sanjay Singh + Mitendra Mahto). Covers trust zones, open-source tech stack (Envoy/HAProxy/xDS), control plane responsibilities, challenges and resolutions, legacy system migration. |
+| `trust-bridge-paper.pdf` | IEEE ICCST 2025 paper — "Hard-Earned Lessons in Access Control at Scale". Full request flow (split-horizon DNS → mTLS → SSO → policy → JWT injection), client-side libraries (Go/Rust/Python + macOS Keychain), SSH-over-HTTP, detailed implementation challenges (cert lifecycle, proxy integration, policy modeling, backward compat), and lessons learned (observability, platform fragmentation, proxy-as-Tier-0, protocol diversity). |
+
+Part 3 should cover: certificate lifecycle and PKI at scale, fragmented client cert support (language/OS differences), Keychain/TPM integration, CLI and SSH-over-HTTP flows in detail, observability requirements, legacy migration strategy, and treating the proxy as Tier-0 infrastructure.
+
+---
+
 ## Posts in This Repo
 
 | File | Topic | Images |
 |---|---|---|
 | `2025-01-10-how-dns-really-works.md` | DNS resolution, UDP truncation, TTL | `dns/hero.svg`, `dns/udp-truncation.svg`, `dns/ttl-timeline.svg` |
 | `2025-08-03-zero-trust-with-reverse-proxy.md` | Zero Trust, mTLS, TrustBridge (Part 1) | `zero-trust/hero.svg`, `zero-trust/trustbridge-flow.svg` |
+| `2025-10-20-zero-trust-control-plane-and-sessions.md` | Zero Trust Part 2: control plane, session teardown, SSO abstraction | `zero-trust/hero-part-two.svg`, `zero-trust/trust-zones.svg`, `zero-trust/control-plane-arch.svg`, `zero-trust/session-lifecycle.svg`, `zero-trust/sso-abstraction.svg` |
 | `2026-01-12-health-checks-client-vs-server-side-lb.md` | Load balancing health checks | `lb/hero.svg`, `lb/server-side-lb.svg`, `lb/client-side-lb.svg`, `lb/server-side-health-check.svg`, `lb/active-health-check.svg`, `lb/passive-health-check.svg` |
 
 ---
