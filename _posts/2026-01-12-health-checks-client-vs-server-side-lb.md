@@ -1,6 +1,6 @@
 ---
 title: "The Instance Is Up. Or Is It? Health Checking in Client-Side vs Server-Side Load Balancing"
-date: 2026-02-18 00:00:00 -0700
+date: 2026-01-12 00:00:00 -0700
 categories: [Distributed Systems, Load Balancing]
 tags: [load-balancing, health-checks, service-discovery, distributed-systems, client-side-lb]
 ---
