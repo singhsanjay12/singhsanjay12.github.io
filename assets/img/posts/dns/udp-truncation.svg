@@ -2,9 +2,7 @@
   <defs>
     <style>
       @keyframes dash { to { stroke-dashoffset: -20; } }
-      @keyframes pop { 0%,80%,100% { transform: scale(1); } 40% { transform: scale(1.18); } }
       .arrow { animation: dash 1.4s linear infinite; }
-      .tc-badge { animation: pop 1.8s ease-in-out infinite; transform-origin: 50% 50%; }
     </style>
     <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
       <stop offset="0%" stop-color="#f0f4ff"/>
