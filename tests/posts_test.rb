@@ -73,6 +73,17 @@ class PostsTest < Minitest::Test
     end
   end
 
+  # Every post must have social share buttons rendered by post-sharing.html.
+  def test_posts_have_share_buttons
+    built_posts.each do |path|
+      html = File.read(path)
+      assert_match(/share-wrapper/, html,
+        "#{path} is missing social share buttons — check _data/share.yml exists")
+      assert_match(/fa-x-twitter|fa-linkedin|fa-facebook/, html,
+        "#{path} share buttons must include X, LinkedIn, or Facebook icons")
+    end
+  end
+
   # Zero Trust post: key content and the LinkedIn reference we explicitly removed.
   def test_zero_trust_post_content
     post = Dir.glob("#{SITE}/**/zero-trust-with-reverse-proxy.html").first

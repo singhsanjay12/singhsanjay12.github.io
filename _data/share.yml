@@ -1,0 +1,20 @@
+platforms:
+  - type: X
+    icon: fa-brands fa-x-twitter
+    link: https://x.com/intent/post?text=TITLE&url=URL
+
+  - type: LinkedIn
+    icon: fa-brands fa-linkedin
+    link: https://www.linkedin.com/sharing/share-offsite/?url=URL
+
+  - type: Facebook
+    icon: fa-brands fa-facebook
+    link: https://www.facebook.com/sharer/sharer.php?u=URL&t=TITLE
+
+  - type: Reddit
+    icon: fa-brands fa-reddit
+    link: https://www.reddit.com/submit?title=TITLE&url=URL
+
+  - type: Hacker News
+    icon: fa-brands fa-y-combinator
+    link: https://news.ycombinator.com/submitlink?t=TITLE&u=URL
