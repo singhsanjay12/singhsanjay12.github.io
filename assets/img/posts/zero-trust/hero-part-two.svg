@@ -95,13 +95,13 @@
   <text x="642" y="218" text-anchor="middle" fill="#fca5a5" font-size="8" font-weight="600">policy updated</text>
 
   <!-- ── Blocked user approaching proxy-2 ── -->
-  <circle cx="400" cy="315" r="36" fill="#fff0f0" stroke="#e74c3c" stroke-width="2" filter="url(#shadow)"/>
-  <text x="400" y="309" text-anchor="middle" fill="#c0392b" font-size="9" font-weight="700">Terminated</text>
-  <text x="400" y="321" text-anchor="middle" fill="#c0392b" font-size="9" font-weight="700">Employee</text>
-  <text x="400" y="335" text-anchor="middle" fill="#e74c3c" font-size="8">cert revoked</text>
+  <circle cx="400" cy="300" r="36" fill="#fff0f0" stroke="#e74c3c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="400" y="294" text-anchor="middle" fill="#c0392b" font-size="9" font-weight="700">Terminated</text>
+  <text x="400" y="306" text-anchor="middle" fill="#c0392b" font-size="9" font-weight="700">Employee</text>
+  <text x="400" y="320" text-anchor="middle" fill="#e74c3c" font-size="8">cert revoked</text>
 
   <!-- Arrow: terminated user → proxy 2 (blocked) -->
-  <line x1="400" y1="279" x2="400" y2="242" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5 4" class="revoke" marker-end="url(#arrowR)"/>
+  <line x1="400" y1="264" x2="400" y2="242" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5 4" class="revoke" marker-end="url(#arrowR)"/>
 
   <!-- BLOCKED badge -->
   <g class="denied" filter="url(#glow-r)">
