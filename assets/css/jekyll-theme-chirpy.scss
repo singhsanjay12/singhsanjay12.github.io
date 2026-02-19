@@ -288,18 +288,6 @@
   }
 }
 
-/* ── Post Hero Image ─────────────────────────────────────── */
-/* Chirpy forces aspect-ratio:40/21 + height:100% on .preview-img, which
-   distorts SVG hero images. Reset so the SVG renders at its natural ratio. */
-
-img.preview-img {
-  aspect-ratio: auto;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  overflow: visible;
-}
-
 /* ── Visitor Counter ─────────────────────────────────────── */
 
 #visitor-counter {
