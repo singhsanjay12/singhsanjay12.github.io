@@ -8,7 +8,7 @@ class VisitorCounterTest < Minitest::Test
 
   # The hits.sh script must be injected into every built page, not just the index.
   def test_counter_script_present_on_all_pages
-    Dir.glob("#{SITE}/**/*.html").reject { |f| f.include?("404") }.each do |path|
+    Dir.glob("#{SITE}/**/*.html").reject { |f| f.include?("404") || f.end_with?("archive.html") }.each do |path|
       html = File.read(path)
       assert_match(/hits\.sh/, html,
         "#{path} is missing the visitor counter script — check _includes/head.html")

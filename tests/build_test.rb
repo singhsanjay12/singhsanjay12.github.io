@@ -42,4 +42,13 @@ class BuildIntegrityTest < Minitest::Test
     refute_match(/Chirpy.*theme for.*Jekyll|Using the.*Chirpy/i, index,
       "Footer must not contain the Chirpy theme attribution line")
   end
+
+  def test_archive_redirect_page_exists
+    path = "#{SITE}/archive.html"
+    assert File.exist?(path),
+      "archive.html must be built so /archive.html redirects to /archives/ (fixes Google 404)"
+    html = File.read(path)
+    assert_match(%r{url=/archives/}, html,
+      "archive.html must contain a meta-refresh redirect to /archives/")
+  end
 end

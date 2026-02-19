@@ -7,6 +7,7 @@ class PostsTest < Minitest::Test
       basename = File.basename(f)
       basename == "index.html" ||
         basename == "404.html" ||
+        basename == "archive.html" ||
         f.include?("/tags/") ||
         f.include?("/categories/") ||
         f.include?("/archives/") ||
