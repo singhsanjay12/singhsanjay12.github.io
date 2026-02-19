@@ -1,4 +1,4 @@
-<svg width="800" height="360" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+<svg width="620" height="360" viewBox="0 0 620 360" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
   <defs>
     <style>
       @keyframes dash { to { stroke-dashoffset: -24; } }
@@ -25,7 +25,7 @@
   </defs>
 
   <!-- Background -->
-  <rect width="800" height="360" fill="url(#bg)"/>
+  <rect width="620" height="360" fill="url(#bg)"/>
 
   <!-- Decorative dot grid -->
   <g fill="#c7d2fe" opacity="0.5">
@@ -108,16 +108,4 @@
     <circle cx="437" cy="286" r="11" fill="white" stroke="#e74c3c" stroke-width="1.5"/>
     <text x="437" y="290" text-anchor="middle" fill="#e74c3c" font-size="12" font-weight="700">?</text>
   </g>
-
-  <!-- Right-side caption box -->
-  <rect x="590" y="120" width="185" height="120" rx="10" fill="white" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="682" y="144" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="700" font-family="Georgia,serif" font-style="italic">"It's always DNS."</text>
-  <line x1="608" y1="153" x2="757" y2="153" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="682" y="170" text-anchor="middle" fill="#64748b" font-size="9.5">Every resolver is cached.</text>
-  <text x="682" y="184" text-anchor="middle" fill="#64748b" font-size="9.5">Every service is waiting.</text>
-  <text x="682" y="198" text-anchor="middle" fill="#64748b" font-size="9.5">Every engineer is confused.</text>
-  <text x="682" y="218" text-anchor="middle" fill="#e74c3c" font-size="10" font-weight="600">Until someone checks DNS.</text>
-
-  <!-- Bottom label -->
-  <text x="400" y="350" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-style="italic">All paths lead through DNS — until DNS leads nowhere.</text>
 </svg>
