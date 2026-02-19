@@ -1,5 +1,6 @@
 ---
 title: "It's Always DNS — Until You're Stuck and Can't Fix It"
+description: "DNS fails in specific, predictable ways: UDP truncation, TTL propagation lag, and the distributed deadlock that occurs when your recovery tools depend on the thing that is broken."
 date: 2026-02-18 12:00:00 +0000
 categories: [Distributed Systems, Infrastructure]
 tags: [dns, distributed-systems, outages, service-discovery, reliability, networking, kubernetes]
@@ -66,7 +67,7 @@ For non-critical traffic, that window is acceptable. For your control plane (the
 
 ![TTL propagation lag: the 28-minute incident window](/assets/img/posts/dns/ttl-timeline.svg)
 
-**Rule of thumb**: use DNS to bootstrap, not to operate. Services should resolve an address at startup and use it. For real-time routing decisions, that address should point to something with its own health-aware routing layer (a load balancer, a service mesh control plane), not to a raw instance fleet where DNS *is* the routing layer.
+**Rule of thumb**: use DNS to bootstrap, not to operate. Services should resolve an address at startup and use it. For real-time routing decisions, that address should point to something with its own health-aware routing layer (a load balancer, a service mesh control plane), not to a raw instance fleet where DNS *is* the routing layer. How that routing layer detects and reacts to failure is a separate problem, covered in [The Instance Is Up. Or Is It?](/posts/health-checks-client-vs-server-side-lb).
 
 ## The Outage You Cannot DNS Your Way Out Of
 

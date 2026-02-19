@@ -35,6 +35,16 @@ class PostsTest < Minitest::Test
   end
 
 
+  # Every post must have an explicit description for meta description SEO control.
+  def test_posts_have_description
+    Dir.glob("_posts/*.md").each do |source|
+      front_matter = File.read(source).match(/\A---(.*?)---/m)&.captures&.first || ""
+      assert_match(/^description:/, front_matter,
+        "#{source} is missing a 'description:' field in front matter — " \
+        "add one so jekyll-seo-tag uses it as the meta description instead of auto-generating")
+    end
+  end
+
   # Posts must not overuse em dashes — cap at 3 per post to keep prose readable.
   EM_DASH_LIMIT = 3
 
