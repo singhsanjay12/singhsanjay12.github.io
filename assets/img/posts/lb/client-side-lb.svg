@@ -1,4 +1,4 @@
-<svg width="800" height="350" viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+<svg width="800" height="370" viewBox="0 0 800 370" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
       <stop offset="0%" stop-color="#eef2ff"/>
@@ -18,7 +18,7 @@
     </filter>
   </defs>
 
-  <rect width="800" height="350" fill="url(#bg)"/>
+  <rect width="800" height="370" fill="url(#bg)"/>
 
   <!-- Title -->
   <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">Client-Side Load Balancing</text>
@@ -57,20 +57,27 @@
   <rect x="580" y="208" width="110" height="50" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#sh)"/>
   <text x="635" y="237" text-anchor="middle" fill="#1e293b" font-size="10" font-weight="600">Instance 3</text>
 
-  <!-- ── Service Registry (bottom) ── -->
-  <!-- Vertical bus: client bottoms to registry -->
-  <line x1="150" y1="100" x2="150" y2="282" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
-  <line x1="150" y1="182" x2="150" y2="282" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
-  <line x1="150" y1="264" x2="150" y2="282" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
-  <!-- Bus to registry: bidirectional arrow -->
-  <line x1="150" y1="282" x2="280" y2="290" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowD)"/>
-  <line x1="280" y1="290" x2="150" y2="282" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowU)"/>
-  <text x="205" y="278" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">subscribes ↕</text>
-
-  <rect x="282" y="284" width="236" height="50" rx="10" fill="white" stroke="#94a3b8" stroke-width="1.8" filter="url(#sh)"/>
+  <!-- ── Service Registry (centered bottom) ── -->
+  <rect x="250" y="288" width="300" height="42" rx="10" fill="white" stroke="#94a3b8" stroke-width="1.8" filter="url(#sh)"/>
   <text x="400" y="306" text-anchor="middle" fill="#64748b" font-size="11" font-weight="700">Service Registry</text>
-  <text x="400" y="322" text-anchor="middle" fill="#94a3b8" font-size="8.5">Consul · Zookeeper · etcd · D2</text>
+  <text x="400" y="320" text-anchor="middle" fill="#94a3b8" font-size="8.5">Consul · Zookeeper · etcd · D2</text>
+
+  <!-- Left bus: clients subscribe to registry -->
+  <line x1="30" y1="69"  x2="18" y2="69"  stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="30" y1="151" x2="18" y2="151" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="30" y1="233" x2="18" y2="233" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="18" y1="69"  x2="18" y2="309" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="18" y1="309" x2="250" y2="309" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowD)"/>
+  <text x="134" y="302" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">subscribes</text>
+
+  <!-- Right bus: instances register with registry -->
+  <line x1="690" y1="69"  x2="700" y2="69"  stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="690" y1="151" x2="700" y2="151" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="690" y1="233" x2="700" y2="233" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="700" y1="69"  x2="700" y2="309" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="700" y1="309" x2="550" y2="309" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3" marker-end="url(#arrowD)"/>
+  <text x="625" y="302" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">registers</text>
 
   <!-- Caption -->
-  <text x="400" y="344" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">No proxy in the request path. Each client owns its routing decision.</text>
+  <text x="400" y="358" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">No proxy in the request path. Each client owns its routing decision.</text>
 </svg>
