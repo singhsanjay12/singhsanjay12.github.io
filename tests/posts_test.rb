@@ -89,4 +89,19 @@ class PostsTest < Minitest::Test
         "Health checks post must mention '#{term}'")
     end
   end
+
+  # DNS post: key topics must all be present.
+  def test_dns_post_content
+    post = Dir.glob("#{SITE}/**/dns-the-silent-killer-of-distributed-systems.html").first
+    assert post, "DNS post must be present in built site"
+    html = File.read(post)
+    %w[UDP TCP truncat TTL].each do |term|
+      assert_match(/#{term}/i, html,
+        "DNS post must mention '#{term}'")
+    end
+    assert_match(/recovery|recover/i, html,
+      "DNS post must discuss recovery strategies")
+    refute_match(/LinkedIn scale/i, html,
+      "DNS post must not reference internal LinkedIn scale language")
+  end
 end
