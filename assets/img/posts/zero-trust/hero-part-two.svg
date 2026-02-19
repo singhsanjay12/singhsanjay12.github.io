@@ -58,7 +58,7 @@
 
   <!-- ── REVOKE badge (pulsing) ── -->
   <g class="denied" filter="url(#glow-r)">
-    <rect x="336" y="84" width="128" height="26" rx="6" fill="#e74c3c"/>
+    <rect x="300" y="84" width="200" height="26" rx="6" fill="#e74c3c"/>
     <text x="400" y="101" text-anchor="middle" fill="white" font-size="11" font-weight="700">⚡ REVOKE PROPAGATING</text>
   </g>
 
