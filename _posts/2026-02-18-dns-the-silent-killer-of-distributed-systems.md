@@ -67,7 +67,7 @@ For non-critical traffic, that window is acceptable. For your control plane (the
 
 ![TTL propagation lag: the 28-minute incident window](/assets/img/posts/dns/ttl-timeline.svg)
 
-**Rule of thumb**: use DNS to bootstrap, not to operate. Services should resolve an address at startup and use it. For real-time routing decisions, that address should point to something with its own health-aware routing layer (a load balancer, a service mesh control plane), not to a raw instance fleet where DNS *is* the routing layer. How that routing layer detects and reacts to failure is a separate problem, covered in [The Instance Is Up. Or Is It?](/posts/health-checks-client-vs-server-side-lb).
+**Rule of thumb**: use DNS to bootstrap, not to operate. Services should resolve an address at startup and use it. For real-time routing decisions, that address should point to something with its own health-aware routing layer (a load balancer, a service mesh control plane), not to a raw instance fleet where DNS *is* the routing layer. How that routing layer detects and reacts to failure is a separate problem, covered in [The Instance Is Up. Or Is It?](/2026/01/12/health-checks-client-vs-server-side-lb.html).
 
 ## The Outage You Cannot DNS Your Way Out Of
 

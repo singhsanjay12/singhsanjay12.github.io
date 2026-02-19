@@ -35,7 +35,7 @@ The routing intelligence moves into the client. Each client holds a local view o
 
 ![Client-side load balancing: each client routes independently using a shared service registry](/assets/img/posts/lb/client-side-lb.svg)
 
-There is no proxy in the request path. A service registry keeps the authoritative list of instances. Clients subscribe to updates and maintain their own routing table. gRPC's built-in load balancing, Netflix Ribbon, and LinkedIn's D2 all work this way. The registry often exposes instance addresses through DNS — which introduces its own propagation delays and failure modes, covered in [It's Always DNS](/posts/dns-the-silent-killer-of-distributed-systems).
+There is no proxy in the request path. A service registry keeps the authoritative list of instances. Clients subscribe to updates and maintain their own routing table. gRPC's built-in load balancing, Netflix Ribbon, and LinkedIn's D2 all work this way. The registry often exposes instance addresses through DNS — which introduces its own propagation delays and failure modes, covered in [It's Always DNS](/2026/02/18/dns-the-silent-killer-of-distributed-systems.html).
 
 ## Health Checking: Who Asks, and How
 
