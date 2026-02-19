@@ -31,11 +31,18 @@
   }
 
   .hero-desc {
-    font-size: 0.95rem;
-    color: var(--text-muted-color);
-    line-height: 1.7;
-    max-width: 560px;
+    font-size: 0.88rem;
+    font-weight: 400;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: var(--link-color);
+    letter-spacing: 0.01em;
+    max-width: 680px;
     margin: 0 auto 1.75rem;
+    opacity: 0.9;
+
+    &::before { content: '\201C'; }
+    &::after  { content: '\201D'; }
   }
 
   .tech-badges {
