@@ -41,7 +41,7 @@
   <text x="400" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">device certs · user accounts</text>
   <line x1="466" y1="74" x2="466" y2="124" stroke="#3b82f6" stroke-width="0.8" opacity="0.4"/>
   <text x="554" y="89" text-anchor="middle" fill="#bfdbfe" font-size="8.5" font-weight="600">Emergency Path</text>
-  <text x="554" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">instant revocation · bypass TTL</text>
+  <text x="554" y="103" text-anchor="middle" fill="#93c5fd" font-size="8">instant revocation · all instances</text>
 
   <!-- ── Push channels: CP → proxy instances ── -->
   <!-- Standard push (blue) -->
@@ -56,7 +56,7 @@
   <rect x="66" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
   <path d="M76,192 L220,192 Q230,192 230,202 L230,216 L66,216 L66,202 Q66,192 76,192 Z" fill="#2563eb"/>
   <text x="148" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-1</text>
-  <text x="148" y="232" text-anchor="middle" fill="#64748b" font-size="8">Envoy · xDS listener</text>
+  <text x="148" y="232" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
   <text x="148" y="246" text-anchor="middle" fill="#64748b" font-size="8">hot-reload on policy push</text>
   <text x="148" y="260" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">▸ current policy v47</text>
 
@@ -64,7 +64,7 @@
   <rect x="318" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
   <path d="M328,192 L472,192 Q482,192 482,202 L482,216 L318,216 L318,202 Q318,192 328,192 Z" fill="#2563eb"/>
   <text x="400" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-2</text>
-  <text x="400" y="232" text-anchor="middle" fill="#64748b" font-size="8">HAProxy · runtime API</text>
+  <text x="400" y="232" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
   <text x="400" y="246" text-anchor="middle" fill="#64748b" font-size="8">hot-reload on policy push</text>
   <text x="400" y="260" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">▸ current policy v47</text>
 
@@ -72,7 +72,7 @@
   <rect x="570" y="192" width="164" height="78" rx="10" fill="white" stroke="#2563eb" stroke-width="1.8" filter="url(#sh)"/>
   <path d="M580,192 L724,192 Q734,192 734,202 L734,216 L570,216 L570,202 Q570,192 580,192 Z" fill="#e74c3c"/>
   <text x="652" y="208" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">TrustBridge  proxy-3</text>
-  <text x="652" y="232" text-anchor="middle" fill="#64748b" font-size="8">Envoy · emergency update</text>
+  <text x="652" y="232" text-anchor="middle" fill="#64748b" font-size="8">reverse proxy instance</text>
   <text x="652" y="246" text-anchor="middle" fill="#64748b" font-size="8">revocation applied instantly</text>
   <text x="652" y="260" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600">▸ cert #A9F2 now denied</text>
 
