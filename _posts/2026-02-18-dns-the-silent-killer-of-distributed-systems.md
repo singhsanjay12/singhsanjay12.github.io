@@ -2,7 +2,7 @@
 title: "It's Always DNS — Until You're Stuck and Can't Fix It"
 date: 2026-02-18 12:00:00 +0000
 categories: [Distributed Systems, Infrastructure]
-tags: [dns, distributed-systems, outages, service-discovery, reliability, networking]
+tags: [dns, distributed-systems, outages, service-discovery, reliability, networking, kubernetes]
 ---
 
 Every outage war story eventually arrives at the same punchline. The post-mortem is half-written, the timeline is reconstructed, the engineers are running on cold coffee — and then someone says it. *It was DNS.*
