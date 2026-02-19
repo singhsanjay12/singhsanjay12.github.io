@@ -1,0 +1,122 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes dash  { to { stroke-dashoffset: -20; } }
+      @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+      @keyframes err   { 0%,100% { opacity:0.9; } 50% { opacity:0.15; } }
+      .flow   { animation: dash  1.8s linear      infinite; }
+      .block  { animation: dash  1.1s linear      infinite; }
+      .blink  { animation: pulse 1.3s ease-in-out infinite; }
+      .denied { animation: err   0.9s ease-in-out infinite; }
+    </style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="tb-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000022"/>
+    </filter>
+    <filter id="glow-b">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-r">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+
+  <!-- Dot grid -->
+  <g fill="#c7d2fe" opacity="0.45">
+    <g id="col">
+      <circle cx="0" cy="0"   r="1.5"/><circle cx="0" cy="40"  r="1.5"/>
+      <circle cx="0" cy="80"  r="1.5"/><circle cx="0" cy="120" r="1.5"/>
+      <circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/>
+      <circle cx="0" cy="320" r="1.5"/><circle cx="0" cy="360" r="1.5"/>
+    </g>
+    <use href="#col" x="40"/> <use href="#col" x="80"/> <use href="#col" x="120"/>
+    <use href="#col" x="160"/><use href="#col" x="200"/><use href="#col" x="240"/>
+    <use href="#col" x="280"/><use href="#col" x="320"/><use href="#col" x="360"/>
+    <use href="#col" x="400"/><use href="#col" x="440"/><use href="#col" x="480"/>
+    <use href="#col" x="520"/><use href="#col" x="560"/><use href="#col" x="600"/>
+    <use href="#col" x="640"/><use href="#col" x="680"/><use href="#col" x="720"/>
+    <use href="#col" x="760"/>
+  </g>
+
+  <!-- ── Connection lines ── -->
+  <!-- Legitimate user → TrustBridge (blue flowing) -->
+  <line x1="256" y1="95"  x2="358" y2="158" stroke="#4f8ef7" stroke-width="1.8" stroke-dasharray="6 4" class="flow" marker-end="url(#arrowB)"/>
+  <!-- TrustBridge → API (green) -->
+  <line x1="443" y1="163" x2="543" y2="98"  stroke="#27ae60" stroke-width="1.8" stroke-dasharray="6 4" class="flow" marker-end="url(#arrowG)"/>
+  <!-- TrustBridge → Database (green) -->
+  <line x1="446" y1="185" x2="543" y2="185" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="6 4" class="flow" marker-end="url(#arrowG)"/>
+  <!-- TrustBridge → Secrets (green) -->
+  <line x1="443" y1="207" x2="543" y2="272" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="6 4" class="flow" marker-end="url(#arrowG)"/>
+  <!-- Attacker → TrustBridge (red dashed — request that gets blocked) -->
+  <line x1="256" y1="270" x2="358" y2="212" stroke="#e74c3c" stroke-width="2"   stroke-dasharray="5 4" class="block" marker-end="url(#arrowR)"/>
+
+  <!-- ── TrustBridge (center) ── -->
+  <circle cx="400" cy="185" r="46" fill="url(#tb-grad)" filter="url(#shadow)" class="blink" opacity="0.15"/>
+  <circle cx="400" cy="185" r="46" fill="url(#tb-grad)" filter="url(#shadow)"/>
+  <!-- Shield icon -->
+  <path d="M400,162 L414,168 L414,181 Q414,193 400,200 Q386,193 386,181 L386,168 Z" fill="none" stroke="white" stroke-width="1.8" opacity="0.9"/>
+  <text x="400" y="178" text-anchor="middle" fill="white" font-size="10" font-weight="700" opacity="0.9">Trust</text>
+  <text x="400" y="190" text-anchor="middle" fill="white" font-size="10" font-weight="700" opacity="0.9">Bridge</text>
+  <text x="400" y="204" text-anchor="middle" fill="#bfdbfe" font-size="8">enforcer</text>
+
+  <!-- ── Legitimate User (top-left) ── -->
+  <circle cx="220" cy="88"  r="38" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#shadow)"/>
+  <text x="220" y="83"  text-anchor="middle" fill="#1e293b" font-size="9"  font-weight="700">Legitimate</text>
+  <text x="220" y="95"  text-anchor="middle" fill="#1e293b" font-size="9"  font-weight="700">User</text>
+  <text x="220" y="110" text-anchor="middle" fill="#27ae60" font-size="8"  font-weight="600">cert ✓  SSO ✓</text>
+
+  <!-- ── Attacker (bottom-left) ── -->
+  <circle cx="220" cy="278" r="38" fill="#fff0f0" stroke="#e74c3c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="220" y="272" text-anchor="middle" fill="#c0392b" font-size="9"  font-weight="700">Attacker</text>
+  <text x="220" y="285" text-anchor="middle" fill="#e74c3c" font-size="8"  font-weight="600">VPN creds only</text>
+  <text x="220" y="298" text-anchor="middle" fill="#e74c3c" font-size="8">no device cert ✗</text>
+
+  <!-- ── Backend nodes (right) ── -->
+  <circle cx="580" cy="88"  r="36" fill="white" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <text x="580" y="84"  text-anchor="middle" fill="#166534" font-size="9" font-weight="700">API</text>
+  <text x="580" y="97"  text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Gateway</text>
+
+  <circle cx="580" cy="185" r="36" fill="white" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <text x="580" y="181" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Internal</text>
+  <text x="580" y="194" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Database</text>
+
+  <circle cx="580" cy="278" r="36" fill="white" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <text x="580" y="274" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Secrets</text>
+  <text x="580" y="287" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Manager</text>
+
+  <!-- ── BLOCKED badge on Attacker path ── -->
+  <g class="denied" filter="url(#glow-r)">
+    <circle cx="336" cy="228" r="14" fill="#e74c3c"/>
+    <text x="336" y="233" text-anchor="middle" fill="white" font-size="14" font-weight="700">✗</text>
+  </g>
+  <!-- "No device cert — denied" callout -->
+  <rect x="290" y="248" width="148" height="22" rx="6" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" filter="url(#shadow)"/>
+  <text x="364" y="263" text-anchor="middle" fill="#c0392b" font-size="9" font-weight="600">no device cert — denied</text>
+
+  <!-- ── Caption ── -->
+  <line x1="200" y1="352" x2="600" y2="352" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="368" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="700" font-family="Georgia,serif" font-style="italic">"Trust nothing. Verify everything. Always."</text>
+  <text x="400" y="385" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-style="italic">Every request proves its identity. Network location means nothing.</text>
+</svg>

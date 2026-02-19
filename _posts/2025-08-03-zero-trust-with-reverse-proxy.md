@@ -3,6 +3,9 @@ title: "Why Zero Trust Matters and How to Implement It with a Reverse Proxy — 
 date: 2025-08-03 12:00:00 +0000
 categories: [Security, Zero Trust]
 tags: [zero-trust, mtls, reverse-proxy, kubernetes, trustbridge]
+image:
+  path: /assets/img/posts/zero-trust/hero.svg
+  alt: "TrustBridge blocking an attacker with VPN-only credentials while letting a verified user through"
 ---
 
 Picture this: a contractor's laptop gets compromised through a phishing email. The attacker now has valid VPN credentials. They connect to the corporate network, and because the perimeter model says "inside the network = trusted", they can now reach internal dashboards, APIs, and databases, often with minimal friction.
@@ -41,26 +44,7 @@ Implementing Zero Trust per-application is the obvious approach, but it is also 
 
 A reverse proxy solves this by being the single enforcement point between all clients and all backend services. Authentication, authorization, and encryption happen once, at the proxy, and backend services focus solely on their own logic.
 
-```
-                          ┌──────────────────────────────┐
-                          │         TrustBridge           │
-  Client                  │      (Reverse Proxy)          │
-    │                     │                               │
-    │──① mTLS handshake──►│  Validates client certificate │
-    │                     │  (device identity)            │
-    │                     │                               │
-    │──② SSO token───────►│  Validates token with IdP     │
-    │                     │  (user identity)              │
-    │                     │                               │
-    │                     │──③ Policy check──────────────►│ Policy Engine
-    │                     │   device + user + resource    │
-    │                     │                               │
-    │                     │──④ Forward (if allowed)──────►│ Backend Service
-    │                     │                               │   (no auth code
-    │                     │◄─ Response ───────────────────│    needed)
-    │◄── Response ────────│                               │
-                          └──────────────────────────────┘
-```
+![TrustBridge enforcement flow: mTLS → SSO → Policy → Forward](/assets/img/posts/zero-trust/trustbridge-flow.svg)
 
 Every request goes through four steps at the proxy:
 
