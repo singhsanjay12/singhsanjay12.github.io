@@ -29,4 +29,17 @@ class BuildIntegrityTest < Minitest::Test
     refute_match(/Liquid (Error|Warning)/, index,
       "No Liquid errors should appear in rendered HTML")
   end
+
+  # Footer must be centered (single copyright line, no theme attribution).
+  def test_footer_is_centered
+    index = File.read("#{SITE}/index.html")
+    assert_match(/justify-content-lg-center/, index,
+      "Footer must use justify-content-lg-center — single copyright line should be centered")
+  end
+
+  def test_footer_has_no_chirpy_attribution
+    index = File.read("#{SITE}/index.html")
+    refute_match(/Chirpy.*theme for.*Jekyll|Using the.*Chirpy/i, index,
+      "Footer must not contain the Chirpy theme attribution line")
+  end
 end
