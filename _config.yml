@@ -62,6 +62,8 @@ collections:
     output: true
     sort_by: order
 
+permalink: /:year/:month/:day/:title.html
+
 defaults:
   - scope:
       path: ""
