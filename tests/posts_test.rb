@@ -64,6 +64,15 @@ class PostsTest < Minitest::Test
     end
   end
 
+  # "Further Reading" / related-posts section must not appear on any post.
+  def test_no_further_reading_section
+    built_posts.each do |path|
+      html = File.read(path)
+      refute_match(/id="related-posts"/, html,
+        "#{path} contains the Further Reading section — remove 'related-posts' from tail_includes in _layouts/post.html")
+    end
+  end
+
   # Zero Trust post: key content and the LinkedIn reference we explicitly removed.
   def test_zero_trust_post_content
     post = Dir.glob("#{SITE}/**/zero-trust-with-reverse-proxy.html").first
