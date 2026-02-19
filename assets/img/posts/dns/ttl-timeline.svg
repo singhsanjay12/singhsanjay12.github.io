@@ -62,7 +62,7 @@
   <line x1="80" y1="168" x2="150" y2="74" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 2"/>
 
   <!-- Red "still failing" band: 80 → 730 -->
-  <rect x="80" y="145" width="650" height="18" rx="4" fill="url(#redBar)" opacity="0.18"/>
+  <rect x="80" y="145" width="650" height="18" rx="4" fill="url(#redBar)" opacity="0.35"/>
   <text x="405" y="158" text-anchor="middle" fill="#c0392b" font-size="9" font-weight="600">production traffic still hitting cached (old) address</text>
 
   <!-- 0:04: 80% still on primary -->
