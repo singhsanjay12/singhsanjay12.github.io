@@ -288,25 +288,6 @@
   }
 }
 
-/* ── Post Hero Image ─────────────────────────────────────── */
-/* Chirpy renders the front-matter hero as <a class="preview-img">.
-   <a> is inline by default so width:100% has no effect and the image
-   overflows at its intrinsic 1200px width. Force block + center it.
-   Also reset object-fit:cover so the SVG scales naturally. */
-
-a.preview-img {
-  display: block;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-a.preview-img img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: unset;
-}
-
 /* ── Visitor Counter ─────────────────────────────────────── */
 
 #visitor-counter {
