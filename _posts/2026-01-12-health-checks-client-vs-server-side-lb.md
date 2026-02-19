@@ -19,15 +19,7 @@ Before getting into health checks, it helps to be precise about what each model 
 
 A dedicated proxy sits between clients and the backend fleet. Clients know one address: the load balancer. The load balancer knows the backend pool and decides where each request goes.
 
-```
-  Client A ──┐
-             │
-  Client B ──┼──► [ Load Balancer ] ──► Instance 1
-             │           │
-  Client C ──┘           ├──────────► Instance 2
-                         │
-                         └──────────► Instance 3
-```
+![Server-side load balancing: all clients route through a central proxy](/assets/img/posts/lb/server-side-lb.svg)
 
 The load balancer is the single point of intelligence. It tracks backend health, maintains connection pools, and routes traffic. Clients are completely unaware of the backend topology; they see one stable address regardless of how many instances are behind it, or how many fail.
 
@@ -37,27 +29,7 @@ HAProxy, NGINX, AWS ALB, and most hardware appliances follow this model.
 
 The routing intelligence moves into the client. Each client holds a local view of the available backend instances, typically populated from a service registry, and makes its own routing decision on every request.
 
-```
-  ┌─────────────────────────────────────┐
-  │ Client A                            │
-  │  [instance list: 1, 2, 3]  ──────► Instance 1
-  └─────────────────────────────────────┘
-
-  ┌─────────────────────────────────────┐
-  │ Client B                            │
-  │  [instance list: 1, 2, 3]  ──────► Instance 2
-  └─────────────────────────────────────┘
-
-  ┌─────────────────────────────────────┐
-  │ Client C                            │
-  │  [instance list: 1, 2, 3]  ──────► Instance 3
-  └─────────────────────────────────────┘
-
-             ↕ all clients watch
-        [ Service Registry ]
-         (Zookeeper, Consul,
-          etcd, custom...)
-```
+![Client-side load balancing: each client routes independently using a shared service registry](/assets/img/posts/lb/client-side-lb.svg)
 
 There is no proxy in the request path. A service registry keeps the authoritative list of instances. Clients subscribe to updates and maintain their own routing table. gRPC's built-in load balancing, Netflix Ribbon, and LinkedIn's D2 all work this way.
 
@@ -69,22 +41,7 @@ The two models produce fundamentally different answers to the same question: *is
 
 The load balancer owns health checking entirely. It runs periodic probes against each backend, typically a TCP connect, an HTTP request to a `/health` endpoint, or a custom command, on a fixed schedule.
 
-```
-                        ┌──────────────────────────┐
-                        │      Load Balancer        │
-                        │                           │
-                        │  Health Check Loop:       │
-                        │  every 5s, per instance   │
-                        │                           │
-   GET /health ────────►│──────────────────────────►│ Instance 1  ✓ 200 OK
-   GET /health ────────►│──────────────────────────►│ Instance 2  ✓ 200 OK
-   GET /health ────────►│──────────────────────────►│ Instance 3  ✗ timeout
-                        │                           │
-                        │  Instance 3: 1 failure    │
-                        │  (threshold: 3 failures)  │
-                        │  → still in rotation      │
-                        └──────────────────────────┘
-```
+![Server-side health check loop: LB polls all instances, Instance 3 on first failure](/assets/img/posts/lb/server-side-health-check.svg)
 
 A typical configuration might look like:
 
@@ -103,29 +60,13 @@ With no central proxy, health checking is distributed. Each client must independ
 
 **Active health checks:** the client (or a sidecar process) periodically probes each known instance, just like a server-side load balancer would. The difference is that every client runs its own probe loop. With 500 clients each checking 20 instances every 5 seconds, that is 2,000 probe requests per second hitting your fleet, just for health signals, before any real traffic.
 
-```
-  Client A                         Client B
-  probe loop:                      probe loop:
-  Instance 1 → healthy             Instance 1 → healthy
-  Instance 2 → healthy             Instance 2 → healthy
-  Instance 3 → timeout             Instance 3 → healthy  ← different result
-```
+![Active health checks: two clients reach different conclusions about Instance 3](/assets/img/posts/lb/active-health-check.svg)
 
 Each client forms its own independent view. Two clients probing the same instance at different moments can reach different conclusions, especially during the brief window when an instance is degrading. The fleet's health state is eventually consistent rather than authoritative.
 
 **Passive health checks** (also called outlier detection or failure tracking) take a different approach: instead of probing, the client watches the outcomes of real requests. A connection refused, a timeout, a stream of 500s. These are signals that something is wrong with that instance. The client marks it unhealthy locally and stops routing to it for a backoff period.
 
-```
-  Client A sends request to Instance 3
-       │
-       ▼
-  Instance 3 → connection refused
-       │
-       ▼
-  Client A marks Instance 3 unhealthy
-  Client A stops routing to Instance 3 for 30s
-  Client B has not sent a request yet → still considers Instance 3 healthy
-```
+![Passive health check: Client A detects failure on first bad request; Client B still unaware](/assets/img/posts/lb/passive-health-check.svg)
 
 Passive checking has a meaningful advantage: failure detection is immediate. The first failed request triggers the response; there is no polling interval to wait through. The cost is that at least one real request must fail before the client reacts. In high-throughput systems this is usually acceptable; in low-traffic or bursty scenarios it can mean more user-visible errors.
 
