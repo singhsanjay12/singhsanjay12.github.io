@@ -249,4 +249,4 @@ If you are thinking about whether and how to move toward this architecture, thre
 
 ---
 
-*This post describes the architecture presented at RSAC 2026 with [Mitendra Mahto](https://www.linkedin.com/in/mitendra-mahto/). If you are working through similar problems, reach out on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or by [email](mailto:gargwanshi.sanjay@gmail.com).*
+*If you are working through similar problems, reach out on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or by [email](mailto:gargwanshi.sanjay@gmail.com).*
