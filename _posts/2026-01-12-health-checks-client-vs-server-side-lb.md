@@ -1,5 +1,6 @@
 ---
 title: "The Instance Is Up. Or Is It? Health Checking in Client-Side vs Server-Side Load Balancing"
+description: "Why zombie instances survive health checks, and what the choice between server-side and client-side load balancing means for how fast your system detects and reacts to failure."
 date: 2026-01-12 12:00:00 +0000
 categories: [Distributed Systems, Load Balancing]
 tags: [load-balancing, health-checks, service-discovery, distributed-systems, client-side-lb]
@@ -34,7 +35,7 @@ The routing intelligence moves into the client. Each client holds a local view o
 
 ![Client-side load balancing: each client routes independently using a shared service registry](/assets/img/posts/lb/client-side-lb.svg)
 
-There is no proxy in the request path. A service registry keeps the authoritative list of instances. Clients subscribe to updates and maintain their own routing table. gRPC's built-in load balancing, Netflix Ribbon, and LinkedIn's D2 all work this way.
+There is no proxy in the request path. A service registry keeps the authoritative list of instances. Clients subscribe to updates and maintain their own routing table. gRPC's built-in load balancing, Netflix Ribbon, and LinkedIn's D2 all work this way. The registry often exposes instance addresses through DNS — which introduces its own propagation delays and failure modes, covered in [It's Always DNS](/posts/dns-the-silent-killer-of-distributed-systems).
 
 ## Health Checking: Who Asks, and How
 

@@ -1,5 +1,6 @@
 ---
 title: "Why Zero Trust Matters and How to Implement It with a Reverse Proxy — Part One"
+description: "How a reverse proxy becomes a Zero Trust enforcement point: mTLS device certificates, per-request policy evaluation, and why VPN-based perimeter security fails at scale."
 date: 2025-08-03 12:00:00 +0000
 categories: [Security, Zero Trust]
 tags: [zero-trust, mtls, reverse-proxy, kubernetes, trustbridge]
