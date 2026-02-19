@@ -131,24 +131,7 @@ Standard Zero Trust validates two signals per request: who is the user, and whic
 
 **Multi-device sessions.** When the same user has active sessions from multiple devices simultaneously, this is surfaced as a context signal. Policies can treat multi-device access as normal (common for engineers with a desktop and a laptop) or as a flag requiring additional verification (unusual for a contractor who typically uses a single machine).
 
-**Impossible travel detection.** When the same identity authenticates from two locations that are geographically incompatible within the elapsed time — a session from Tokyo, then an authentication attempt from New York three minutes later — this is not a suspicious pattern. It is a physically impossible one. No legitimate user can be in both places; the credential is compromised.
-
-TrustBridge detects this because it handles every authentication event across the entire internal fleet. Individual applications see only their own logins; the proxy sees all of them. When a new authentication arrives, the control plane checks the identity's recent session history. If the implied travel speed between the two locations exceeds what is physically possible, TrustBridge blocks the new session outright and can simultaneously invalidate the existing one.
-
-The policy condition is explicit:
-
-```yaml
-- action: block
-  trigger: impossible_travel
-  conditions:
-    max_speed_kmh: 900        # subsonic aircraft threshold
-    response: deny_new_session
-    also_invalidate_existing: true
-```
-
-Setting `max_speed_kmh` to 900 allows for commercial air travel but catches any login pair that would require supersonic or instantaneous movement. For high-security environments — contractors, privileged accounts — a lower threshold combined with a step-up MFA challenge rather than an outright block is a common tuning choice.
-
-This detection has no blind spots as long as all internal traffic flows through TrustBridge. An attacker using a compromised credential to access payroll, then internal dashboards, then an admin API from a different continent — each attempt lands at the proxy, and each one is checked against the same session history.
+**Impossible travel detection.** Because TrustBridge handles every authentication event across the entire fleet, it can detect when the same identity authenticates from two locations that are physically incompatible within the elapsed time. A login from Tokyo followed by one from New York three minutes later is not a suspicious pattern — it is an impossible one. TrustBridge blocks the new session and invalidates the existing one. Individual applications cannot make this check; the proxy can, because it sees all of them.
 
 Policy rules express these conditions explicitly:
 
