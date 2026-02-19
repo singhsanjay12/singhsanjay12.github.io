@@ -57,4 +57,31 @@ class ArchivesTest < Minitest::Test
         "#{path} is suspiciously small — category archive page may be broken"
     end
   end
+
+  # Post dates must use noon UTC (12:00:00 +0000) so timezone conversion
+  # never rolls midnight back to the previous day in any locale.
+  def test_post_dates_are_timezone_safe
+    Dir.glob("_posts/*.md").each do |source|
+      front_matter = File.read(source)[/\A---.*?---/m].to_s
+      if (date_line = front_matter.match(/^date:\s*(.+)$/))
+        date_str = date_line[1].strip
+        # Reject midnight with a negative UTC offset — always rolls back a day
+        # in UTC-8 (PST) and shifts the archive entry and post URL by one day.
+        refute_match(/00:00:00\s+-\d{4}$/, date_str,
+          "#{source}: date '#{date_str}' uses midnight with a negative UTC offset. " \
+          "Use '12:00:00 +0000' (noon UTC) to prevent timezone rollback.")
+      end
+    end
+  end
+
+  # The archives page must list the health-checks post under Jan 12, not Jan 11.
+  def test_archives_shows_correct_post_dates
+    archives = File.read("#{SITE}/archives/index.html")
+    assert_match(/health-checks-client-vs-server-side-lb/, archives,
+      "Archives page must list the health-checks post")
+    # The post URL must contain /2026/01/12/ not /2026/01/11/
+    assert_match(%r{/2026/01/12/health-checks}, archives,
+      "Health-checks post must appear under Jan 12 in archives — " \
+      "check post front matter date for timezone rollback (use noon UTC)")
+  end
 end
