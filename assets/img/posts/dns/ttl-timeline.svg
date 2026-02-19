@@ -68,7 +68,7 @@
   <!-- 0:04: 80% still on primary -->
   <circle cx="200" cy="175" r="6" fill="#f39c12" filter="url(#sh3)"/>
   <line x1="200" y1="168" x2="200" y2="220" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3 2"/>
-  <rect x="130" y="221" width="140" height="28" rx="6" fill="#fffbeb" stroke="#f39c12" stroke-width="1.2" filter="url(#sh3)"/>
+  <rect x="140" y="221" width="120" height="28" rx="6" fill="#fffbeb" stroke="#f39c12" stroke-width="1.2" filter="url(#sh3)"/>
   <text x="200" y="234" text-anchor="middle" fill="#92400e" font-size="9" font-weight="700">80% still on primary.</text>
   <text x="200" y="245" text-anchor="middle" fill="#92400e" font-size="9">Errors everywhere.</text>
 
