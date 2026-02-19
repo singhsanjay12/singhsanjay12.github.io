@@ -3,6 +3,9 @@ title: "It's Always DNS — Until You're Stuck and Can't Fix It"
 date: 2026-02-18 12:00:00 +0000
 categories: [Distributed Systems, Infrastructure]
 tags: [dns, distributed-systems, outages, service-discovery, reliability, networking, kubernetes]
+image:
+  path: /assets/img/posts/dns/hero.svg
+  alt: "Services connected through a broken DNS resolver"
 ---
 
 Every outage war story eventually arrives at the same punchline. The post-mortem is half-written, the timeline is reconstructed, the engineers are running on cold coffee — and then someone says it. *It was DNS.*
@@ -39,6 +42,8 @@ Option 2 is the dangerous one. A client that treats a truncated UDP response as 
 
 **The fix**: configure your internal resolvers and service mesh sidecars to use TCP for DNS when record sets are large, or keep DNS responses lean by not overloading a single record with too many entries. Split large record sets across multiple names if needed.
 
+![UDP truncation: partial answer silently used as complete](/assets/img/posts/dns/udp-truncation.svg)
+
 ## DNS as a Control Plane: Where It Works and Where It Does Not
 
 DNS works well as a *read path* for service addresses. It does not work well as a *control plane* for live traffic management.
@@ -58,6 +63,8 @@ Time 0:28  -> Last stubborn resolver finally re-resolves. Incident window: 28 mi
 ```
 
 For non-critical traffic, that window is acceptable. For your control plane (the services that orchestrate health, configuration, and coordination), it is not.
+
+![TTL propagation lag: the 28-minute incident window](/assets/img/posts/dns/ttl-timeline.svg)
 
 **Rule of thumb**: use DNS to bootstrap, not to operate. Services should resolve an address at startup and use it. For real-time routing decisions, that address should point to something with its own health-aware routing layer (a load balancer, a service mesh control plane), not to a raw instance fleet where DNS *is* the routing layer.
 

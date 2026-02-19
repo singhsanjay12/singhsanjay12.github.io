@@ -1,0 +1,195 @@
+<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -20; } }
+      @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.45; } }
+      .flow { animation: dash 1.4s linear infinite; }
+      .pulse { animation: pulse 1.6s ease-in-out infinite; }
+    </style>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#f0f4ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e74c3c"/>
+    </marker>
+    <filter id="sh2">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#bg2)"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">UDP Truncation: When DNS Sends an Incomplete Answer</text>
+
+  <!-- ── DNS Server box ── -->
+  <rect x="240" y="38" width="320" height="36" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#sh2)"/>
+  <text x="400" y="53" text-anchor="middle" fill="#1e293b" font-size="11" font-weight="700">DNS Server</text>
+  <text x="400" y="66" text-anchor="middle" fill="#64748b" font-size="9">14 A records for api.internal · response ~1.8 KB</text>
+
+  <!-- Down arrow from server -->
+  <line x1="400" y1="74" x2="400" y2="90" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="4 3" class="flow" marker-end="url(#arrowB)"/>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- ═══ THE RECORD ROW — the central visual ═══ -->
+  <!-- ═══════════════════════════════════════════════ -->
+
+  <!-- Group 1: records that fit in UDP (blocks 1-6, solid blue) -->
+  <rect x="145" y="98" width="32" height="22" rx="4" fill="#dbeafe" stroke="#4f8ef7" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="161" y="113" text-anchor="middle" fill="#4f8ef7" font-size="8" font-weight="600">.1</text>
+
+  <rect x="181" y="98" width="32" height="22" rx="4" fill="#dbeafe" stroke="#4f8ef7" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="197" y="113" text-anchor="middle" fill="#4f8ef7" font-size="8" font-weight="600">.2</text>
+
+  <rect x="217" y="98" width="32" height="22" rx="4" fill="#dbeafe" stroke="#4f8ef7" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="233" y="113" text-anchor="middle" fill="#4f8ef7" font-size="8" font-weight="600">.3</text>
+
+  <rect x="253" y="98" width="32" height="22" rx="4" fill="#dbeafe" stroke="#4f8ef7" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="269" y="113" text-anchor="middle" fill="#4f8ef7" font-size="8" font-weight="600">.4</text>
+
+  <rect x="289" y="98" width="32" height="22" rx="4" fill="#dbeafe" stroke="#4f8ef7" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="305" y="113" text-anchor="middle" fill="#4f8ef7" font-size="8" font-weight="600">.5</text>
+
+  <rect x="325" y="98" width="32" height="22" rx="4" fill="#dbeafe" stroke="#4f8ef7" stroke-width="1.5" filter="url(#sh2)"/>
+  <text x="341" y="113" text-anchor="middle" fill="#4f8ef7" font-size="8" font-weight="600">.6</text>
+
+  <!-- ── THE CUT LINE (512B barrier) ── -->
+  <line x1="364" y1="86" x2="364" y2="128" stroke="#e74c3c" stroke-width="2.5" stroke-dasharray="5 3" class="pulse"/>
+
+  <!-- Group 2: truncated records (blocks 7-14, faded red with ✕) -->
+  <rect x="371" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="387" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.7</text>
+  <line x1="379" y1="103" x2="395" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="395" y1="103" x2="379" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <rect x="407" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="423" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.8</text>
+  <line x1="415" y1="103" x2="431" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="431" y1="103" x2="415" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <rect x="443" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="459" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.9</text>
+  <line x1="451" y1="103" x2="467" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="467" y1="103" x2="451" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <rect x="479" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="495" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.10</text>
+  <line x1="487" y1="103" x2="503" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="503" y1="103" x2="487" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <rect x="515" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="531" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.11</text>
+  <line x1="523" y1="103" x2="539" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="539" y1="103" x2="523" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <rect x="551" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="567" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.12</text>
+  <line x1="559" y1="103" x2="575" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="575" y1="103" x2="559" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <rect x="587" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="603" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.13</text>
+  <line x1="595" y1="103" x2="611" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="611" y1="103" x2="595" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <rect x="623" y="98" width="32" height="22" rx="4" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.5"/>
+  <text x="639" y="113" text-anchor="middle" fill="#e74c3c" font-size="8" opacity="0.5">.14</text>
+  <line x1="631" y1="103" x2="647" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+  <line x1="647" y1="103" x2="631" y2="115" stroke="#e74c3c" stroke-width="1" opacity="0.35"/>
+
+  <!-- ── Badges on the cut line ── -->
+  <rect x="339" y="126" width="50" height="15" rx="4" fill="#e74c3c"/>
+  <text x="364" y="137" text-anchor="middle" fill="white" font-size="7.5" font-weight="700">512B · TC=1</text>
+
+  <!-- ── Group labels below the record row ── -->
+  <text x="251" y="148" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="600">✓ 6 records fit</text>
+  <text x="513" y="148" text-anchor="middle" fill="#e74c3c" font-size="9" font-weight="600">✗ 8 records truncated</text>
+
+  <!-- ── "what happens next" divider ── -->
+  <line x1="100" y1="162" x2="700" y2="162" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="340" y="152" width="120" height="14" rx="3" fill="url(#bg2)"/>
+  <text x="400" y="163" text-anchor="middle" fill="#94a3b8" font-size="8.5">what happens next</text>
+
+  <!-- Fork lines to outcome panels -->
+  <line x1="364" y1="166" x2="207" y2="186" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" class="flow" marker-end="url(#arrowG)"/>
+  <line x1="364" y1="166" x2="592" y2="186" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4 3" class="flow" marker-end="url(#arrowR)"/>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- ═══ PATH A — Good resolver (green) ═══ -->
+  <!-- ═══════════════════════════════════════ -->
+  <rect x="30" y="192" width="355" height="155" rx="10" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#sh2)"/>
+
+  <!-- Green ✓ badge -->
+  <circle cx="52" cy="212" r="10" fill="#27ae60"/>
+  <text x="52" y="216" text-anchor="middle" fill="white" font-size="12" font-weight="700">✓</text>
+
+  <text x="207" y="214" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">Path A — Good resolver</text>
+  <text x="207" y="232" text-anchor="middle" fill="#374151" font-size="9">Sees TC=1 flag → retries query over TCP</text>
+  <text x="207" y="248" text-anchor="middle" fill="#374151" font-size="9">Gets all 14 A records — complete answer</text>
+
+  <!-- Traffic bar: 14 green segments (all backends get traffic) -->
+  <g>
+    <rect x="83"  y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="101" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="119" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="137" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="155" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="173" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="191" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="209" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="227" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="245" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="263" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="281" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="299" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+    <rect x="317" y="262" width="16" height="10" rx="2" fill="#27ae60" opacity="0.75"/>
+  </g>
+
+  <text x="207" y="288" text-anchor="middle" fill="#166534" font-size="8.5" font-weight="600">Traffic balanced across all 14 backends</text>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ═══ PATH B — Silent truncation (red) ═══ -->
+  <!-- ═══════════════════════════════════════════ -->
+  <rect x="415" y="192" width="355" height="155" rx="10" fill="#fff0f0" stroke="#e74c3c" stroke-width="2" filter="url(#sh2)"/>
+
+  <!-- Red ✗ badge -->
+  <circle cx="437" cy="212" r="10" fill="#e74c3c"/>
+  <text x="437" y="216" text-anchor="middle" fill="white" font-size="12" font-weight="700">✗</text>
+
+  <text x="592" y="214" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">Path B — Silent truncation</text>
+  <text x="592" y="232" text-anchor="middle" fill="#374151" font-size="9">Ignores TC=1 — uses partial 6-record answer</text>
+  <text x="592" y="248" text-anchor="middle" fill="#374151" font-size="9">8 backends receive zero traffic</text>
+
+  <!-- Traffic bar: 6 red (active) + 8 gray (starved) -->
+  <g>
+    <rect x="468" y="262" width="16" height="10" rx="2" fill="#e74c3c" opacity="0.75"/>
+    <rect x="486" y="262" width="16" height="10" rx="2" fill="#e74c3c" opacity="0.75"/>
+    <rect x="504" y="262" width="16" height="10" rx="2" fill="#e74c3c" opacity="0.75"/>
+    <rect x="522" y="262" width="16" height="10" rx="2" fill="#e74c3c" opacity="0.75"/>
+    <rect x="540" y="262" width="16" height="10" rx="2" fill="#e74c3c" opacity="0.75"/>
+    <rect x="558" y="262" width="16" height="10" rx="2" fill="#e74c3c" opacity="0.75"/>
+    <rect x="576" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+    <rect x="594" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+    <rect x="612" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+    <rect x="630" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+    <rect x="648" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+    <rect x="666" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+    <rect x="684" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+    <rect x="702" y="262" width="16" height="10" rx="2" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 1"/>
+  </g>
+
+  <text x="592" y="288" text-anchor="middle" fill="#c0392b" font-size="8.5" font-weight="600">6 overloaded · 8 starved</text>
+
+  <!-- Punchline -->
+  <text x="592" y="310" text-anchor="middle" fill="#c0392b" font-size="9.5" font-weight="700" font-style="italic">Looks like a load-balancer bug. It's DNS.</text>
+
+  <!-- ── Bottom footnote ── -->
+  <text x="400" y="380" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">EDNS0 raises the UDP ceiling to 4096B — but silent truncation still happens when responses exceed it.</text>
+</svg>
