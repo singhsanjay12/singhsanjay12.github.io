@@ -1,0 +1,116 @@
+<svg width="800" height="360" viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="tb-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="arrowS" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#64748b"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="360" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">SSO at the Proxy: Provider-Agnostic Identity Abstraction</text>
+
+  <!-- ── LEFT COLUMN: Identity Providers ── -->
+  <!-- OIDC (Okta / Azure AD) -->
+  <rect x="22" y="48" width="156" height="54" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="100" y="72" text-anchor="middle" fill="#1e293b" font-size="10" font-weight="700">OIDC</text>
+  <text x="100" y="86" text-anchor="middle" fill="#64748b" font-size="8">Okta · Azure AD · Auth0</text>
+  <text x="100" y="98" text-anchor="middle" fill="#94a3b8" font-size="7.5">JWT · JWKS · discovery URL</text>
+
+  <!-- SAML -->
+  <rect x="22" y="118" width="156" height="54" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="100" y="142" text-anchor="middle" fill="#1e293b" font-size="10" font-weight="700">SAML 2.0</text>
+  <text x="100" y="156" text-anchor="middle" fill="#64748b" font-size="8">Ping Identity · AD FS</text>
+  <text x="100" y="168" text-anchor="middle" fill="#94a3b8" font-size="7.5">assertion · metadata URL</text>
+
+  <!-- LDAP -->
+  <rect x="22" y="188" width="156" height="54" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="100" y="212" text-anchor="middle" fill="#1e293b" font-size="10" font-weight="700">LDAP / Kerberos</text>
+  <text x="100" y="226" text-anchor="middle" fill="#64748b" font-size="8">Active Directory</text>
+  <text x="100" y="238" text-anchor="middle" fill="#94a3b8" font-size="7.5">legacy enterprise IdP</text>
+
+  <!-- IdP arrows → TrustBridge -->
+  <line x1="178" y1="75"  x2="296" y2="160" stroke="#4f8ef7" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
+  <line x1="178" y1="145" x2="296" y2="175" stroke="#4f8ef7" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
+  <line x1="178" y1="215" x2="296" y2="192" stroke="#4f8ef7" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arrowB)"/>
+
+  <!-- ── CENTER: TrustBridge box ── -->
+  <rect x="296" y="100" width="208" height="188" rx="10" fill="white" stroke="#2563eb" stroke-width="2" filter="url(#sh)"/>
+  <path d="M306,100 L494,100 Q504,100 504,110 L504,128 L296,128 L296,110 Q296,100 306,100 Z" fill="#2563eb"/>
+  <text x="400" y="118" text-anchor="middle" fill="white" font-size="11" font-weight="700">TrustBridge</text>
+
+  <!-- rows inside -->
+  <line x1="304" y1="150" x2="496" y2="150" stroke="#e2e8f0"/>
+  <text x="400" y="143" text-anchor="middle" fill="#64748b" font-size="8.5">validate token · normalize claims</text>
+
+  <line x1="304" y1="178" x2="496" y2="178" stroke="#e2e8f0"/>
+  <text x="400" y="168" text-anchor="middle" fill="#1e293b" font-size="8.5" font-weight="600">claim_mappings</text>
+  <text x="400" y="174" text-anchor="middle" fill="#64748b" font-size="7.5">groups / roles / department → canonical</text>
+
+  <line x1="304" y1="216" x2="496" y2="216" stroke="#e2e8f0"/>
+  <text x="400" y="196" text-anchor="middle" fill="#1e293b" font-size="8.5" font-weight="600">proxy-signed JWT</text>
+  <text x="400" y="208" text-anchor="middle" fill="#64748b" font-size="7.5">signed by TrustBridge key</text>
+  <text x="400" y="221" text-anchor="middle" fill="#64748b" font-size="7.5">not the original IdP token</text>
+
+  <text x="400" y="248" text-anchor="middle" fill="#1e293b" font-size="8.5" font-weight="600">X-Verified-User · X-Verified-Groups</text>
+  <text x="400" y="263" text-anchor="middle" fill="#64748b" font-size="7.5">X-Verified-Device · X-Auth-Time</text>
+
+  <!-- ── LEFT COLUMN: Clients ── -->
+  <!-- Browser -->
+  <rect x="22" y="276" width="156" height="44" rx="8" fill="white" stroke="#94a3b8" stroke-width="1.6" filter="url(#sh)"/>
+  <text x="100" y="296" text-anchor="middle" fill="#1e293b" font-size="9" font-weight="700">Browser</text>
+  <text x="100" y="310" text-anchor="middle" fill="#94a3b8" font-size="8">redirect flow · session cookie</text>
+
+  <!-- CLI / SSH -->
+  <rect x="194" y="276" width="100" height="44" rx="8" fill="white" stroke="#94a3b8" stroke-width="1.6" filter="url(#sh)"/>
+  <text x="244" y="296" text-anchor="middle" fill="#1e293b" font-size="9" font-weight="700">CLI / SSH</text>
+  <text x="244" y="310" text-anchor="middle" fill="#94a3b8" font-size="8">device flow</text>
+
+  <!-- Client arrows → TrustBridge (bottom up) -->
+  <line x1="100" y1="276" x2="340" y2="288" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrowS)"/>
+  <line x1="244" y1="276" x2="350" y2="288" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrowS)"/>
+
+  <!-- ── RIGHT COLUMN: Backends ── -->
+  <rect x="622" y="100" width="156" height="42" rx="8" fill="white" stroke="#27ae60" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="700" y="119" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">API Service A</text>
+  <text x="700" y="132" text-anchor="middle" fill="#94a3b8" font-size="7.5">reads X-Verified-* headers</text>
+
+  <rect x="622" y="160" width="156" height="42" rx="8" fill="white" stroke="#27ae60" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="700" y="179" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Internal Dashboard</text>
+  <text x="700" y="192" text-anchor="middle" fill="#94a3b8" font-size="7.5">reads X-Verified-* headers</text>
+
+  <rect x="622" y="220" width="156" height="42" rx="8" fill="white" stroke="#27ae60" stroke-width="1.8" filter="url(#sh)"/>
+  <text x="700" y="239" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Legacy App</text>
+  <text x="700" y="252" text-anchor="middle" fill="#94a3b8" font-size="7.5">no IdP integration needed</text>
+
+  <!-- TrustBridge → backends -->
+  <line x1="504" y1="155" x2="620" y2="121" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrowG)"/>
+  <line x1="504" y1="181" x2="620" y2="181" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrowG)"/>
+  <line x1="504" y1="208" x2="620" y2="241" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrowG)"/>
+
+  <!-- "swap IdP" callout -->
+  <rect x="22" y="46" width="156" height="15" rx="4" fill="#dbeafe" opacity="0"/><!-- invisible spacer -->
+  <rect x="296" y="46" width="208" height="28" rx="6" fill="#dbeafe" stroke="#4f8ef7" stroke-width="1" filter="url(#sh)"/>
+  <text x="400" y="64" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">swap IdP = config change here only</text>
+
+  <!-- Caption -->
+  <line x1="40" y1="338" x2="760" y2="338" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="352" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Backends never see IdP tokens. TrustBridge issues its own signed JWT. Changing providers is a proxy config change.</text>
+</svg>

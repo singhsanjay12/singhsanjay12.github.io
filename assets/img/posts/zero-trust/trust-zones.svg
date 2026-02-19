@@ -1,0 +1,72 @@
+<svg width="800" height="340" viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e74c3c"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="340" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">Network Trust Zones</text>
+  <text x="400" y="40" text-anchor="middle" fill="#64748b" font-size="9">Crossing a zone boundary requires validation. Traffic that cannot be validated does not cross.</text>
+
+  <!-- ── Zone quadrants ── -->
+  <!-- Top-left: Untrusted + Unmanaged (red tint) -->
+  <rect x="24" y="54" width="360" height="130" rx="10" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.8" filter="url(#sh)"/>
+  <path d="M34,54 L374,54 Q384,54 384,64 L384,80 L24,80 L24,64 Q24,54 34,54 Z" fill="#e74c3c"/>
+  <text x="204" y="71" text-anchor="middle" fill="white" font-size="10" font-weight="700">Untrusted · Unmanaged</text>
+  <text x="204" y="100" text-anchor="middle" fill="#7f1d1d" font-size="9">External internet, personal devices</text>
+  <text x="204" y="116" text-anchor="middle" fill="#7f1d1d" font-size="9">No cryptographic device identity</text>
+  <text x="204" y="132" text-anchor="middle" fill="#7f1d1d" font-size="9">Broad attack surface if granted access</text>
+  <text x="204" y="164" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="700">→ mTLS fails · Access denied</text>
+
+  <!-- Top-right: Untrusted + Managed (amber tint) -->
+  <rect x="416" y="54" width="360" height="130" rx="10" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.8" filter="url(#sh)"/>
+  <path d="M426,54 L766,54 Q776,54 776,64 L776,80 L416,80 L416,64 Q416,54 426,54 Z" fill="#f59e0b"/>
+  <text x="596" y="71" text-anchor="middle" fill="white" font-size="10" font-weight="700">Untrusted · Managed</text>
+  <text x="596" y="100" text-anchor="middle" fill="#78350f" font-size="9">Remote employees on corp devices</text>
+  <text x="596" y="116" text-anchor="middle" fill="#78350f" font-size="9">Device cert present; network is unknown</text>
+  <text x="596" y="132" text-anchor="middle" fill="#78350f" font-size="9">Higher-risk context; additional checks apply</text>
+  <text x="596" y="164" text-anchor="middle" fill="#b45309" font-size="11" font-weight="700">→ mTLS passes · policy tighter</text>
+
+  <!-- Bottom-left: Trusted + Unmanaged (orange tint) -->
+  <rect x="24" y="204" width="360" height="116" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="1.8" filter="url(#sh)"/>
+  <path d="M34,204 L374,204 Q384,204 384,214 L384,230 L24,230 L24,214 Q24,204 34,204 Z" fill="#f97316"/>
+  <text x="204" y="221" text-anchor="middle" fill="white" font-size="10" font-weight="700">Trusted Network · Unmanaged Device</text>
+  <text x="204" y="249" text-anchor="middle" fill="#7c2d12" font-size="9">On-campus BYOD or VPN-only endpoints</text>
+  <text x="204" y="265" text-anchor="middle" fill="#7c2d12" font-size="9">Network access ≠ device trust</text>
+  <text x="204" y="296" text-anchor="middle" fill="#c2410c" font-size="11" font-weight="700">→ No device cert · blocked at mTLS</text>
+
+  <!-- Bottom-right: Trusted + Managed (green tint) — the goal zone -->
+  <rect x="416" y="204" width="360" height="116" rx="10" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#sh)"/>
+  <path d="M426,204 L766,204 Q776,204 776,214 L776,230 L416,230 L416,214 Q416,204 426,204 Z" fill="#27ae60"/>
+  <text x="596" y="221" text-anchor="middle" fill="white" font-size="10" font-weight="700">Trusted Network · Managed Device</text>
+  <text x="596" y="249" text-anchor="middle" fill="#14532d" font-size="9">Corp-issued device on known network</text>
+  <text x="596" y="265" text-anchor="middle" fill="#14532d" font-size="9">Device cert + SSO token both present</text>
+  <text x="596" y="296" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">→ Full access per policy</text>
+
+  <!-- Center dividers -->
+  <line x1="400" y1="54" x2="400" y2="320" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <line x1="24" y1="187" x2="776" y2="187" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="6 4"/>
+
+  <!-- TrustBridge label on vertical divider -->
+  <rect x="360" y="168" width="80" height="22" rx="6" fill="#2563eb" filter="url(#sh)"/>
+  <text x="400" y="183" text-anchor="middle" fill="white" font-size="9" font-weight="700">TrustBridge</text>
+
+  <!-- Caption -->
+  <text x="400" y="330" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Two axes of trust: network origin and device identity. Only the green quadrant gets full access.</text>
+</svg>
