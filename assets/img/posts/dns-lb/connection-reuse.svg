@@ -110,14 +110,14 @@
   <line x1="550" y1="98" x2="550" y2="116" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#mb)"/>
 
   <!-- DNS query box -->
-  <rect x="430" y="119" width="240" height="52" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1" filter="url(#shadow)"/>
+  <rect x="430" y="119" width="240" height="64" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1" filter="url(#shadow)"/>
   <text x="550" y="135" text-anchor="middle" fill="#1d4ed8" font-size="8.5" font-weight="700">DNS Resolution</text>
   <text x="550" y="150" text-anchor="middle" fill="#374151" font-size="8.5" font-family="monospace">api.example.com → 10.0.1.8</text>
-  <circle cx="434" cy="150" r="5" fill="#27ae60"/>
-  <text x="444" y="153" fill="#27ae60" font-size="8" font-style="italic">fresh · TTL 60s</text>
+  <circle cx="444" cy="165" r="5" fill="#27ae60"/>
+  <text x="455" y="169" fill="#27ae60" font-size="8" font-style="italic">fresh · TTL 60s</text>
 
   <!-- Arrow down to instance -->
-  <line x1="550" y1="174" x2="550" y2="207" stroke="#4f8ef7" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
+  <line x1="550" y1="186" x2="550" y2="207" stroke="#4f8ef7" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
   <text x="580" y="196" fill="#4f8ef7" font-size="8" font-style="italic">new conn</text>
 
   <!-- Instance NEW box -->

@@ -77,7 +77,6 @@
   <!-- DC-B: 50% = 295px -->
   <rect x="450" y="114" width="295" height="32" rx="4" fill="#4f8ef7" opacity="0.85"/>
   <text x="597" y="134" text-anchor="middle" fill="white" font-size="9" font-weight="700">DC-B: 50%</text>
-  <text x="752" y="131" fill="#94a3b8" font-size="8" font-style="italic">resolvers still cached</text>
 
   <!-- ── Row 2: T = 3min ── -->
   <text x="145" y="172" text-anchor="end" fill="#374151" font-size="9" font-weight="600">T = 3min</text>
@@ -88,7 +87,6 @@
   <!-- DC-B: 65% = 383px -->
   <rect x="362" y="159" width="383" height="32" rx="4" fill="#4f8ef7" opacity="0.85"/>
   <text x="553" y="179" text-anchor="middle" fill="white" font-size="9" font-weight="700">DC-B: 65%</text>
-  <text x="752" y="176" fill="#94a3b8" font-size="8" font-style="italic">partial drain</text>
 
   <!-- ── Row 3: T = 8min ── -->
   <text x="145" y="217" text-anchor="end" fill="#374151" font-size="9" font-weight="600">T = 8min</text>
@@ -99,7 +97,6 @@
   <!-- DC-B: 85% = 501px -->
   <rect x="244" y="204" width="501" height="32" rx="4" fill="#4f8ef7" opacity="0.85"/>
   <text x="494" y="224" text-anchor="middle" fill="white" font-size="9" font-weight="700">DC-B: 85%</text>
-  <text x="752" y="221" fill="#94a3b8" font-size="8" font-style="italic">still draining</text>
 
   <!-- ── Row 4: T = 20min ── -->
   <text x="145" y="262" text-anchor="end" fill="#374151" font-size="9" font-weight="600">T = 20min</text>
@@ -109,11 +106,10 @@
   <text x="450" y="269" text-anchor="middle" fill="white" font-size="9" font-weight="700">DC-B: 100%  —  drain complete</text>
   <!-- Small DC-A label at left -->
   <text x="160" y="268" fill="white" font-size="8" opacity="0.7">DC-A: 0%</text>
-  <text x="752" y="266" fill="#27ae60" font-size="8" font-weight="600">✓  done</text>
 
   <!-- 20-minute window bracket -->
   <line x1="750" y1="114" x2="750" y2="281" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
-  <text x="756" y="200" fill="#e74c3c" font-size="8" font-weight="600" writing-mode="tb" transform="rotate(90 756 200)">← 20 min drain window →</text>
+  <text x="756" y="200" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600" transform="rotate(90 756 200)">← 20 min drain window →</text>
 
   <!-- Caption -->
   <line x1="200" y1="315" x2="600" y2="315" stroke="#e2e8f0" stroke-width="1"/>
