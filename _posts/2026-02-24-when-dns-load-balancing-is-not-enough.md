@@ -66,6 +66,8 @@ Client with keep-alive connection: still connected to old instance until TCP res
 
 The window here is not a corner case. It is the steady state of any dynamically scaled fleet. At any given moment, some fraction of your clients are routing to instances that have already been replaced. The larger the fleet and the faster it changes, the larger that fraction becomes.
 
+![Three snapshots showing DNS record, stale resolver cache, and terminated instance during a rolling deploy](/assets/img/posts/dns-lb/fleet-churn-ttl.svg)
+
 Low TTLs help but do not eliminate the problem. A TTL of 5 seconds limits propagation lag, but it also generates continuous query load against your nameservers, and as covered in [It's Always DNS](/2026/02/18/dns-the-silent-killer-of-distributed-systems.html), aggressive short-TTL strategies create their own failure modes when the nameserver itself is under stress.
 
 ## Connections Outlive the Resolution
@@ -77,6 +79,8 @@ HTTP clients, database drivers, gRPC channels, and most connection pool implemen
 This means DNS updates are invisible to any client holding an open connection. A client that connected to `10.0.1.4` twenty minutes ago will keep sending requests to `10.0.1.4` until the connection is closed, regardless of what DNS says. Changing the DNS record does nothing for that client until its connection pool expires and reconnects.
 
 In systems with long-lived connections, the actual traffic distribution at any point in time is determined by which instances were healthy when each connection was established, not by the current DNS state. DNS round-robin governs new connections. It has no visibility into, or control over, existing ones.
+
+![Client A stays pinned to a terminated instance via old connection while Client B routes correctly after fresh DNS resolution](/assets/img/posts/dns-lb/connection-reuse.svg)
 
 ## DNS Has No Health Signal
 
@@ -116,6 +120,8 @@ Running the same service across two or more datacenters simultaneously is a comm
 10:08  Most resolvers have shifted. DC-A still receiving ~15% of traffic.
 10:15  Long-TTL resolvers finally expire. DC-A traffic finally drops.
 ```
+
+![Traffic distribution between DC-A and DC-B during DNS-based failover showing the 20-minute uncontrolled drain window](/assets/img/posts/dns-lb/active-active-drain.svg)
 
 Real active-active systems use a load balancer with a health-aware control plane at each entry point and a mechanism for propagating capacity signals between datacenters. DNS can be involved at the outermost layer for initial region selection, but the within-region and cross-datacenter routing happens in something that can react in milliseconds, not minutes.
 
