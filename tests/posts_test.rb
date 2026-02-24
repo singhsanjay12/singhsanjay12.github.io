@@ -121,6 +121,25 @@ class PostsTest < Minitest::Test
     end
   end
 
+  # DNS load balancing post: core failure modes must all be present.
+  def test_dns_load_balancing_post_content
+    post = Dir.glob("#{SITE}/**/when-dns-load-balancing-is-not-enough.html").first
+    assert post, "DNS load balancing post must be present in built site"
+    html = File.read(post)
+    %w[TTL active-active circuit].each do |term|
+      assert_match(/#{term}/i, html,
+        "DNS load balancing post must mention '#{term}'")
+    end
+    assert_match(/connection/i, html,
+      "DNS load balancing post must discuss connection reuse")
+    assert_match(/health/i, html,
+      "DNS load balancing post must discuss DNS having no health signal")
+    assert_match(/fleet/i, html,
+      "DNS load balancing post must discuss dynamic fleet behaviour")
+    refute_match(/LinkedIn scale/i, html,
+      "DNS load balancing post must not reference internal LinkedIn scale language")
+  end
+
   # DNS post: key topics must all be present.
   def test_dns_post_content
     post = Dir.glob("#{SITE}/**/dns-the-silent-killer-of-distributed-systems.html").first

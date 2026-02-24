@@ -1,0 +1,159 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+      .blink { animation: pulse 1.2s ease-in-out infinite; }
+    </style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="mb" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="mr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#e74c3c"/>
+    </marker>
+    <marker id="mg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+
+  <!-- Dot grid -->
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/>
+      <circle cx="0" cy="80" r="1.5"/><circle cx="0" cy="120" r="1.5"/>
+      <circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/>
+      <circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/>
+    <use href="#dc" x="160"/><use href="#dc" x="200"/><use href="#dc" x="240"/>
+    <use href="#dc" x="280"/><use href="#dc" x="320"/><use href="#dc" x="360"/>
+    <use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/>
+    <use href="#dc" x="640"/><use href="#dc" x="680"/><use href="#dc" x="720"/>
+    <use href="#dc" x="760"/>
+  </g>
+
+  <!-- ════ PANEL 1: T+0s — stable ════ -->
+  <rect x="25" y="5" width="238" height="305" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <path d="M37,5 L251,5 Q263,5 263,17 L263,40 L25,40 L25,17 Q25,5 37,5 Z" fill="#4f8ef7"/>
+  <text x="144" y="27" text-anchor="middle" fill="white" font-size="10" font-weight="700">T + 0s  ·  Instance running</text>
+
+  <!-- DNS block -->
+  <rect x="37" y="52" width="214" height="72" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="144" y="68" text-anchor="middle" fill="#1d4ed8" font-size="8.5" font-weight="700">DNS Record</text>
+  <text x="50" y="85" fill="#374151" font-size="8.5" font-family="monospace">A  10.0.1.4</text>
+  <circle cx="126" cy="81" r="4" fill="#27ae60"/>
+  <text x="50" y="101" fill="#64748b" font-size="8" font-style="italic">TTL: 60s · fresh · client will cache</text>
+  <text x="50" y="115" fill="#64748b" font-size="8" font-style="italic">1 record in response</text>
+
+  <line x1="144" y1="127" x2="144" y2="142" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#mb)"/>
+
+  <!-- Cache block -->
+  <rect x="37" y="145" width="214" height="40" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="144" y="161" text-anchor="middle" fill="#3b82f6" font-size="8.5" font-weight="700">Resolver Cache</text>
+  <text x="144" y="178" text-anchor="middle" fill="#374151" font-size="8.5" font-family="monospace">10.0.1.4  (60s TTL)</text>
+
+  <line x1="144" y1="188" x2="144" y2="203" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#mb)"/>
+
+  <!-- Instance block -->
+  <rect x="37" y="206" width="214" height="58" rx="7" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="144" y="223" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Instance · 10.0.1.4</text>
+  <text x="144" y="239" text-anchor="middle" fill="#27ae60" font-size="8.5" font-weight="600">✓  healthy</text>
+  <text x="144" y="254" text-anchor="middle" fill="#27ae60" font-size="8">200 OK</text>
+
+  <rect x="74" y="275" width="140" height="22" rx="6" fill="#dcfce7"/>
+  <text x="144" y="290" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">✓  Working</text>
+
+  <!-- Inter-panel indicator 1→2 -->
+  <text x="272" y="162" text-anchor="middle" fill="#94a3b8" font-size="6.5" font-weight="600">5s</text>
+  <line x1="265" y1="168" x2="278" y2="168" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#mg)"/>
+
+  <!-- ════ PANEL 2: T+5s — stale cache ════ -->
+  <rect x="281" y="5" width="238" height="305" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <path d="M293,5 L507,5 Q519,5 519,17 L519,40 L281,40 L281,17 Q281,5 293,5 Z" fill="#e74c3c"/>
+  <text x="400" y="27" text-anchor="middle" fill="white" font-size="10" font-weight="700">T + 5s  ·  Instance terminated</text>
+
+  <!-- DNS block -->
+  <rect x="293" y="52" width="214" height="72" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="400" y="68" text-anchor="middle" fill="#1d4ed8" font-size="8.5" font-weight="700">DNS Record (updated)</text>
+  <!-- Old record (struck through) -->
+  <text x="306" y="85" fill="#94a3b8" font-size="8.5" font-family="monospace">A  10.0.1.4</text>
+  <line x1="306" y1="82" x2="378" y2="82" stroke="#94a3b8" stroke-width="1.2"/>
+  <circle cx="384" cy="81" r="4" fill="#94a3b8"/>
+  <text x="390" y="85" fill="#94a3b8" font-size="7.5" font-style="italic">removed</text>
+  <!-- New record -->
+  <text x="306" y="101" fill="#27ae60" font-size="8.5" font-family="monospace">A  10.0.1.8</text>
+  <circle cx="384" cy="97" r="4" fill="#27ae60"/>
+  <text x="390" y="101" fill="#27ae60" font-size="7.5" font-style="italic">new</text>
+  <text x="306" y="115" fill="#64748b" font-size="8" font-style="italic">resolver still has old cached entry</text>
+
+  <line x1="400" y1="127" x2="400" y2="142" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#mr)"/>
+
+  <!-- Cache block — STALE -->
+  <rect x="293" y="145" width="214" height="40" rx="7" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+  <text x="400" y="161" text-anchor="middle" fill="#c2410c" font-size="8.5" font-weight="700">Resolver Cache · STALE</text>
+  <text x="400" y="178" text-anchor="middle" fill="#9a3412" font-size="8.5" font-family="monospace">10.0.1.4  (55s left)</text>
+
+  <line x1="400" y1="188" x2="400" y2="203" stroke="#e74c3c" stroke-width="1.5" marker-end="url(#mr)"/>
+
+  <!-- Instance block — TERMINATED -->
+  <rect x="293" y="206" width="214" height="58" rx="7" fill="#fff0f0" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="400" y="223" text-anchor="middle" fill="#c0392b" font-size="9" font-weight="700">10.0.1.4  TERMINATED</text>
+  <rect x="318" y="229" width="164" height="14" rx="3" fill="#fee2e2"/>
+  <text x="400" y="240" text-anchor="middle" fill="#991b1b" font-size="7.5" font-weight="700">connection refused</text>
+  <text x="400" y="255" text-anchor="middle" fill="#e74c3c" font-size="8">every request fails</text>
+
+  <rect x="330" y="275" width="140" height="22" rx="6" fill="#fee2e2"/>
+  <text x="400" y="290" text-anchor="middle" fill="#991b1b" font-size="9" font-weight="700">✗  Errors</text>
+
+  <!-- Inter-panel indicator 2→3 -->
+  <text x="528" y="158" text-anchor="middle" fill="#94a3b8" font-size="6.5" font-weight="600">TTL</text>
+  <text x="528" y="167" text-anchor="middle" fill="#94a3b8" font-size="6.5" font-weight="600">expires</text>
+  <line x1="521" y1="174" x2="534" y2="174" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#mg)"/>
+
+  <!-- ════ PANEL 3: T+65s — recovered ════ -->
+  <rect x="537" y="5" width="238" height="305" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <path d="M549,5 L763,5 Q775,5 775,17 L775,40 L537,40 L537,17 Q537,5 549,5 Z" fill="#27ae60"/>
+  <text x="656" y="27" text-anchor="middle" fill="white" font-size="10" font-weight="700">T + 65s  ·  TTL expired</text>
+
+  <!-- DNS block -->
+  <rect x="549" y="52" width="214" height="72" rx="7" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="656" y="68" text-anchor="middle" fill="#1d4ed8" font-size="8.5" font-weight="700">DNS Record</text>
+  <text x="562" y="85" fill="#374151" font-size="8.5" font-family="monospace">A  10.0.1.8</text>
+  <circle cx="638" cy="81" r="4" fill="#27ae60"/>
+  <text x="562" y="101" fill="#64748b" font-size="8" font-style="italic">TTL: 60s · fresh</text>
+  <text x="562" y="115" fill="#64748b" font-size="8" font-style="italic">new instance registered</text>
+
+  <line x1="656" y1="127" x2="656" y2="142" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#mb)"/>
+
+  <!-- Cache block — FRESH -->
+  <rect x="549" y="145" width="214" height="40" rx="7" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="656" y="161" text-anchor="middle" fill="#3b82f6" font-size="8.5" font-weight="700">Resolver Cache</text>
+  <text x="656" y="178" text-anchor="middle" fill="#374151" font-size="8.5" font-family="monospace">10.0.1.8  (60s TTL)</text>
+
+  <line x1="656" y1="188" x2="656" y2="203" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#mb)"/>
+
+  <!-- Instance block — HEALTHY -->
+  <rect x="549" y="206" width="214" height="58" rx="7" fill="#f0fff4" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="656" y="223" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">Instance · 10.0.1.8</text>
+  <text x="656" y="239" text-anchor="middle" fill="#27ae60" font-size="8.5" font-weight="600">✓  healthy</text>
+  <text x="656" y="254" text-anchor="middle" fill="#27ae60" font-size="8">200 OK · recovered</text>
+
+  <rect x="586" y="275" width="140" height="22" rx="6" fill="#dcfce7"/>
+  <text x="656" y="290" text-anchor="middle" fill="#166534" font-size="9" font-weight="700">✓  Recovered</text>
+
+  <!-- Caption -->
+  <line x1="200" y1="326" x2="600" y2="326" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="343" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Every resolver in the path caches independently."</text>
+  <text x="400" y="359" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">60+ seconds of errors per instance replacement before traffic fully shifts.</text>
+</svg>
