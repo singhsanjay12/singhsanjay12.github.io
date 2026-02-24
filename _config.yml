@@ -38,8 +38,9 @@ comments:
     input_position: bottom
     lang: en
 
-google_analytics:
-  id: G-3FTQ3WCDH4
+analytics:
+  google:
+    id: G-3FTQ3WCDH4
 
 plugins:
   - jekyll-sitemap
