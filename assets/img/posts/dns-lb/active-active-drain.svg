@@ -113,7 +113,7 @@
 
   <!-- 20-minute window bracket -->
   <line x1="750" y1="114" x2="750" y2="281" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
-  <text x="756" y="200" fill="#e74c3c" font-size="8" font-weight="600" writing-mode="tb" transform="rotate(90 756 200)">← 20 min drain window →</text>
+  <text x="756" y="200" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="600" transform="rotate(90 756 200)">← 20 min drain window →</text>
 
   <!-- Caption -->
   <line x1="200" y1="315" x2="600" y2="315" stroke="#e2e8f0" stroke-width="1"/>
