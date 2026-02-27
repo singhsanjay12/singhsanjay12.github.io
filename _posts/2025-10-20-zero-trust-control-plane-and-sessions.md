@@ -1,5 +1,6 @@
 ---
 title: "Why Zero Trust Matters and How to Implement It with a Reverse Proxy : Part Two"
+description: "The first post closed the perimeter. This one tackles what happens after: how a Zero Trust control plane revokes access in seconds, manages sessions, and abstracts SSO across identity providers."
 date: 2025-10-20 12:00:00 +0000
 categories: [Security, Zero Trust]
 tags: [zero-trust, mtls, reverse-proxy, control-plane, sso, oidc, trustbridge]
@@ -8,7 +9,7 @@ image:
   alt: "Control plane broadcasting an instant access revocation across a distributed proxy fleet"
 ---
 
-[Part One](/posts/zero-trust-with-reverse-proxy) established the case for a reverse proxy as the Zero Trust enforcement point: every request validated against device identity, user identity, and policy before it reaches a backend. That architecture closes the perimeter model's biggest gap: trust based on network location.
+[Part One](/2025/08/03/zero-trust-with-reverse-proxy.html) established the case for a reverse proxy as the Zero Trust enforcement point: every request validated against device identity, user identity, and policy before it reaches a backend. That architecture closes the perimeter model's biggest gap: trust based on network location.
 
 But it leaves a harder question open. Closing the door at connection time is not enough. What happens when someone who was legitimate at login time is no longer legitimate five minutes later?
 
