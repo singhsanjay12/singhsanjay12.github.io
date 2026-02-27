@@ -1,0 +1,138 @@
+<svg width="800" height="318" viewBox="0 0 800 318" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e74c3c"/>
+    </marker>
+    <filter id="sh">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="318" fill="url(#bg)"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">Session Lifecycle: Protocol Break and Re-Origination</text>
+
+  <!-- ════════════════════════════════════════════════════
+       4 PANELS in a horizontal row  (y=40 → y=148)
+       P1 x=20-163   P2 x=175-420   P3 x=432-566   P4 x=578-762
+       ════════════════════════════════════════════════════ -->
+
+  <!-- ── PANEL 1: mTLS Handshake (green) ── -->
+  <rect x="20" y="40" width="143" height="108" rx="8" fill="white" stroke="#27ae60" stroke-width="2" filter="url(#sh)"/>
+  <path d="M28,40 L155,40 Q163,40 163,48 L163,64 L20,64 L20,48 Q20,40 28,40 Z" fill="#27ae60"/>
+  <text x="91" y="52" text-anchor="middle" fill="white" font-size="8" font-weight="700">① mTLS</text>
+  <text x="91" y="62" text-anchor="middle" fill="white" font-size="8" font-weight="700">Handshake</text>
+  <text x="91" y="82"  text-anchor="middle" fill="#64748b" font-size="8">Client presents</text>
+  <text x="91" y="95"  text-anchor="middle" fill="#64748b" font-size="8">device certificate</text>
+  <text x="91" y="108" text-anchor="middle" fill="#64748b" font-size="8">Proxy validates cert:</text>
+  <text x="91" y="121" text-anchor="middle" fill="#64748b" font-size="8">CA · expiry · OCSP</text>
+  <rect x="34" y="130" width="110" height="13" rx="4" fill="#dcfce7"/>
+  <text x="89" y="141" text-anchor="middle" fill="#166534" font-size="8" font-weight="700">✓ session opens</text>
+
+  <!-- Arrow P1 → P2 -->
+  <line x1="163" y1="94" x2="173" y2="94" stroke="#4f8ef7" stroke-width="2" marker-end="url(#arrowB)"/>
+
+  <!-- ── PANEL 2: Session Active (blue, wider) ── -->
+  <rect x="175" y="40" width="245" height="108" rx="8" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#sh)"/>
+  <path d="M183,40 L412,40 Q420,40 420,48 L420,64 L175,64 L175,48 Q175,40 183,40 Z" fill="#4f8ef7"/>
+  <text x="297" y="56" text-anchor="middle" fill="white" font-size="9" font-weight="700">② Session Active</text>
+
+  <!-- Request flow indicators -->
+  <line x1="192" y1="80" x2="358" y2="80" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="183" y="79" fill="#94a3b8" font-size="7.5" font-style="italic">requests</text>
+  <g fill="#4f8ef7">
+    <polygon points="222,76 222,84 232,80"/><polygon points="262,76 262,84 272,80"/>
+    <polygon points="302,76 302,84 312,80"/><polygon points="342,76 342,84 352,80"/>
+  </g>
+
+  <line x1="192" y1="100" x2="358" y2="100" stroke="#e2e8f0" stroke-width="1"/>
+  <g fill="#4f8ef7">
+    <polygon points="222,96 222,104 232,100"/><polygon points="262,96 262,104 272,100"/>
+    <polygon points="302,96 302,104 312,100"/><polygon points="342,96 342,104 352,100"/>
+  </g>
+
+  <!-- Warning callout: cert NOT re-checked -->
+  <rect x="183" y="112" width="232" height="28" rx="5" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="299" y="123" text-anchor="middle" fill="#92400e" font-size="8" font-weight="700">cert is NOT re-checked per request</text>
+  <text x="299" y="134" text-anchor="middle" fill="#92400e" font-size="7.5">HTTP/2 multiplexes many requests on one connection</text>
+
+  <!-- Arrow P2 → P3 -->
+  <line x1="420" y1="94" x2="430" y2="94" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowR)"/>
+
+  <!-- ── PANEL 3: TTL → FIN (amber) ── -->
+  <rect x="432" y="40" width="134" height="108" rx="8" fill="white" stroke="#f59e0b" stroke-width="2" filter="url(#sh)"/>
+  <path d="M440,40 L558,40 Q566,40 566,48 L566,64 L432,64 L432,48 Q432,40 440,40 Z" fill="#f59e0b"/>
+  <text x="499" y="52" text-anchor="middle" fill="white" font-size="8" font-weight="700">③ TTL Reached</text>
+  <text x="499" y="62" text-anchor="middle" fill="white" font-size="8" font-weight="700">→ TCP FIN</text>
+  <text x="499" y="82"  text-anchor="middle" fill="#64748b" font-size="8">Session lifetime</text>
+  <text x="499" y="95"  text-anchor="middle" fill="#64748b" font-size="8">limit reached</text>
+  <text x="499" y="108" text-anchor="middle" fill="#64748b" font-size="8">Proxy sends FIN</text>
+  <text x="499" y="121" text-anchor="middle" fill="#64748b" font-size="8">Client reconnects</text>
+  <rect x="446" y="130" width="106" height="13" rx="4" fill="#fef3c7"/>
+  <text x="499" y="141" text-anchor="middle" fill="#92400e" font-size="8" font-weight="700">re-origination begins</text>
+
+  <!-- Arrow P3 → P4 -->
+  <line x1="566" y1="94" x2="576" y2="94" stroke="#4f8ef7" stroke-width="2" marker-end="url(#arrowB)"/>
+
+  <!-- ── PANEL 4: New Handshake (blue) ── -->
+  <rect x="578" y="40" width="202" height="108" rx="8" fill="white" stroke="#2563eb" stroke-width="2" filter="url(#sh)"/>
+  <path d="M586,40 L772,40 Q780,40 780,48 L780,64 L578,64 L578,48 Q578,40 586,40 Z" fill="#2563eb"/>
+  <text x="679" y="52" text-anchor="middle" fill="white" font-size="9" font-weight="700">④ New Handshake</text>
+  <text x="679" y="61" text-anchor="middle" fill="#bfdbfe" font-size="7.5">cert re-checked against current state</text>
+  <text x="679" y="80"  text-anchor="middle" fill="#64748b" font-size="8">New TCP connection</text>
+  <text x="679" y="93"  text-anchor="middle" fill="#64748b" font-size="8">New TLS handshake</text>
+  <text x="679" y="106" text-anchor="middle" fill="#64748b" font-size="8">Cert validated vs.</text>
+  <text x="679" y="119" text-anchor="middle" fill="#64748b" font-size="8">CURRENT revocation state</text>
+  <rect x="592" y="130" width="174" height="13" rx="4" fill="#dbeafe"/>
+  <text x="679" y="141" text-anchor="middle" fill="#1d4ed8" font-size="8" font-weight="700">two possible outcomes →</text>
+
+  <!-- ════════════════════════════════════════════════════
+       FORK: two outcomes directly below panel 4
+       ════════════════════════════════════════════════════ -->
+
+  <!-- Fork junction dot -->
+  <circle cx="679" cy="148" r="3" fill="#2563eb"/>
+
+  <!-- Left fork arrow → Revoked -->
+  <path d="M679,148 L536,168" fill="none" stroke="#e74c3c" stroke-width="1.8" marker-end="url(#arrowR)"/>
+
+  <!-- Right fork arrow → Valid -->
+  <path d="M679,148 L754,168" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arrowG)"/>
+
+  <!-- ── Outcome: Cert Revoked (red) ── -->
+  <rect x="420" y="170" width="232" height="54" rx="8" fill="#fff0f0" stroke="#e74c3c" stroke-width="2" filter="url(#sh)"/>
+  <path d="M428,170 L644,170 Q652,170 652,178 L652,192 L420,192 L420,178 Q420,170 428,170 Z" fill="#e74c3c"/>
+  <text x="536" y="184" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">✗ Cert Was Revoked</text>
+  <text x="536" y="204" text-anchor="middle" fill="#c0392b" font-size="8.5">Handshake fails · connection refused</text>
+  <text x="536" y="217" text-anchor="middle" fill="#c0392b" font-size="8.5">attacker loses access at reconnect</text>
+
+  <!-- ── Outcome: Cert Valid (green) ── -->
+  <rect x="664" y="170" width="116" height="54" rx="8" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#sh)"/>
+  <path d="M672,170 L772,170 Q780,170 780,178 L780,192 L664,192 L664,178 Q664,170 672,170 Z" fill="#27ae60"/>
+  <text x="722" y="184" text-anchor="middle" fill="white" font-size="9.5" font-weight="700">✓ Still Valid</text>
+  <text x="722" y="204" text-anchor="middle" fill="#166534" font-size="8.5">Session resumes</text>
+  <text x="722" y="217" text-anchor="middle" fill="#166534" font-size="8.5">normally</text>
+
+  <!-- ════════════════════════════════════════════════════
+       EXPOSURE WINDOW BRACKET  (below panels 1–3)
+       ════════════════════════════════════════════════════ -->
+  <line x1="20"  y1="262" x2="566" y2="262" stroke="#94a3b8" stroke-width="1.4"/>
+  <line x1="20"  y1="257" x2="20"  y2="267" stroke="#94a3b8" stroke-width="1.4"/>
+  <line x1="566" y1="257" x2="566" y2="267" stroke="#94a3b8" stroke-width="1.4"/>
+  <text x="293" y="278" text-anchor="middle" fill="#64748b" font-size="8.5" font-style="italic">worst-case exposure window = one session TTL (e.g. 15 min)</text>
+
+  <!-- Caption -->
+  <line x1="40" y1="294" x2="760" y2="294" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="310" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Every reconnect triggers a fresh certificate check. Revocation is enforced at the next handshake, not just at first login.</text>
+</svg>
