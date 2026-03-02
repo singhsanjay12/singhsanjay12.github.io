@@ -52,21 +52,21 @@
   <!-- ── Client boxes (left column) ── -->
 
   <!-- Client 1 — regular user -->
-  <rect x="20" y="18" width="155" height="42" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="97" y="36" text-anchor="middle" fill="#4f8ef7" font-size="9" font-weight="700">Client 1</text>
-  <text x="97" y="52" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="monospace">IP: 203.0.113.10</text>
+  <rect x="20" y="18" width="180" height="42" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="110" y="36" text-anchor="middle" fill="#4f8ef7" font-size="9" font-weight="700">Client 1</text>
+  <text x="110" y="52" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="monospace">IP: 203.0.113.10</text>
 
   <!-- Client 2 — regular user -->
-  <rect x="20" y="118" width="155" height="42" rx="8" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="97" y="136" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="700">Client 2</text>
-  <text x="97" y="152" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="monospace">IP: 198.51.100.42</text>
+  <rect x="20" y="118" width="180" height="42" rx="8" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="110" y="136" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="700">Client 2</text>
+  <text x="110" y="152" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="monospace">IP: 198.51.100.42</text>
 
   <!-- NAT Gateway — many users behind one IP -->
-  <rect x="20" y="218" width="155" height="72" rx="8" fill="#faf5ff" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
-  <text x="97" y="238" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700">NAT Gateway</text>
-  <text x="97" y="253" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="monospace">IP: 10.0.0.1</text>
-  <text x="97" y="268" text-anchor="middle" fill="#7c3aed" font-size="7.5" font-weight="600">1,200 users behind</text>
-  <text x="97" y="281" text-anchor="middle" fill="#8b5cf6" font-size="7" font-style="italic">all appear as one IP</text>
+  <rect x="20" y="218" width="180" height="72" rx="8" fill="#faf5ff" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <text x="110" y="238" text-anchor="middle" fill="#6d28d9" font-size="9" font-weight="700">NAT Gateway</text>
+  <text x="110" y="253" text-anchor="middle" fill="#64748b" font-size="7.5" font-family="monospace">IP: 10.0.0.1</text>
+  <text x="110" y="268" text-anchor="middle" fill="#7c3aed" font-size="7.5" font-weight="600">1,200 users behind</text>
+  <text x="110" y="281" text-anchor="middle" fill="#8b5cf6" font-size="7" font-style="italic">all appear as one IP</text>
 
   <!-- ── Load Balancer (centre) ── -->
   <rect x="295" y="118" width="210" height="68" rx="10" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#shadow)"/>
@@ -76,9 +76,9 @@
   <text x="400" y="173" text-anchor="middle" fill="#1d4ed8" font-size="7.5" font-family="monospace">hash(src_ip) % num_servers</text>
 
   <!-- Arrows from clients to LB -->
-  <line x1="176" y1="39" x2="293" y2="142" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
-  <line x1="176" y1="139" x2="293" y2="152" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
-  <line x1="176" y1="254" x2="293" y2="168" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
+  <line x1="201" y1="39" x2="293" y2="142" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
+  <line x1="201" y1="139" x2="293" y2="152" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
+  <line x1="201" y1="254" x2="293" y2="168" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
 
   <!-- ── Server boxes (right column) ── -->
 
@@ -115,7 +115,7 @@
   <line x1="506" y1="168" x2="573" y2="258" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
 
   <!-- Caption -->
-  <line x1="200" y1="355" x2="600" y2="355" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="400" y="372" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"IP hash trades balance for consistency."</text>
-  <text x="400" y="388" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">A NAT gateway behind one IP pins thousands of users to a single server — with no way to rebalance.</text>
+  <line x1="200" y1="345" x2="600" y2="345" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="362" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"IP hash trades balance for consistency."</text>
+  <text x="400" y="378" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">A NAT gateway behind one IP pins thousands of users to a single server — with no way to rebalance.</text>
 </svg>
