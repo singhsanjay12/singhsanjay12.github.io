@@ -58,11 +58,11 @@
   <!-- ── Connector lines: from LB bottom (y=88) to badge tops (y=116)       ──
        28 px vertical drop gives a clearly visible downward slope.            -->
   <!-- Left: fans out to Round Robin badge centre (x=122) -->
-  <line x1="350" y1="88" x2="122" y2="116" stroke="#f97316" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="350" y1="88" x2="122" y2="116" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
   <!-- Centre: drops straight to Least Connections badge -->
-  <line x1="400" y1="88" x2="400" y2="116" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="400" y1="88" x2="400" y2="116" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
   <!-- Right: fans out to IP Hash badge centre (x=678) -->
-  <line x1="450" y1="88" x2="678" y2="116" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="450" y1="88" x2="678" y2="116" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
 
   <!-- ── Layer 3: Algorithm badges (y = 117 → 169, height = 52) ── -->
 
@@ -84,64 +84,64 @@
   <text x="678" y="149" text-anchor="middle" fill="#475569" font-size="7.5">hash(client IP) → C</text>
   <text x="678" y="161" text-anchor="middle" fill="#94a3b8" font-size="7" font-style="italic">ignores all load signals</text>
 
-  <!-- Badge → server arrows (badge bottom y=169, server top y=182, 13 px gap) -->
-  <line x1="122" y1="170" x2="122" y2="180" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#mr)"/>
-  <line x1="400" y1="170" x2="400" y2="180" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#mg)"/>
-  <line x1="678" y1="170" x2="678" y2="180" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#mr)"/>
+  <!-- Badge → server arrows (badge bottom y=169, server top y=194, 25 px gap) -->
+  <line x1="122" y1="170" x2="122" y2="192" stroke="#f97316" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mr)"/>
+  <line x1="400" y1="170" x2="400" y2="192" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
+  <line x1="678" y1="170" x2="678" y2="192" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mr)"/>
 
-  <!-- ── Layer 4: Server boxes (y = 182 → 290, height = 108) ──
+  <!-- ── Layer 4: Server boxes (y = 194 → 302, height = 108) ──
        centres: 122 / 400 / 678   width: 184   margins: 30 / 308 / 586 -->
 
   <!-- Server A (left) — 8 connections, busy -->
-  <rect x="30" y="182" width="184" height="108" rx="9" fill="#fff7ed" stroke="#f97316" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="30" y="182" width="184" height="30" rx="9" fill="#f97316"/>
-  <rect x="30" y="198" width="184" height="14" fill="#f97316"/>
-  <text x="122" y="203" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server A</text>
-  <text x="122" y="226" text-anchor="middle" fill="#9a3412" font-size="8.5" font-weight="600">8 active connections</text>
+  <rect x="30" y="194" width="184" height="108" rx="9" fill="#fff7ed" stroke="#f97316" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="194" width="184" height="30" rx="9" fill="#f97316"/>
+  <rect x="30" y="210" width="184" height="14" fill="#f97316"/>
+  <text x="122" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server A</text>
+  <text x="122" y="238" text-anchor="middle" fill="#9a3412" font-size="8.5" font-weight="600">8 active connections</text>
   <!-- 8 dots centred at x=122, 14 px apart -->
   <g fill="#f97316" opacity="0.7">
-    <circle cx="73"  cy="244" r="5"/>
-    <circle cx="87"  cy="244" r="5"/>
-    <circle cx="101" cy="244" r="5"/>
-    <circle cx="115" cy="244" r="5"/>
-    <circle cx="129" cy="244" r="5"/>
-    <circle cx="143" cy="244" r="5"/>
-    <circle cx="157" cy="244" r="5"/>
-    <circle cx="171" cy="244" r="5"/>
+    <circle cx="73"  cy="256" r="5"/>
+    <circle cx="87"  cy="256" r="5"/>
+    <circle cx="101" cy="256" r="5"/>
+    <circle cx="115" cy="256" r="5"/>
+    <circle cx="129" cy="256" r="5"/>
+    <circle cx="143" cy="256" r="5"/>
+    <circle cx="157" cy="256" r="5"/>
+    <circle cx="171" cy="256" r="5"/>
   </g>
-  <text x="122" y="270" text-anchor="middle" fill="#c2410c" font-size="8" font-style="italic">busy · high latency</text>
+  <text x="122" y="282" text-anchor="middle" fill="#c2410c" font-size="8" font-style="italic">busy · high latency</text>
 
   <!-- Server B (centre) — 2 connections, available -->
-  <rect x="308" y="182" width="184" height="108" rx="9" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="308" y="182" width="184" height="30" rx="9" fill="#27ae60"/>
-  <rect x="308" y="198" width="184" height="14" fill="#27ae60"/>
-  <text x="400" y="203" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server B</text>
-  <text x="400" y="226" text-anchor="middle" fill="#166534" font-size="8.5" font-weight="600">2 active connections</text>
+  <rect x="308" y="194" width="184" height="108" rx="9" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="308" y="194" width="184" height="30" rx="9" fill="#27ae60"/>
+  <rect x="308" y="210" width="184" height="14" fill="#27ae60"/>
+  <text x="400" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server B</text>
+  <text x="400" y="238" text-anchor="middle" fill="#166534" font-size="8.5" font-weight="600">2 active connections</text>
   <!-- 2 dots centred at x=400, 14 px apart -->
   <g fill="#27ae60" opacity="0.7">
-    <circle cx="393" cy="244" r="5"/>
-    <circle cx="407" cy="244" r="5"/>
+    <circle cx="393" cy="256" r="5"/>
+    <circle cx="407" cy="256" r="5"/>
   </g>
-  <text x="400" y="270" text-anchor="middle" fill="#15803d" font-size="8" font-style="italic">available · low latency</text>
+  <text x="400" y="282" text-anchor="middle" fill="#15803d" font-size="8" font-style="italic">available · low latency</text>
 
   <!-- Server C (right) — 5 connections, moderate -->
-  <rect x="586" y="182" width="184" height="108" rx="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" filter="url(#shadow)"/>
-  <rect x="586" y="182" width="184" height="30" rx="9" fill="#94a3b8"/>
-  <rect x="586" y="198" width="184" height="14" fill="#94a3b8"/>
-  <text x="678" y="203" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server C</text>
-  <text x="678" y="226" text-anchor="middle" fill="#475569" font-size="8.5" font-weight="600">5 active connections</text>
+  <rect x="586" y="194" width="184" height="108" rx="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="586" y="194" width="184" height="30" rx="9" fill="#94a3b8"/>
+  <rect x="586" y="210" width="184" height="14" fill="#94a3b8"/>
+  <text x="678" y="215" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server C</text>
+  <text x="678" y="238" text-anchor="middle" fill="#475569" font-size="8.5" font-weight="600">5 active connections</text>
   <!-- 5 dots centred at x=678, 14 px apart -->
   <g fill="#94a3b8" opacity="0.7">
-    <circle cx="650" cy="244" r="5"/>
-    <circle cx="664" cy="244" r="5"/>
-    <circle cx="678" cy="244" r="5"/>
-    <circle cx="692" cy="244" r="5"/>
-    <circle cx="706" cy="244" r="5"/>
+    <circle cx="650" cy="256" r="5"/>
+    <circle cx="664" cy="256" r="5"/>
+    <circle cx="678" cy="256" r="5"/>
+    <circle cx="692" cy="256" r="5"/>
+    <circle cx="706" cy="256" r="5"/>
   </g>
-  <text x="678" y="270" text-anchor="middle" fill="#64748b" font-size="8" font-style="italic">moderate load</text>
+  <text x="678" y="282" text-anchor="middle" fill="#64748b" font-size="8" font-style="italic">moderate load</text>
 
-  <!-- ── Caption (y = 312+) ── -->
-  <line x1="200" y1="312" x2="600" y2="312" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="400" y="329" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Each algorithm has a different definition of equal."</text>
-  <text x="400" y="345" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Round robin counts requests. Least connections counts load. IP hash ignores both.</text>
+  <!-- ── Caption (y = 324+) ── -->
+  <line x1="200" y1="324" x2="600" y2="324" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="341" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Each algorithm has a different definition of equal."</text>
+  <text x="400" y="357" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Round robin counts requests. Least connections counts load. IP hash ignores both.</text>
 </svg>
