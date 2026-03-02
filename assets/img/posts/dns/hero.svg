@@ -99,5 +99,5 @@
   <!-- Caption -->
   <line x1="200" y1="358" x2="600" y2="358" stroke="#e2e8f0" stroke-width="1"/>
   <text x="400" y="374" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"It's always DNS."</text>
-  <text x="400" y="389" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">All paths lead through DNS — until DNS leads nowhere.</text>
+  <text x="400" y="385" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">All paths lead through DNS — until DNS leads nowhere.</text>
 </svg>

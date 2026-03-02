@@ -117,6 +117,6 @@
 
   <!-- ── Caption ── -->
   <line x1="200" y1="352" x2="600" y2="352" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="400" y="368" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="700" font-family="Georgia,serif" font-style="italic">"Trust nothing. Verify everything. Always."</text>
+  <text x="400" y="368" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Trust nothing. Verify everything. Always."</text>
   <text x="400" y="385" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-style="italic">Every request proves its identity. Network location means nothing.</text>
 </svg>
