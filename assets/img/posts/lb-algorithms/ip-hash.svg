@@ -75,10 +75,10 @@
   <rect x="315" y="161" width="170" height="16" rx="4" fill="#eff6ff"/>
   <text x="400" y="173" text-anchor="middle" fill="#1d4ed8" font-size="7.5" font-family="monospace">hash(src_ip) % num_servers</text>
 
-  <!-- Arrows from clients to LB -->
-  <line x1="201" y1="39" x2="293" y2="142" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
+  <!-- Arrows from clients to LB — entry points y=128,152,176 (evenly spaced on straight edge) -->
+  <line x1="201" y1="39" x2="293" y2="128" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
   <line x1="201" y1="139" x2="293" y2="152" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
-  <line x1="201" y1="254" x2="293" y2="168" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
+  <line x1="201" y1="254" x2="293" y2="176" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
 
   <!-- ── Server boxes (right column) ── -->
 
@@ -109,10 +109,10 @@
   <rect x="595" y="281" width="152" height="10" rx="3" fill="#e74c3c"/>
   <text x="675" y="305" text-anchor="middle" fill="#e74c3c" font-size="7.5" font-style="italic">~1,800 req/s · no escape</text>
 
-  <!-- Arrows from LB to servers -->
-  <line x1="506" y1="136" x2="573" y2="58" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
+  <!-- Arrows from LB to servers — exit points y=128,152,176 (matching entry points) -->
+  <line x1="506" y1="128" x2="573" y2="58" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
   <line x1="506" y1="152" x2="573" y2="158" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
-  <line x1="506" y1="168" x2="573" y2="258" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
+  <line x1="506" y1="176" x2="573" y2="258" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
 
   <!-- Caption -->
   <line x1="200" y1="345" x2="600" y2="345" stroke="#e2e8f0" stroke-width="1"/>
