@@ -20,6 +20,12 @@
     <marker id="mr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
       <path d="M0,0 L0,6 L7,3 z" fill="#e74c3c"/>
     </marker>
+    <marker id="mo" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#f97316"/>
+    </marker>
+    <marker id="mx" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#94a3b8"/>
+    </marker>
   </defs>
 
   <!-- Background -->
@@ -85,9 +91,9 @@
   <text x="678" y="161" text-anchor="middle" fill="#94a3b8" font-size="7" font-style="italic">ignores all load signals</text>
 
   <!-- Badge → server arrows (badge bottom y=169, server top y=194, 25 px gap) -->
-  <line x1="122" y1="170" x2="122" y2="192" stroke="#f97316" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mr)"/>
+  <line x1="122" y1="170" x2="122" y2="192" stroke="#f97316" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mo)"/>
   <line x1="400" y1="170" x2="400" y2="192" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
-  <line x1="678" y1="170" x2="678" y2="192" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mr)"/>
+  <line x1="678" y1="170" x2="678" y2="192" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mx)"/>
 
   <!-- ── Layer 4: Server boxes (y = 194 → 302, height = 108) ──
        centres: 122 / 400 / 678   width: 184   margins: 30 / 308 / 586 -->
