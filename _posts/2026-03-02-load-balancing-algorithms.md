@@ -23,6 +23,8 @@ The assumption it makes is silent: every request is equivalent. A request to ser
 
 Consider a service where 10% of requests trigger a multi-second computation. Round robin sends that 10% evenly across all servers. But each slow request occupies a worker thread for seconds while fast requests queue behind it. Server A might be processing three slow requests simultaneously. Server B might have just finished its slow request and be sitting idle. Round robin does not see this. It keeps cycling.
 
+![Round robin cycling through three servers in strict order, each receiving exactly one third of requests](/assets/img/posts/lb-algorithms/round-robin.svg)
+
 ## Weighted Round Robin: Equality by Proportion
 
 Weighted round robin extends the basic algorithm with a capacity hint. You assign each server a weight proportional to its processing power. A server with weight 3 receives three requests for every one received by a server with weight 1.
@@ -32,6 +34,8 @@ This is the natural choice for heterogeneous fleets: different instance types, o
 But it inherits round robin's deeper assumption: requests are uniform. A heavier-weighted server just handles proportionally more of them. And weights are static. You configure them at deploy time and they stay fixed until you change them manually. If a server degrades in capacity due to a noisy neighbor, a memory leak, or CPU throttling, its weight stays the same. Traffic keeps arriving at the configured rate.
 
 Weighted round robin works well when your capacity differences are predictable and stable. It is the wrong tool when capacity fluctuates or when request cost varies significantly.
+
+![Weighted round robin: Server A with weight 3 receives three requests per cycle, Server B weight 1 receives one, Server C weight 2 receives two](/assets/img/posts/lb-algorithms/weighted-round-robin.svg)
 
 ## Least Connections: Equality by Current Load
 
@@ -51,6 +55,8 @@ Weighted least connections combines the two previous approaches. The routing dec
 
 This handles heterogeneous fleets with variable request costs: both the static capacity difference (via weights) and the real-time load difference (via connection counts). The tradeoff is operational weight. You need to configure and maintain the weights, and getting them wrong produces systematic imbalance that is hard to debug because the algorithm appears to be working.
 
+![Weighted least connections: Server A has weight 3 and 9 connections giving score 3.0; Server B has weight 2 and 4 connections giving score 2.0 — Server B is chosen](/assets/img/posts/lb-algorithms/weighted-least-connections.svg)
+
 ## Least Response Time: Equality by Observed Latency
 
 Least response time routes to the server with the lowest combination of active connections and measured response time. Instead of using connection count as a proxy for load, it observes the actual signal: how long requests are taking.
@@ -59,11 +65,15 @@ When one server starts returning responses slowly (due to resource contention, a
 
 The cost is measurement overhead. The load balancer must track response times per server, typically using an exponential moving average. This is small but non-trivial. Response time is also noisier than connection count: a single slow request can temporarily skew the average and cause traffic to shift away from a healthy server. In practice, least response time is most valuable for backends with high variance in response time where that variance correlates with server load, and less useful when latency spikes are caused by external dependencies rather than server-side resource pressure.
 
+![Least response time: Server A slows to 820ms average during a GC pause, traffic automatically shifts to Server B at 58ms with no config change](/assets/img/posts/lb-algorithms/least-response-time.svg)
+
 ## Random Selection
 
 Random selection picks a server uniformly at random for each request. This sounds naive, but it has a useful property: with a large enough server pool, it converges to even distribution over time without any coordination or state.
 
 Random is particularly relevant in distributed load balancing, where many clients make independent routing decisions. If each client picks a random server, the aggregate distribution is even without any central coordinator. This is one reason why client-side load balancers in service meshes often use random or a variant called power-of-two-choices: pick two servers at random, route to the one with fewer connections. The random selection prevents thundering herd on any one server; the connection check prevents sending to one that is already busy.
+
+![Power of two choices: two servers picked at random from five, compared by connection count, request routed to the one with fewer](/assets/img/posts/lb-algorithms/random.svg)
 
 ## IP Hash: Consistency Over Balance
 

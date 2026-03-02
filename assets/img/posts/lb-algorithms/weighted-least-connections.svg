@@ -1,0 +1,114 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="mg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="mx" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/><circle cx="0" cy="80" r="1.5"/>
+      <circle cx="0" cy="120" r="1.5"/><circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/><circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/><use href="#dc" x="160"/>
+    <use href="#dc" x="200"/><use href="#dc" x="240"/><use href="#dc" x="280"/><use href="#dc" x="320"/>
+    <use href="#dc" x="360"/><use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/><use href="#dc" x="640"/>
+    <use href="#dc" x="680"/><use href="#dc" x="720"/><use href="#dc" x="760"/>
+  </g>
+
+  <!-- Banner -->
+  <rect x="0" y="-25" width="800" height="35" fill="#1e293b" opacity="0.85"/>
+  <text x="400" y="-3" text-anchor="middle" fill="white" font-size="10" font-weight="700">Weighted Least Connections  ·  score = active_connections ÷ weight  ·  lowest score wins</text>
+
+  <!-- Server A — weight 3, 9 connections, score 3.0 — NOT chosen -->
+  <rect x="50" y="18" width="310" height="230" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="50" y="18" width="310" height="32" rx="10" fill="#94a3b8"/>
+  <rect x="50" y="37" width="310" height="13" fill="#94a3b8"/>
+  <text x="205" y="40" text-anchor="middle" fill="white" font-size="11" font-weight="700">Server A  —  not chosen</text>
+
+  <!-- Weight badge -->
+  <rect x="70" y="62" width="130" height="28" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="135" y="73" text-anchor="middle" fill="#475569" font-size="8" font-weight="600">Weight</text>
+  <text x="135" y="86" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">3</text>
+
+  <!-- Connections badge -->
+  <rect x="215" y="62" width="130" height="28" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="280" y="73" text-anchor="middle" fill="#475569" font-size="8" font-weight="600">Active connections</text>
+  <text x="280" y="86" text-anchor="middle" fill="#1e293b" font-size="14" font-weight="700">9</text>
+
+  <!-- Connection dots -->
+  <g fill="#94a3b8" opacity="0.6">
+    <circle cx="80"  cy="110" r="7"/><circle cx="105" cy="110" r="7"/><circle cx="130" cy="110" r="7"/>
+    <circle cx="155" cy="110" r="7"/><circle cx="180" cy="110" r="7"/><circle cx="205" cy="110" r="7"/>
+    <circle cx="230" cy="110" r="7"/><circle cx="255" cy="110" r="7"/><circle cx="280" cy="110" r="7"/>
+  </g>
+
+  <!-- Score calculation -->
+  <rect x="70" y="132" width="270" height="52" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="205" y="150" text-anchor="middle" fill="#475569" font-size="8.5" font-weight="600">Score  =  connections ÷ weight</text>
+  <text x="205" y="168" text-anchor="middle" fill="#475569" font-size="12" font-weight="700" font-family="monospace">9 ÷ 3  =  3.0</text>
+  <text x="205" y="182" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">higher score = more loaded relative to capacity</text>
+
+  <!-- Not chosen badge -->
+  <rect x="120" y="202" width="170" height="28" rx="8" fill="#f1f5f9"/>
+  <text x="205" y="220" text-anchor="middle" fill="#475569" font-size="10" font-weight="700">Score 3.0  —  skip</text>
+
+  <!-- Server B — weight 2, 4 connections, score 2.0 — CHOSEN -->
+  <rect x="440" y="18" width="310" height="230" rx="10" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="440" y="18" width="310" height="32" rx="10" fill="#27ae60"/>
+  <rect x="440" y="37" width="310" height="13" fill="#27ae60"/>
+  <text x="595" y="40" text-anchor="middle" fill="white" font-size="11" font-weight="700">Server B  —  chosen</text>
+
+  <!-- Weight badge -->
+  <rect x="460" y="62" width="130" height="28" rx="6" fill="white" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="525" y="73" text-anchor="middle" fill="#475569" font-size="8" font-weight="600">Weight</text>
+  <text x="525" y="86" text-anchor="middle" fill="#166534" font-size="14" font-weight="700">2</text>
+
+  <!-- Connections badge -->
+  <rect x="605" y="62" width="130" height="28" rx="6" fill="white" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="670" y="73" text-anchor="middle" fill="#475569" font-size="8" font-weight="600">Active connections</text>
+  <text x="670" y="86" text-anchor="middle" fill="#166534" font-size="14" font-weight="700">4</text>
+
+  <!-- Connection dots -->
+  <g fill="#27ae60" opacity="0.5">
+    <circle cx="540" cy="110" r="7"/><circle cx="565" cy="110" r="7"/>
+    <circle cx="590" cy="110" r="7"/><circle cx="615" cy="110" r="7"/>
+  </g>
+
+  <!-- Score calculation -->
+  <rect x="460" y="132" width="270" height="52" rx="8" fill="white" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="595" y="150" text-anchor="middle" fill="#475569" font-size="8.5" font-weight="600">Score  =  connections ÷ weight</text>
+  <text x="595" y="168" text-anchor="middle" fill="#166534" font-size="12" font-weight="700" font-family="monospace">4 ÷ 2  =  2.0</text>
+  <text x="595" y="182" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">lower score = capacity to spare</text>
+
+  <!-- Chosen badge -->
+  <rect x="510" y="202" width="170" height="28" rx="8" fill="#dcfce7"/>
+  <text x="595" y="220" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Score 2.0  —  route here</text>
+
+  <!-- Arrow between servers -->
+  <text x="400" y="138" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="700">vs</text>
+  <line x1="362" y1="216" x2="438" y2="216" stroke="#27ae60" stroke-width="2" marker-end="url(#mg)"/>
+
+  <!-- Note -->
+  <rect x="120" y="265" width="560" height="38" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="400" y="280" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="700">Server A is larger but more proportionally loaded than Server B</text>
+  <text x="400" y="295" text-anchor="middle" fill="#374151" font-size="8">Weight normalizes for capacity — the score reflects load relative to what the server can handle</text>
+
+  <!-- Caption -->
+  <line x1="200" y1="330" x2="600" y2="330" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="347" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Weighted least connections sees both capacity and current load."</text>
+  <text x="400" y="363" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">The tradeoff: you must configure weights correctly and keep them updated.</text>
+</svg>

@@ -1,0 +1,86 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/><circle cx="0" cy="80" r="1.5"/>
+      <circle cx="0" cy="120" r="1.5"/><circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/><circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/><use href="#dc" x="160"/>
+    <use href="#dc" x="200"/><use href="#dc" x="240"/><use href="#dc" x="280"/><use href="#dc" x="320"/>
+    <use href="#dc" x="360"/><use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/><use href="#dc" x="640"/>
+    <use href="#dc" x="680"/><use href="#dc" x="720"/><use href="#dc" x="760"/>
+  </g>
+
+  <!-- Banner -->
+  <rect x="0" y="-25" width="800" height="35" fill="#1e293b" opacity="0.85"/>
+  <text x="400" y="-3" text-anchor="middle" fill="white" font-size="10" font-weight="700">Weighted Round Robin  ·  requests distributed in proportion to server capacity</text>
+
+  <!-- Server A — weight 3 (large) -->
+  <rect x="30" y="15" width="340" height="220" rx="10" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="15" width="340" height="32" rx="10" fill="#4f8ef7"/>
+  <rect x="30" y="34" width="340" height="13" fill="#4f8ef7"/>
+  <text x="200" y="38" text-anchor="middle" fill="white" font-size="11" font-weight="700">Server A  ·  weight = 3  (large instance)</text>
+  <!-- 3 request slots -->
+  <rect x="50" y="62" width="300" height="26" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="200" y="79" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 1</text>
+  <rect x="50" y="96" width="300" height="26" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="200" y="113" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 2</text>
+  <rect x="50" y="130" width="300" height="26" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="200" y="147" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 3</text>
+  <text x="200" y="178" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">gets 3 requests per cycle</text>
+  <rect x="100" y="186" width="200" height="24" rx="7" fill="#eff6ff"/>
+  <text x="200" y="202" text-anchor="middle" fill="#1d4ed8" font-size="10" font-weight="700">3 / 6 = 50% of traffic</text>
+  <text x="200" y="224" text-anchor="middle" fill="#60a5fa" font-size="8">R1, R2, R3 per cycle</text>
+
+  <!-- Server B — weight 1 (small) -->
+  <rect x="432" y="15" width="155" height="220" rx="10" fill="white" stroke="#94a3b8" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="432" y="15" width="155" height="32" rx="10" fill="#94a3b8"/>
+  <rect x="432" y="34" width="155" height="13" fill="#94a3b8"/>
+  <text x="509" y="38" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server B  ·  w=1</text>
+  <rect x="450" y="62" width="120" height="26" rx="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="510" y="79" text-anchor="middle" fill="#475569" font-size="9" font-weight="600">Request 4</text>
+  <text x="510" y="178" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">1 per cycle</text>
+  <rect x="460" y="186" width="100" height="24" rx="7" fill="#f1f5f9"/>
+  <text x="510" y="202" text-anchor="middle" fill="#475569" font-size="9.5" font-weight="700">1 / 6 = 17%</text>
+  <text x="510" y="224" text-anchor="middle" fill="#94a3b8" font-size="8">R4 per cycle</text>
+
+  <!-- Server C — weight 2 (medium) -->
+  <rect x="607" y="15" width="163" height="220" rx="10" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
+  <rect x="607" y="15" width="163" height="32" rx="10" fill="#27ae60"/>
+  <rect x="607" y="34" width="163" height="13" fill="#27ae60"/>
+  <text x="688" y="38" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server C  ·  w=2</text>
+  <rect x="625" y="62" width="128" height="26" rx="5" fill="#f0fff4" stroke="#86efac" stroke-width="1"/>
+  <text x="689" y="79" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">Request 5</text>
+  <rect x="625" y="96" width="128" height="26" rx="5" fill="#f0fff4" stroke="#86efac" stroke-width="1"/>
+  <text x="689" y="113" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">Request 6</text>
+  <text x="689" y="178" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">2 per cycle</text>
+  <rect x="639" y="186" width="100" height="24" rx="7" fill="#f0fff4"/>
+  <text x="689" y="202" text-anchor="middle" fill="#166534" font-size="9.5" font-weight="700">2 / 6 = 33%</text>
+  <text x="689" y="224" text-anchor="middle" fill="#4ade80" font-size="8">R5, R6 per cycle</text>
+
+  <!-- Cycle label -->
+  <rect x="30" y="253" width="740" height="20" rx="5" fill="#f1f5f9"/>
+  <text x="400" y="267" text-anchor="middle" fill="#64748b" font-size="8.5">One cycle = 6 requests: A, A, A, B, C, C  —  then repeats</text>
+
+  <!-- Limitation note -->
+  <rect x="120" y="283" width="560" height="38" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+  <text x="400" y="298" text-anchor="middle" fill="#c2410c" font-size="9" font-weight="700">Weights are static — configured at deploy time, not measured at runtime</text>
+  <text x="400" y="313" text-anchor="middle" fill="#9a3412" font-size="8">If Server A degrades, it keeps receiving 50% of traffic until weights are changed manually</text>
+
+  <!-- Caption -->
+  <line x1="200" y1="341" x2="600" y2="341" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="358" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Weighted round robin knows capacity. It does not know health."</text>
+  <text x="400" y="374" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">The weights encode what you believed about your servers at deploy time.</text>
+</svg>

@@ -1,0 +1,109 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -20; } }
+      .flow { animation: dash 1.6s linear infinite; }
+    </style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="mb" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#4f8ef7"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/><circle cx="0" cy="80" r="1.5"/>
+      <circle cx="0" cy="120" r="1.5"/><circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/><circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/><use href="#dc" x="160"/>
+    <use href="#dc" x="200"/><use href="#dc" x="240"/><use href="#dc" x="280"/><use href="#dc" x="320"/>
+    <use href="#dc" x="360"/><use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/><use href="#dc" x="640"/>
+    <use href="#dc" x="680"/><use href="#dc" x="720"/><use href="#dc" x="760"/>
+  </g>
+
+  <!-- Banner -->
+  <rect x="0" y="-25" width="800" height="35" fill="#1e293b" opacity="0.85"/>
+  <text x="400" y="-3" text-anchor="middle" fill="white" font-size="10" font-weight="700">Round Robin  ·  6 requests distributed across 3 servers in strict rotation</text>
+
+  <!-- Request sequence row -->
+  <text x="30" y="38" fill="#64748b" font-size="9" font-weight="600">Requests:</text>
+  <g font-size="9" font-weight="700" text-anchor="middle">
+    <rect x="100" y="22" width="34" height="22" rx="5" fill="#4f8ef7"/>
+    <text x="117" y="37" fill="white">R1</text>
+    <rect x="144" y="22" width="34" height="22" rx="5" fill="#4f8ef7"/>
+    <text x="161" y="37" fill="white">R2</text>
+    <rect x="188" y="22" width="34" height="22" rx="5" fill="#4f8ef7"/>
+    <text x="205" y="37" fill="white">R3</text>
+    <rect x="232" y="22" width="34" height="22" rx="5" fill="#4f8ef7" opacity="0.7"/>
+    <text x="249" y="37" fill="white">R4</text>
+    <rect x="276" y="22" width="34" height="22" rx="5" fill="#4f8ef7" opacity="0.7"/>
+    <text x="293" y="37" fill="white">R5</text>
+    <rect x="320" y="22" width="34" height="22" rx="5" fill="#4f8ef7" opacity="0.7"/>
+    <text x="337" y="37" fill="white">R6</text>
+  </g>
+  <text x="380" y="37" fill="#94a3b8" font-size="8.5" font-style="italic">→ and so on …</text>
+
+  <!-- Server boxes -->
+  <!-- Server A -->
+  <rect x="80" y="65" width="190" height="185" rx="10" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="80" y="65" width="190" height="30" rx="10" fill="#4f8ef7"/>
+  <rect x="80" y="82" width="190" height="13" fill="#4f8ef7"/>
+  <text x="175" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="700">Server A</text>
+  <!-- R1 -->
+  <rect x="100" y="107" width="150" height="22" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="175" y="122" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 1  ·  turn 1</text>
+  <!-- R4 -->
+  <rect x="100" y="137" width="150" height="22" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="175" y="152" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 4  ·  turn 4</text>
+  <text x="175" y="185" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">receives every 3rd request</text>
+  <rect x="115" y="195" width="120" height="20" rx="6" fill="#eff6ff"/>
+  <text x="175" y="209" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="700">2 / 6 = 33%</text>
+  <text x="175" y="238" text-anchor="middle" fill="#60a5fa" font-size="8">R1, R4 …</text>
+
+  <!-- Server B -->
+  <rect x="305" y="65" width="190" height="185" rx="10" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="305" y="65" width="190" height="30" rx="10" fill="#4f8ef7"/>
+  <rect x="305" y="82" width="190" height="13" fill="#4f8ef7"/>
+  <text x="400" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="700">Server B</text>
+  <rect x="325" y="107" width="150" height="22" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="400" y="122" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 2  ·  turn 2</text>
+  <rect x="325" y="137" width="150" height="22" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="400" y="152" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 5  ·  turn 5</text>
+  <text x="400" y="185" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">receives every 3rd request</text>
+  <rect x="340" y="195" width="120" height="20" rx="6" fill="#eff6ff"/>
+  <text x="400" y="209" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="700">2 / 6 = 33%</text>
+  <text x="400" y="238" text-anchor="middle" fill="#60a5fa" font-size="8">R2, R5 …</text>
+
+  <!-- Server C -->
+  <rect x="530" y="65" width="190" height="185" rx="10" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="530" y="65" width="190" height="30" rx="10" fill="#4f8ef7"/>
+  <rect x="530" y="82" width="190" height="13" fill="#4f8ef7"/>
+  <text x="625" y="85" text-anchor="middle" fill="white" font-size="11" font-weight="700">Server C</text>
+  <rect x="550" y="107" width="150" height="22" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="625" y="122" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 3  ·  turn 3</text>
+  <rect x="550" y="137" width="150" height="22" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="625" y="152" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">Request 6  ·  turn 6</text>
+  <text x="625" y="185" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">receives every 3rd request</text>
+  <rect x="565" y="195" width="120" height="20" rx="6" fill="#eff6ff"/>
+  <text x="625" y="209" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="700">2 / 6 = 33%</text>
+  <text x="625" y="238" text-anchor="middle" fill="#60a5fa" font-size="8">R3, R6 …</text>
+
+  <!-- Assumption note -->
+  <rect x="120" y="268" width="560" height="38" rx="8" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+  <text x="400" y="283" text-anchor="middle" fill="#c2410c" font-size="9" font-weight="700">Silent assumption: every request costs the same to serve</text>
+  <text x="400" y="298" text-anchor="middle" fill="#9a3412" font-size="8">Equal count does not mean equal load when request cost varies</text>
+
+  <!-- Caption -->
+  <line x1="200" y1="333" x2="600" y2="333" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="350" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Round robin is fair by count, not by cost."</text>
+  <text x="400" y="366" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Works well when requests are uniform. Breaks silently when they are not.</text>
+</svg>

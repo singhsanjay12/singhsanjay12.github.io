@@ -1,0 +1,109 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="mg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="mb" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#4f8ef7"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/><circle cx="0" cy="80" r="1.5"/>
+      <circle cx="0" cy="120" r="1.5"/><circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/><circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/><use href="#dc" x="160"/>
+    <use href="#dc" x="200"/><use href="#dc" x="240"/><use href="#dc" x="280"/><use href="#dc" x="320"/>
+    <use href="#dc" x="360"/><use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/><use href="#dc" x="640"/>
+    <use href="#dc" x="680"/><use href="#dc" x="720"/><use href="#dc" x="760"/>
+  </g>
+
+  <!-- Banner -->
+  <rect x="0" y="-25" width="800" height="35" fill="#1e293b" opacity="0.85"/>
+  <text x="400" y="-3" text-anchor="middle" fill="white" font-size="10" font-weight="700">Power of Two Choices  ·  pick 2 at random  ·  route to the one with fewer connections</text>
+
+  <!-- Step labels -->
+  <rect x="30" y="14" width="220" height="22" rx="6" fill="#4f8ef7"/>
+  <text x="140" y="29" text-anchor="middle" fill="white" font-size="9" font-weight="700">Step 1 — Pick 2 servers at random</text>
+
+  <rect x="290" y="14" width="220" height="22" rx="6" fill="#6366f1"/>
+  <text x="400" y="29" text-anchor="middle" fill="white" font-size="9" font-weight="700">Step 2 — Compare connection counts</text>
+
+  <rect x="550" y="14" width="220" height="22" rx="6" fill="#27ae60"/>
+  <text x="660" y="29" text-anchor="middle" fill="white" font-size="9" font-weight="700">Step 3 — Route to lower count</text>
+
+  <!-- 5 servers pool -->
+  <text x="400" y="62" text-anchor="middle" fill="#64748b" font-size="9" font-weight="600">Server pool (5 servers)</text>
+
+  <!-- Server boxes in a row -->
+  <!-- S1 -->
+  <rect x="30" y="70" width="108" height="68" rx="8" fill="white" stroke="#4f8ef7" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="84" y="89" text-anchor="middle" fill="#1d4ed8" font-size="10" font-weight="700">S1</text>
+  <text x="84" y="105" text-anchor="middle" fill="#64748b" font-size="9">3 conns</text>
+  <text x="84" y="128" text-anchor="middle" fill="#4f8ef7" font-size="8" font-weight="600">picked</text>
+
+  <!-- S2 -->
+  <rect x="165" y="70" width="108" height="68" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="219" y="89" text-anchor="middle" fill="#64748b" font-size="10" font-weight="700">S2</text>
+  <text x="219" y="105" text-anchor="middle" fill="#64748b" font-size="9">7 conns</text>
+  <text x="219" y="128" text-anchor="middle" fill="#94a3b8" font-size="8">not picked</text>
+
+  <!-- S3 — winner -->
+  <rect x="300" y="70" width="108" height="68" rx="8" fill="#f0fff4" stroke="#27ae60" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="354" y="89" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">S3</text>
+  <text x="354" y="105" text-anchor="middle" fill="#166534" font-size="9">1 conn</text>
+  <text x="354" y="128" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="600">picked + wins</text>
+
+  <!-- S4 -->
+  <rect x="435" y="70" width="108" height="68" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="489" y="89" text-anchor="middle" fill="#64748b" font-size="10" font-weight="700">S4</text>
+  <text x="489" y="105" text-anchor="middle" fill="#64748b" font-size="9">5 conns</text>
+  <text x="489" y="128" text-anchor="middle" fill="#94a3b8" font-size="8">not picked</text>
+
+  <!-- S5 -->
+  <rect x="570" y="70" width="108" height="68" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="624" y="89" text-anchor="middle" fill="#64748b" font-size="10" font-weight="700">S5</text>
+  <text x="624" y="105" text-anchor="middle" fill="#64748b" font-size="9">4 conns</text>
+  <text x="624" y="128" text-anchor="middle" fill="#94a3b8" font-size="8">not picked</text>
+
+  <!-- Comparison box -->
+  <rect x="30" y="160" width="740" height="58" rx="10" fill="white" stroke="#6366f1" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="400" y="178" text-anchor="middle" fill="#4338ca" font-size="9" font-weight="700">Comparison: S1 (3 conns) vs S3 (1 conn)</text>
+
+  <!-- S1 vs S3 mini comparison -->
+  <rect x="180" y="185" width="100" height="22" rx="5" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="230" y="200" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="600">S1 = 3 conns</text>
+  <text x="400" y="200" text-anchor="middle" fill="#6366f1" font-size="11" font-weight="700">→  S3 wins  →</text>
+  <rect x="520" y="185" width="100" height="22" rx="5" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+  <text x="570" y="200" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">S3 = 1 conn</text>
+
+  <!-- Why it works -->
+  <rect x="30" y="238" width="460" height="70" rx="9" fill="white" stroke="#bfdbfe" stroke-width="1" filter="url(#shadow)"/>
+  <text x="260" y="256" text-anchor="middle" fill="#1d4ed8" font-size="9" font-weight="700">Why this works without coordination</text>
+  <text x="260" y="272" text-anchor="middle" fill="#374151" font-size="8">Each client independently picks 2 random servers.</text>
+  <text x="260" y="286" text-anchor="middle" fill="#374151" font-size="8">The random step prevents thundering herd.</text>
+  <text x="260" y="300" text-anchor="middle" fill="#374151" font-size="8">The comparison prevents choosing an overloaded server.</text>
+
+  <!-- vs pure random -->
+  <rect x="510" y="238" width="260" height="70" rx="9" fill="#fff7ed" stroke="#f97316" stroke-width="1" filter="url(#shadow)"/>
+  <text x="640" y="256" text-anchor="middle" fill="#c2410c" font-size="9" font-weight="700">vs pure random</text>
+  <text x="640" y="272" text-anchor="middle" fill="#9a3412" font-size="8">Pure random converges statistically</text>
+  <text x="640" y="286" text-anchor="middle" fill="#9a3412" font-size="8">but can still hit overloaded servers.</text>
+  <text x="640" y="300" text-anchor="middle" fill="#9a3412" font-size="8">+1 comparison eliminates that risk.</text>
+
+  <!-- Caption -->
+  <line x1="200" y1="332" x2="600" y2="332" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="349" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Two random choices beat one careful one."</text>
+  <text x="400" y="365" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">No central state, no coordination — just a single comparison per request.</text>
+</svg>

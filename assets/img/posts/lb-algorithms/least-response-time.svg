@@ -1,0 +1,116 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -20; } }
+      .flow { animation: dash 1.6s linear infinite; }
+    </style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="mg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="mr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/><circle cx="0" cy="80" r="1.5"/>
+      <circle cx="0" cy="120" r="1.5"/><circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/><circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/><use href="#dc" x="160"/>
+    <use href="#dc" x="200"/><use href="#dc" x="240"/><use href="#dc" x="280"/><use href="#dc" x="320"/>
+    <use href="#dc" x="360"/><use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/><use href="#dc" x="640"/>
+    <use href="#dc" x="680"/><use href="#dc" x="720"/><use href="#dc" x="760"/>
+  </g>
+
+  <!-- Banner -->
+  <rect x="0" y="-25" width="800" height="35" fill="#1e293b" opacity="0.85"/>
+  <text x="400" y="-3" text-anchor="middle" fill="white" font-size="10" font-weight="700">Least Response Time  ·  Server A slows down  ·  load balancer detects and shifts traffic to B</text>
+
+  <!-- Divider -->
+  <line x1="400" y1="14" x2="400" y2="318" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- ═══ LEFT: BEFORE ═══ -->
+  <rect x="15" y="14" width="370" height="26" rx="7" fill="#f0fff4" stroke="#86efac" stroke-width="1"/>
+  <text x="200" y="31" text-anchor="middle" fill="#166534" font-size="9.5" font-weight="700">Before  ·  both servers healthy</text>
+
+  <!-- Server A — fast -->
+  <rect x="30" y="52" width="160" height="125" rx="9" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="110" y="72" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Server A</text>
+  <rect x="50" y="80" width="120" height="20" rx="5" fill="#dcfce7"/>
+  <text x="110" y="94" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">avg 42 ms</text>
+  <text x="110" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">3 connections</text>
+  <!-- Mini latency bar -->
+  <rect x="50" y="123" width="120" height="8" rx="3" fill="#e2e8f0"/>
+  <rect x="50" y="123" width="20" height="8" rx="3" fill="#27ae60"/>
+  <text x="110" y="145" text-anchor="middle" fill="#27ae60" font-size="8" font-style="italic">low latency</text>
+  <text x="110" y="168" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="700">chosen</text>
+
+  <!-- Server B — also fast -->
+  <rect x="210" y="52" width="160" height="125" rx="9" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="290" y="72" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Server B</text>
+  <rect x="230" y="80" width="120" height="20" rx="5" fill="#dcfce7"/>
+  <text x="290" y="94" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">avg 55 ms</text>
+  <text x="290" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">2 connections</text>
+  <rect x="230" y="123" width="120" height="8" rx="3" fill="#e2e8f0"/>
+  <rect x="230" y="123" width="28" height="8" rx="3" fill="#27ae60"/>
+  <text x="290" y="145" text-anchor="middle" fill="#27ae60" font-size="8" font-style="italic">low latency</text>
+  <text x="290" y="168" text-anchor="middle" fill="#94a3b8" font-size="8">also eligible</text>
+
+  <!-- Traffic split annotation -->
+  <rect x="50" y="194" width="300" height="30" rx="7" fill="#f0fff4" stroke="#86efac" stroke-width="1"/>
+  <text x="200" y="207" text-anchor="middle" fill="#15803d" font-size="8.5" font-weight="600">Traffic flows naturally to both</text>
+  <text x="200" y="220" text-anchor="middle" fill="#94a3b8" font-size="7.5">A slightly preferred (lower avg latency)</text>
+
+  <!-- ═══ RIGHT: AFTER ═══ -->
+  <rect x="415" y="14" width="370" height="26" rx="7" fill="#fff0f0" stroke="#fca5a5" stroke-width="1"/>
+  <text x="600" y="31" text-anchor="middle" fill="#c0392b" font-size="9.5" font-weight="700">After  ·  Server A has a GC pause / slow dependency</text>
+
+  <!-- Server A — degraded -->
+  <rect x="430" y="52" width="160" height="125" rx="9" fill="#fff0f0" stroke="#e74c3c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="510" y="72" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="700">Server A</text>
+  <rect x="450" y="80" width="120" height="20" rx="5" fill="#fee2e2"/>
+  <text x="510" y="94" text-anchor="middle" fill="#991b1b" font-size="9" font-weight="600">avg 820 ms</text>
+  <text x="510" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">8 connections</text>
+  <!-- Full latency bar -->
+  <rect x="450" y="123" width="120" height="8" rx="3" fill="#e2e8f0"/>
+  <rect x="450" y="123" width="116" height="8" rx="3" fill="#e74c3c"/>
+  <text x="510" y="145" text-anchor="middle" fill="#e74c3c" font-size="8" font-style="italic">high latency</text>
+  <text x="510" y="168" text-anchor="middle" fill="#e74c3c" font-size="8" font-weight="700">avoided</text>
+
+  <!-- Server B — healthy, receiving all traffic -->
+  <rect x="610" y="52" width="160" height="125" rx="9" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <text x="690" y="72" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Server B</text>
+  <rect x="630" y="80" width="120" height="20" rx="5" fill="#dcfce7"/>
+  <text x="690" y="94" text-anchor="middle" fill="#166534" font-size="9" font-weight="600">avg 58 ms</text>
+  <text x="690" y="115" text-anchor="middle" fill="#94a3b8" font-size="8">5 connections</text>
+  <rect x="630" y="123" width="120" height="8" rx="3" fill="#e2e8f0"/>
+  <rect x="630" y="123" width="30" height="8" rx="3" fill="#27ae60"/>
+  <text x="690" y="145" text-anchor="middle" fill="#27ae60" font-size="8" font-style="italic">still fast</text>
+  <text x="690" y="168" text-anchor="middle" fill="#27ae60" font-size="8" font-weight="700">all traffic here</text>
+
+  <!-- Traffic shift annotation -->
+  <rect x="430" y="194" width="300" height="30" rx="7" fill="#fff7ed" stroke="#f97316" stroke-width="1"/>
+  <text x="580" y="207" text-anchor="middle" fill="#c2410c" font-size="8.5" font-weight="600">Traffic shifts to B automatically</text>
+  <text x="580" y="220" text-anchor="middle" fill="#9a3412" font-size="7.5">No config change needed — LB detects via EMA</text>
+
+  <!-- How it works box -->
+  <rect x="80" y="243" width="640" height="42" rx="8" fill="white" stroke="#bfdbfe" stroke-width="1" filter="url(#shadow)"/>
+  <text x="400" y="258" text-anchor="middle" fill="#1d4ed8" font-size="8.5" font-weight="700">How it works: exponential moving average (EMA) of response times per server, updated on every response</text>
+  <text x="400" y="275" text-anchor="middle" fill="#374151" font-size="8">Routing score = avg_response_ms × active_connections · lowest score wins · no manual thresholds</text>
+
+  <!-- Caption -->
+  <line x1="200" y1="312" x2="600" y2="312" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="329" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Least response time is self-correcting."</text>
+  <text x="400" y="345" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">When a server slows, traffic moves away without any operator action.</text>
+</svg>
