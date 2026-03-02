@@ -77,7 +77,7 @@
 
   <!-- Arrows from clients to LB — entry points y=128,152,176 (evenly spaced on straight edge) -->
   <line x1="201" y1="39" x2="293" y2="128" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
-  <line x1="201" y1="139" x2="293" y2="152" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
+  <line x1="201" y1="139" x2="293" y2="144" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
   <line x1="201" y1="254" x2="293" y2="176" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
 
   <!-- ── Server boxes (right column) ── -->
@@ -111,7 +111,7 @@
 
   <!-- Arrows from LB to servers — exit points y=128,152,176 (matching entry points) -->
   <line x1="506" y1="128" x2="573" y2="58" stroke="#4f8ef7" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
-  <line x1="506" y1="152" x2="573" y2="158" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
+  <line x1="506" y1="155" x2="573" y2="158" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
   <line x1="506" y1="176" x2="573" y2="258" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mp)"/>
 
   <!-- Caption -->
