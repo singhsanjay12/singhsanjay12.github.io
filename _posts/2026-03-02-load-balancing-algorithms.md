@@ -95,14 +95,18 @@ The details of how server-side and client-side load balancers detect and remove 
 
 ## Choosing the Right Algorithm
 
-| Workload | Algorithm |
-|---|---|
-| Uniform short requests, identical servers | Round robin |
-| Heterogeneous server capacity | Weighted round robin |
-| Variable request cost or long-lived connections | Least connections |
-| Heterogeneous fleet with variable request cost | Weighted least connections |
-| High response-time variance that tracks server load | Least response time |
-| Stateful backend with no alternative | IP hash |
+The choice collapses to two independent questions: are your servers identical in capacity, and does request cost vary? Answer both and you have your algorithm.
+
+![Decision guide: two questions — server homogeneity and request uniformity — determine which load balancing algorithm fits your workload](/assets/img/posts/lb-algorithms/choosing.svg)
+
+| Workload | Algorithm | What to watch for |
+|---|---|---|
+| Identical servers, uniform request cost | Round robin | Slow requests queue invisibly behind fast ones |
+| Identical servers, variable cost or long-lived connections | Least connections | Idle keepalives can inflate connection counts |
+| Heterogeneous fleet, uniform cost | Weighted round robin | Weights go stale as capacity fluctuates |
+| Heterogeneous fleet, variable cost | Weighted least connections | Misconfigured weights cause hard-to-diagnose imbalance |
+| High response-time variance tied to server load | Least response time | External latency spikes misdirect traffic off healthy servers |
+| Stateful backend, no other option | IP hash | NAT gateways, IP changes, and server additions all break stickiness |
 
 The deeper pattern is this: each algorithm optimizes for a different definition of equal. Round robin makes count equal. Least connections makes current load equal. Least response time makes observed latency equal. IP hash makes routing consistent rather than equal.
 
