@@ -10,9 +10,6 @@
     <marker id="mg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
       <path d="M0,0 L0,6 L7,3 z" fill="#27ae60"/>
     </marker>
-    <marker id="mx" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
-      <path d="M0,0 L0,6 L7,3 z" fill="#94a3b8"/>
-    </marker>
   </defs>
 
   <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
@@ -98,9 +95,10 @@
   <rect x="510" y="202" width="170" height="28" rx="8" fill="#dcfce7"/>
   <text x="595" y="220" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Score 2.0  —  route here</text>
 
-  <!-- Arrow between servers -->
-  <text x="400" y="138" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="700">vs</text>
-  <line x1="362" y1="216" x2="438" y2="216" stroke="#27ae60" stroke-width="2" marker-end="url(#mg)"/>
+  <!-- vs label — sits between score boxes -->
+  <text x="400" y="172" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="700">vs</text>
+  <!-- Arrow spans full gap between server boxes: A right edge (360) → B left edge (440) -->
+  <line x1="360" y1="216" x2="440" y2="216" stroke="#27ae60" stroke-width="2" marker-end="url(#mg)"/>
 
   <!-- Note -->
   <rect x="120" y="265" width="560" height="38" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
