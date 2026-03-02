@@ -88,8 +88,8 @@ order: 4
     <i class="fab fa-github"></i>
     <span>github.com/singhsanjay12</span>
   </a>
-  <a href="mailto:gargwanshi.sanjay@gmail.com" class="connect-item">
+  <a href="mailto:hello@singh-sanjay.com" class="connect-item">
     <i class="fas fa-envelope"></i>
-    <span>gargwanshi.sanjay@gmail.com</span>
+    <span>hello@singh-sanjay.com</span>
   </a>
 </div>

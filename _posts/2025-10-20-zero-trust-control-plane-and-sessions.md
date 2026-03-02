@@ -233,4 +233,4 @@ If you are thinking about whether and how to move toward this architecture, thre
 
 ---
 
-*If you are working through similar problems, reach out on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or by [email](mailto:gargwanshi.sanjay@gmail.com).*
+*If you are working through similar problems, reach out on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or by [email](mailto:hello@singh-sanjay.com).*

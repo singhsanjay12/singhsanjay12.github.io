@@ -31,7 +31,7 @@ class HomepageTest < Minitest::Test
   end
 
   def test_hero_email_link
-    assert_match(/gargwanshi\.sanjay@gmail\.com/, @html,
+    assert_match(/hello@singh-sanjay\.com/, @html,
       "Email address must appear in hero section")
   end
 
