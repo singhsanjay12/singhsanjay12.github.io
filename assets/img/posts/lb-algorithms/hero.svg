@@ -1,0 +1,129 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -20; } }
+      .flow { animation: dash 1.6s linear infinite; }
+    </style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="mb" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="mg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#27ae60"/>
+    </marker>
+    <marker id="mr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#e74c3c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+
+  <!-- Dot grid -->
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/>
+      <circle cx="0" cy="80" r="1.5"/><circle cx="0" cy="120" r="1.5"/>
+      <circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/>
+      <circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/>
+    <use href="#dc" x="160"/><use href="#dc" x="200"/><use href="#dc" x="240"/>
+    <use href="#dc" x="280"/><use href="#dc" x="320"/><use href="#dc" x="360"/>
+    <use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/>
+    <use href="#dc" x="640"/><use href="#dc" x="680"/><use href="#dc" x="720"/>
+    <use href="#dc" x="760"/>
+  </g>
+
+  <!-- Title banner -->
+  <rect x="0" y="-25" width="800" height="35" fill="#1e293b" opacity="0.85"/>
+  <text x="400" y="-3" text-anchor="middle" fill="white" font-size="10" font-weight="700">Same incoming request · three algorithms · three different servers chosen</text>
+
+  <!-- ── Load Balancer box (centre) ── -->
+  <rect x="305" y="30" width="190" height="52" rx="10" fill="white" stroke="#4f8ef7" stroke-width="2" filter="url(#shadow)"/>
+  <text x="400" y="52" text-anchor="middle" fill="#1d4ed8" font-size="11" font-weight="700">Load Balancer</text>
+  <text x="400" y="70" text-anchor="middle" fill="#64748b" font-size="8.5">picks algorithm per request</text>
+
+  <!-- Incoming request arrow -->
+  <line x1="400" y1="-3" x2="400" y2="28" stroke="#4f8ef7" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mb)"/>
+
+  <!-- ── Server boxes ── -->
+
+  <!-- Server A (left) — many active connections -->
+  <rect x="30" y="160" width="185" height="100" rx="9" fill="#fff7ed" stroke="#f97316" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="160" width="185" height="28" rx="9" fill="#f97316"/>
+  <rect x="30" y="175" width="185" height="13" fill="#f97316"/>
+  <text x="122" y="178" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server A</text>
+  <text x="122" y="200" text-anchor="middle" fill="#9a3412" font-size="8.5" font-weight="600">8 active connections</text>
+  <!-- Connection dots -->
+  <g fill="#f97316" opacity="0.7">
+    <circle cx="57" cy="218" r="5"/><circle cx="72" cy="218" r="5"/><circle cx="87" cy="218" r="5"/>
+    <circle cx="102" cy="218" r="5"/><circle cx="117" cy="218" r="5"/><circle cx="132" cy="218" r="5"/>
+    <circle cx="147" cy="218" r="5"/><circle cx="162" cy="218" r="5"/>
+  </g>
+  <text x="122" y="246" text-anchor="middle" fill="#c2410c" font-size="8" font-style="italic">busy · high latency</text>
+
+  <!-- Server B (centre) — fewest connections -->
+  <rect x="307" y="160" width="185" height="100" rx="9" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="307" y="160" width="185" height="28" rx="9" fill="#27ae60"/>
+  <rect x="307" y="175" width="185" height="13" fill="#27ae60"/>
+  <text x="400" y="178" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server B</text>
+  <text x="400" y="200" text-anchor="middle" fill="#166534" font-size="8.5" font-weight="600">2 active connections</text>
+  <g fill="#27ae60" opacity="0.7">
+    <circle cx="384" cy="218" r="5"/><circle cx="399" cy="218" r="5"/>
+  </g>
+  <text x="400" y="246" text-anchor="middle" fill="#15803d" font-size="8" font-style="italic">available · low latency</text>
+
+  <!-- Server C (right) — medium connections -->
+  <rect x="585" y="160" width="185" height="100" rx="9" fill="#f8fafc" stroke="#94a3b8" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="585" y="160" width="185" height="28" rx="9" fill="#94a3b8"/>
+  <rect x="585" y="175" width="185" height="13" fill="#94a3b8"/>
+  <text x="677" y="178" text-anchor="middle" fill="white" font-size="10" font-weight="700">Server C</text>
+  <text x="677" y="200" text-anchor="middle" fill="#475569" font-size="8.5" font-weight="600">5 active connections</text>
+  <g fill="#94a3b8" opacity="0.7">
+    <circle cx="641" cy="218" r="5"/><circle cx="656" cy="218" r="5"/><circle cx="671" cy="218" r="5"/>
+    <circle cx="686" cy="218" r="5"/><circle cx="701" cy="218" r="5"/>
+  </g>
+  <text x="677" y="246" text-anchor="middle" fill="#64748b" font-size="8" font-style="italic">moderate load</text>
+
+  <!-- ── Algorithm decision badges ── -->
+
+  <!-- Round robin badge → Server C (next in rotation) -->
+  <rect x="50" y="100" width="145" height="42" rx="7" fill="white" stroke="#f97316" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="122" y="116" text-anchor="middle" fill="#c2410c" font-size="8" font-weight="700">Round Robin</text>
+  <text x="122" y="130" text-anchor="middle" fill="#9a3412" font-size="7.5">"Server A's turn" → A</text>
+  <text x="122" y="141" text-anchor="middle" fill="#fb923c" font-size="7" font-style="italic">ignores 8 connections</text>
+  <line x1="122" y1="143" x2="122" y2="158" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#mr)"/>
+
+  <!-- Least connections badge → Server B -->
+  <rect x="327" y="100" width="145" height="42" rx="7" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="400" y="116" text-anchor="middle" fill="#15803d" font-size="8" font-weight="700">Least Connections</text>
+  <text x="400" y="130" text-anchor="middle" fill="#166534" font-size="7.5">"Server B has 2" → B</text>
+  <text x="400" y="141" text-anchor="middle" fill="#22c55e" font-size="7" font-style="italic">routes to least busy</text>
+  <line x1="400" y1="143" x2="400" y2="158" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#mg)"/>
+
+  <!-- IP Hash badge → Server A (hash maps this IP to A) -->
+  <rect x="600" y="100" width="145" height="42" rx="7" fill="white" stroke="#94a3b8" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="677" y="116" text-anchor="middle" fill="#334155" font-size="8" font-weight="700">IP Hash</text>
+  <text x="677" y="130" text-anchor="middle" fill="#475569" font-size="7.5">hash(client IP) → C</text>
+  <text x="677" y="141" text-anchor="middle" fill="#94a3b8" font-size="7" font-style="italic">ignores all load signals</text>
+  <line x1="677" y1="143" x2="677" y2="158" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#mr)"/>
+
+  <!-- Connector lines from LB to badges -->
+  <line x1="340" y1="56" x2="122" y2="99" stroke="#f97316" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="400" y1="82" x2="400" y2="99" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="460" y1="56" x2="677" y2="99" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Caption -->
+  <line x1="200" y1="300" x2="600" y2="300" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="317" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Each algorithm has a different definition of equal."</text>
+  <text x="400" y="333" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Round robin counts requests. Least connections counts load. IP hash ignores both.</text>
+</svg>

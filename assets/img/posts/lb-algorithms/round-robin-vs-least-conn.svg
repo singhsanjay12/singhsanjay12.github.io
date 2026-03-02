@@ -1,0 +1,119 @@
+<svg width="800" height="420" viewBox="0 -25 800 420" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI',system-ui,sans-serif">
+  <defs>
+    <style>
+      @keyframes dash { to { stroke-dashoffset: -20; } }
+      .flow { animation: dash 1.6s linear infinite; }
+    </style>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000018"/>
+    </filter>
+    <marker id="mb" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#4f8ef7"/>
+    </marker>
+    <marker id="mr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#e74c3c"/>
+    </marker>
+    <marker id="mg" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L7,3 z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+
+  <!-- Dot grid -->
+  <g fill="#c7d2fe" opacity="0.4">
+    <g id="dc">
+      <circle cx="0" cy="0" r="1.5"/><circle cx="0" cy="40" r="1.5"/>
+      <circle cx="0" cy="80" r="1.5"/><circle cx="0" cy="120" r="1.5"/>
+      <circle cx="0" cy="160" r="1.5"/><circle cx="0" cy="200" r="1.5"/>
+      <circle cx="0" cy="240" r="1.5"/><circle cx="0" cy="280" r="1.5"/>
+      <circle cx="0" cy="320" r="1.5"/>
+    </g>
+    <use href="#dc" x="40"/><use href="#dc" x="80"/><use href="#dc" x="120"/>
+    <use href="#dc" x="160"/><use href="#dc" x="200"/><use href="#dc" x="240"/>
+    <use href="#dc" x="280"/><use href="#dc" x="320"/><use href="#dc" x="360"/>
+    <use href="#dc" x="400"/><use href="#dc" x="440"/><use href="#dc" x="480"/>
+    <use href="#dc" x="520"/><use href="#dc" x="560"/><use href="#dc" x="600"/>
+    <use href="#dc" x="640"/><use href="#dc" x="680"/><use href="#dc" x="720"/>
+    <use href="#dc" x="760"/>
+  </g>
+
+  <!-- Top banner -->
+  <rect x="0" y="-25" width="800" height="35" fill="#1e293b" opacity="0.85"/>
+  <text x="400" y="-3" text-anchor="middle" fill="white" font-size="10" font-weight="700">Next request arrives  ·  Server A: 3 slow requests in flight  ·  Server B: idle</text>
+
+  <!-- Centre divider -->
+  <line x1="400" y1="18" x2="400" y2="345" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- ═══ LEFT: Round Robin ═══ -->
+
+  <rect x="15" y="16" width="370" height="26" rx="7" fill="#fff0f0" stroke="#fca5a5" stroke-width="1"/>
+  <text x="200" y="33" text-anchor="middle" fill="#c0392b" font-size="9.5" font-weight="700">Round Robin  ·  "A's turn"</text>
+
+  <!-- LB -->
+  <rect x="105" y="52" width="190" height="38" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="200" y="68" text-anchor="middle" fill="#4f8ef7" font-size="10" font-weight="700">Load Balancer</text>
+  <text x="200" y="82" text-anchor="middle" fill="#94a3b8" font-size="8">next in rotation = A</text>
+
+  <!-- Arrow to server A -->
+  <line x1="200" y1="92" x2="200" y2="118" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mr)"/>
+
+  <!-- Server A — busy -->
+  <rect x="65" y="121" width="270" height="110" rx="9" fill="#fff0f0" stroke="#e74c3c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="200" y="141" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="700">Server A</text>
+  <!-- Slow request bars -->
+  <rect x="85" y="150" width="70" height="18" rx="3" fill="#fca5a5"/>
+  <text x="120" y="163" text-anchor="middle" fill="#991b1b" font-size="7.5" font-weight="600">3s req</text>
+  <rect x="165" y="150" width="70" height="18" rx="3" fill="#fca5a5"/>
+  <text x="200" y="163" text-anchor="middle" fill="#991b1b" font-size="7.5" font-weight="600">3s req</text>
+  <rect x="245" y="150" width="70" height="18" rx="3" fill="#fca5a5"/>
+  <text x="280" y="163" text-anchor="middle" fill="#991b1b" font-size="7.5" font-weight="600">3s req</text>
+  <!-- New request arriving -->
+  <rect x="85" y="176" width="230" height="18" rx="3" fill="#fee2e2" stroke="#f87171" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="200" y="189" text-anchor="middle" fill="#b91c1c" font-size="7.5" font-weight="600">new request queues behind 3 slow ones</text>
+  <text x="200" y="221" text-anchor="middle" fill="#e74c3c" font-size="8" font-style="italic">round robin does not see the backlog</text>
+
+  <!-- Server B — idle -->
+  <rect x="65" y="250" width="270" height="58" rx="9" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="200" y="272" text-anchor="middle" fill="#64748b" font-size="10" font-weight="700">Server B  ·  idle</text>
+  <text x="200" y="290" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">0 active connections · not A's turn yet</text>
+
+  <!-- ═══ RIGHT: Least Connections ═══ -->
+
+  <rect x="415" y="16" width="370" height="26" rx="7" fill="#f0fff4" stroke="#86efac" stroke-width="1"/>
+  <text x="600" y="33" text-anchor="middle" fill="#166534" font-size="9.5" font-weight="700">Least Connections  ·  "B has fewer"</text>
+
+  <!-- LB -->
+  <rect x="505" y="52" width="190" height="38" rx="8" fill="white" stroke="#4f8ef7" stroke-width="1.8" filter="url(#shadow)"/>
+  <text x="600" y="68" text-anchor="middle" fill="#4f8ef7" font-size="10" font-weight="700">Load Balancer</text>
+  <text x="600" y="82" text-anchor="middle" fill="#94a3b8" font-size="8">A=3 conns · B=0 conns → B</text>
+
+  <!-- Arrow to server B -->
+  <line x1="600" y1="92" x2="600" y2="248" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
+
+  <!-- Server A — busy, skipped -->
+  <rect x="465" y="121" width="270" height="110" rx="9" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="600" y="141" text-anchor="middle" fill="#64748b" font-size="10" font-weight="700">Server A  ·  skipped</text>
+  <rect x="485" y="150" width="70" height="18" rx="3" fill="#e2e8f0"/>
+  <text x="520" y="163" text-anchor="middle" fill="#64748b" font-size="7.5">3s req</text>
+  <rect x="565" y="150" width="70" height="18" rx="3" fill="#e2e8f0"/>
+  <text x="600" y="163" text-anchor="middle" fill="#64748b" font-size="7.5">3s req</text>
+  <rect x="645" y="150" width="70" height="18" rx="3" fill="#e2e8f0"/>
+  <text x="680" y="163" text-anchor="middle" fill="#64748b" font-size="7.5">3s req</text>
+  <text x="600" y="206" text-anchor="middle" fill="#94a3b8" font-size="8" font-style="italic">3 active connections · not chosen</text>
+
+  <!-- Server B — receives request -->
+  <rect x="465" y="250" width="270" height="58" rx="9" fill="#f0fff4" stroke="#27ae60" stroke-width="2" filter="url(#shadow)"/>
+  <text x="600" y="272" text-anchor="middle" fill="#166534" font-size="10" font-weight="700">Server B</text>
+  <rect x="535" y="278" width="130" height="16" rx="3" fill="#dcfce7"/>
+  <text x="600" y="290" text-anchor="middle" fill="#166534" font-size="7.5" font-weight="600">new request served immediately</text>
+
+  <!-- Caption -->
+  <line x1="200" y1="340" x2="600" y2="340" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="357" text-anchor="middle" fill="#1e293b" font-size="12" font-weight="700" font-family="Georgia,serif" font-style="italic">"Round robin counts. Least connections observes."</text>
+  <text x="400" y="373" text-anchor="middle" fill="#94a3b8" font-size="9" font-style="italic">Same fleet, same request, different outcomes.</text>
+</svg>
