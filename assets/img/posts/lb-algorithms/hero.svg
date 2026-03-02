@@ -63,37 +63,37 @@
 
   <!-- ── Connector lines: from LB bottom (y=88) to badge tops (y=116)       ──
        28 px vertical drop gives a clearly visible downward slope.            -->
-  <!-- Left: fans out to Round Robin badge centre (x=122) -->
-  <line x1="350" y1="88" x2="122" y2="116" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
+  <!-- Left: fans out from LB left edge (x=305) to Round Robin badge centre (x=122) -->
+  <line x1="305" y1="88" x2="122" y2="116" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
   <!-- Centre: drops straight to Least Connections badge -->
   <line x1="400" y1="88" x2="400" y2="116" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
-  <!-- Right: fans out to IP Hash badge centre (x=678) -->
-  <line x1="450" y1="88" x2="678" y2="116" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
+  <!-- Right: fans out from LB right edge (x=495) to IP Hash badge centre (x=678) -->
+  <line x1="495" y1="88" x2="678" y2="116" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 3" class="flow"/>
 
-  <!-- ── Layer 3: Algorithm badges (y = 117 → 169, height = 52) ── -->
+  <!-- ── Layer 3: Algorithm badges (y = 116 → 168, height = 52) ── -->
 
   <!-- Round Robin badge — centred at x=122 -->
-  <rect x="50" y="117" width="144" height="52" rx="7" fill="white" stroke="#f97316" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="122" y="135" text-anchor="middle" fill="#c2410c" font-size="8" font-weight="700">Round Robin</text>
-  <text x="122" y="149" text-anchor="middle" fill="#9a3412" font-size="7.5">"Server A's turn" → A</text>
-  <text x="122" y="161" text-anchor="middle" fill="#fb923c" font-size="7" font-style="italic">ignores 8 connections</text>
+  <rect x="50" y="116" width="144" height="52" rx="7" fill="white" stroke="#f97316" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="122" y="134" text-anchor="middle" fill="#c2410c" font-size="8" font-weight="700">Round Robin</text>
+  <text x="122" y="148" text-anchor="middle" fill="#9a3412" font-size="7.5">"Server A's turn" → A</text>
+  <text x="122" y="160" text-anchor="middle" fill="#fb923c" font-size="7" font-style="italic">ignores 8 connections</text>
 
   <!-- Least Connections badge — centred at x=400 -->
-  <rect x="328" y="117" width="144" height="52" rx="7" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="400" y="135" text-anchor="middle" fill="#15803d" font-size="8" font-weight="700">Least Connections</text>
-  <text x="400" y="149" text-anchor="middle" fill="#166534" font-size="7.5">"Server B has 2" → B</text>
-  <text x="400" y="161" text-anchor="middle" fill="#22c55e" font-size="7" font-style="italic">routes to least busy</text>
+  <rect x="328" y="116" width="144" height="52" rx="7" fill="white" stroke="#27ae60" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="400" y="134" text-anchor="middle" fill="#15803d" font-size="8" font-weight="700">Least Connections</text>
+  <text x="400" y="148" text-anchor="middle" fill="#166534" font-size="7.5">"Server B has 2" → B</text>
+  <text x="400" y="160" text-anchor="middle" fill="#22c55e" font-size="7" font-style="italic">routes to least busy</text>
 
   <!-- IP Hash badge — centred at x=678 -->
-  <rect x="606" y="117" width="144" height="52" rx="7" fill="white" stroke="#94a3b8" stroke-width="1.5" filter="url(#shadow)"/>
-  <text x="678" y="135" text-anchor="middle" fill="#334155" font-size="8" font-weight="700">IP Hash</text>
-  <text x="678" y="149" text-anchor="middle" fill="#475569" font-size="7.5">hash(client IP) → C</text>
-  <text x="678" y="161" text-anchor="middle" fill="#94a3b8" font-size="7" font-style="italic">ignores all load signals</text>
+  <rect x="606" y="116" width="144" height="52" rx="7" fill="white" stroke="#94a3b8" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="678" y="134" text-anchor="middle" fill="#334155" font-size="8" font-weight="700">IP Hash</text>
+  <text x="678" y="148" text-anchor="middle" fill="#475569" font-size="7.5">hash(client IP) → C</text>
+  <text x="678" y="160" text-anchor="middle" fill="#94a3b8" font-size="7" font-style="italic">ignores all load signals</text>
 
-  <!-- Badge → server arrows (badge bottom y=169, server top y=194, 25 px gap) -->
-  <line x1="122" y1="170" x2="122" y2="192" stroke="#f97316" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mo)"/>
-  <line x1="400" y1="170" x2="400" y2="192" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
-  <line x1="678" y1="170" x2="678" y2="192" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mx)"/>
+  <!-- Badge → server arrows (badge bottom y=168, server top y=194, 26 px gap) -->
+  <line x1="122" y1="169" x2="122" y2="192" stroke="#f97316" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mo)"/>
+  <line x1="400" y1="169" x2="400" y2="192" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mg)"/>
+  <line x1="678" y1="169" x2="678" y2="192" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="5 3" class="flow" marker-end="url(#mx)"/>
 
   <!-- ── Layer 4: Server boxes (y = 194 → 302, height = 108) ──
        centres: 122 / 400 / 678   width: 184   margins: 30 / 308 / 586 -->
