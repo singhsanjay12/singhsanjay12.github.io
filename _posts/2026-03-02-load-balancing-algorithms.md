@@ -97,8 +97,6 @@ The details of how server-side and client-side load balancers detect and remove 
 
 The choice collapses to two independent questions: are your servers identical in capacity, and does request cost vary? Answer both and you have your algorithm.
 
-![Decision guide: two questions — server homogeneity and request uniformity — determine which load balancing algorithm fits your workload](/assets/img/posts/lb-algorithms/choosing.svg)
-
 | Workload | Algorithm | What to watch for |
 |---|---|---|
 | Identical servers, uniform request cost | Round robin | Slow requests queue invisibly behind fast ones |
