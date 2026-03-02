@@ -110,4 +110,4 @@ The deeper pattern is this: each algorithm optimizes for a different definition 
 
 Getting the wrong one means your load balancer is enforcing the wrong definition of fairness, and the resulting imbalance will show up in latency percentiles and error rates rather than in obvious failure. The servers will all report healthy. The algorithm will report no errors. The slowdown will look like a capacity problem when it is actually a routing problem.
 
-Your load balancer has been quietly opinionated about fairness since the day you deployed it. When the opinion stops matching the workload, the p99 is usually the first to say so.
+<p style="font-family: Georgia, serif; font-style: italic; font-size: 1.05em; border-left: 3px solid #c7d2fe; padding-left: 1em; margin-top: 2em; color: #1e293b;">Your load balancer has been quietly opinionated about fairness since the day you deployed it. When the opinion stops matching the workload, the p99 is usually the first to say so.</p>
