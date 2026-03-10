@@ -11,13 +11,13 @@ image:
 
 The first instinct when measuring proxy performance is throughput: requests per second, gigabits per second. That is the wrong place to start.
 
-The real constraint at scale is **concurrent connection count**. A proxy in front of your entire service fleet holds thousands of open connections simultaneously — clients waiting for upstream data, upstream connections waiting for backends, keepalive connections sitting idle, WebSocket streams that have been open for hours. How the proxy manages all of that bookkeeping, without running out of memory, file descriptors, or CPU, determines whether requests at the tail of the latency distribution are served in milliseconds or seconds.
+The real constraint at scale is **concurrent connection count**. A proxy in front of your entire service fleet holds thousands of open connections simultaneously: clients waiting for upstream data, upstream connections waiting for backends, keepalive connections sitting idle, WebSocket streams that have been open for hours. How the proxy manages all of that bookkeeping, without running out of memory, file descriptors, or CPU, determines whether requests at the tail of the latency distribution are served in milliseconds or seconds.
 
 ## The Thin Layer Constraint
 
-A reverse proxy has a narrow job: receive bytes on one socket, enforce policy, forward bytes on another socket. "Enforce policy" covers a lot — TLS termination, header rewriting, authentication, rate limiting — but the core is moving bytes efficiently.
+A reverse proxy has a narrow job: receive bytes on one socket, enforce policy, forward bytes on another socket. "Enforce policy" covers a lot (TLS termination, header rewriting, authentication, rate limiting), but the core is moving bytes efficiently.
 
-This creates what I call the thin layer constraint: **the proxy must consume the minimum resources necessary per connection, because it holds thousands of them simultaneously.** Every unnecessary byte allocated per connection, every lock acquired on the hot path, every avoidable system call — it multiplies by the connection count.
+This creates what I call the thin layer constraint: **the proxy must consume the minimum resources necessary per connection, because it holds thousands of them simultaneously.** Every unnecessary byte allocated per connection, every lock acquired on the hot path, every avoidable system call: it multiplies by the connection count.
 
 At 10,000 concurrent connections:
 
@@ -36,12 +36,12 @@ The problem is that threads are expensive.
 <div style="border-radius:8px;overflow:hidden;margin:1.5em 0;box-shadow:0 1px 6px rgba(0,0,0,0.15);">
   <div style="padding:7px 14px;background:#0f172a;display:flex;align-items:center;gap:8px;">
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-    <span style="font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:0.3px;">thread-per-connection — Python</span>
+    <span style="font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:0.3px;">thread-per-connection · Python</span>
   </div>
   <pre style="margin:0;padding:16px 18px;background:#1e293b;overflow-x:auto;"><code style="font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:13px;color:#e2e8f0;line-height:1.65;"><span style="color:#94a3b8;">import</span> socket, threading
 
 <span style="color:#94a3b8;">def</span> <span style="color:#7dd3fc;">handle</span>(conn):
-    data = conn.recv(<span style="color:#f0abfc;">4096</span>)   <span style="color:#64748b;"># blocks here — thread is stuck until client sends</span>
+    data = conn.recv(<span style="color:#f0abfc;">4096</span>)   <span style="color:#64748b;"># blocks here; thread is stuck until client sends</span>
     conn.sendall(data.upper())
     conn.close()
 
@@ -52,10 +52,10 @@ server.listen()
 <span style="color:#94a3b8;">while</span> <span style="color:#f0abfc;">True</span>:
     conn, _ = server.accept()
     threading.Thread(target=<span style="color:#7dd3fc;">handle</span>, args=(conn,)).start()
-    <span style="color:#64748b;"># a new OS thread for every connection — 10,000 clients = 10,000 threads</span></code></pre>
+    <span style="color:#64748b;"># a new OS thread per connection; 10,000 clients = 10,000 threads</span></code></pre>
 </div>
 
-A thread on Linux consumes roughly 8 MB of virtual memory for its default stack. Even with a tuned 512 KB stack, 10,000 connections requires 5 GB of stack space before any application work is done. The OS scheduler now manages 10,000 threads. Context switching between them — saving and restoring registers, TLB pressure, cache eviction — adds up. At high connection counts the scheduler overhead appears directly in latency measurements.
+A thread on Linux consumes roughly 8 MB of virtual memory for its default stack. Even with a tuned 512 KB stack, 10,000 connections requires 5 GB of stack space before any application work is done. The OS scheduler now manages 10,000 threads. Context switching between them (saving and restoring registers, TLB pressure, cache eviction) adds up. At high connection counts the scheduler overhead appears directly in latency measurements.
 
 The [C10K problem](http://www.kegel.com/c10k.html) (serving 10,000 concurrent connections efficiently) was a real practical limit for this model in the late 1990s. The solution was not faster hardware. It was a different concurrency model.
 
@@ -63,23 +63,23 @@ The [C10K problem](http://www.kegel.com/c10k.html) (serving 10,000 concurrent co
 
 ## The Event Loop: Separating Holding from Working
 
-Most of the time, a connection is not doing anything. It is waiting — for the client to send the next byte, for the backend to respond, for a slow upstream to unblock. A thread blocked on a slow client is wasted capacity.
+Most of the time, a connection is not doing anything. It is waiting: for the client to send the next byte, for the backend to respond, for a slow upstream to unblock. A thread blocked on a slow client is wasted capacity.
 
 The event loop separates the concepts of holding a connection and doing work on it.
 
-An event loop uses the OS's I/O readiness notification interface — [`epoll`](https://man7.org/linux/man-pages/man7/epoll.7.html) on Linux, [`kqueue`](https://man.freebsd.org/cgi/man.cgi?kqueue) on macOS and BSD — to monitor many file descriptors simultaneously with a single thread. The OS watches thousands of sockets. When one becomes readable (client sent data) or writable (backend acknowledged data), it notifies the event loop. The loop wakes up, does exactly the work that is ready, and returns to waiting.
+An event loop uses the OS's I/O readiness notification interface: [`epoll`](https://man7.org/linux/man-pages/man7/epoll.7.html) on Linux, [`kqueue`](https://man.freebsd.org/cgi/man.cgi?kqueue) on macOS and BSD, to monitor many file descriptors simultaneously with a single thread. The OS watches thousands of sockets. When one becomes readable (client sent data) or writable (backend acknowledged data), it notifies the event loop. The loop wakes up, does exactly the work that is ready, and returns to waiting.
 
 No threads blocked on slow connections. No context switches between thousands of threads. One thread, one event loop, as many file descriptors as the OS allows. The `ulimit -n` setting, commonly raised to 65,535 or higher in production, is now the practical limit rather than thread memory.
 
 <div style="border-radius:8px;overflow:hidden;margin:1.5em 0;box-shadow:0 1px 6px rgba(0,0,0,0.15);">
   <div style="padding:7px 14px;background:#0f172a;display:flex;align-items:center;gap:8px;">
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-    <span style="font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:0.3px;">event loop — Python asyncio</span>
+    <span style="font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:0.3px;">event loop · Python asyncio</span>
   </div>
   <pre style="margin:0;padding:16px 18px;background:#1e293b;overflow-x:auto;"><code style="font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:13px;color:#e2e8f0;line-height:1.65;"><span style="color:#94a3b8;">import</span> asyncio
 
 <span style="color:#94a3b8;">async def</span> <span style="color:#7dd3fc;">handle</span>(reader, writer):
-    data = <span style="color:#94a3b8;">await</span> reader.read(<span style="color:#f0abfc;">4096</span>)  <span style="color:#64748b;"># yields — other connections run while we wait</span>
+    data = <span style="color:#94a3b8;">await</span> reader.read(<span style="color:#f0abfc;">4096</span>)  <span style="color:#64748b;"># yields; other connections run while we wait</span>
     writer.write(data.upper())
     <span style="color:#94a3b8;">await</span> writer.drain()             <span style="color:#64748b;"># yields again while the kernel flushes the write</span>
     writer.close()
@@ -92,13 +92,13 @@ No threads blocked on slow connections. No context switches between thousands of
 asyncio.run(<span style="color:#7dd3fc;">main</span>())</code></pre>
 </div>
 
-The tradeoff is programming model complexity. A blocking operation inside the event loop blocks the entire loop — every connection on that thread stalls. Everything must be written as non-blocking callbacks or coroutines. This is harder to write correctly and harder to debug than sequential threaded code.
+The tradeoff is programming model complexity. A blocking operation inside the event loop blocks the entire loop; every connection on that thread stalls. Everything must be written as non-blocking callbacks or coroutines. This is harder to write correctly and harder to debug than sequential threaded code.
 
 Each proxy covered here takes this base model and makes different tradeoffs around it.
 
 ## [Apache Traffic Server](https://trafficserver.apache.org/): Event Threads and the Continuation System
 
-ATS does not use a single event loop. It uses a pool of event threads — one per CPU core by default, configured via `proxy.config.exec.thread.limit` — each running its own independent event loop.
+ATS does not use a single event loop. It uses a pool of event threads, one per CPU core by default, configured via `proxy.config.exec.thread.limit`, each running its own independent event loop.
 
 When a new connection arrives, it lands at a dedicated accept thread and is dispatched round-robin to one of the ET_NET (event thread network) threads. That thread owns the connection for its lifetime. Connections do not migrate between threads.
 
@@ -106,9 +106,9 @@ When a new connection arrives, it lands at a dedicated accept thread and is disp
 
 The programming model inside ATS is the **continuation system**. A continuation is a callback object with associated state: it says "when event X occurs, call this handler." Processing a request is a chain of continuations scheduled on the event thread. I/O completes, a continuation runs, schedules the next I/O operation, and the continuation is rescheduled when that I/O completes. The thread never waits; it always moves to the next ready event.
 
-The consequence for plugin authors is significant. ATS plugins hook into the request pipeline by registering continuations. If a plugin's handler makes a blocking system call — a synchronous DNS lookup, a blocking HTTP request to an external service, a filesystem read — it blocks the entire ET_NET thread. Every connection on that thread stops making progress until the blocking call returns. This is not a theoretical concern; it is the most common cause of latency spikes in production ATS deployments.
+The consequence for plugin authors is significant. ATS plugins hook into the request pipeline by registering continuations. If a plugin's handler makes a blocking system call (a synchronous DNS lookup, a blocking HTTP request to an external service, or a filesystem read), it blocks the entire ET_NET thread. Every connection on that thread stops making progress until the blocking call returns. This is not a theoretical concern; it is the most common cause of latency spikes in production ATS deployments.
 
-**Where ATS is strong:** CDN-scale HTTP caching and forward proxying. The continuation model is purpose-built for cache hit/miss processing. The cache integration is deep — content storage, freshness evaluation, and origin fetching are all built into the continuation chain. Organizations running CDN edge nodes at billions of requests per day have done so on ATS for years. The [TSAPI](https://docs.trafficserver.apache.org/en/latest/developer-guide/plugins/plugin-interfaces.en.html) plugin interface lets you customize behavior at every stage of request processing.
+**Where ATS is strong:** CDN-scale HTTP caching and forward proxying. The continuation model is purpose-built for cache hit/miss processing. The cache integration is deep: content storage, freshness evaluation, and origin fetching are all built into the continuation chain. Organizations running CDN edge nodes at billions of requests per day have done so on ATS for years. The [TSAPI](https://docs.trafficserver.apache.org/en/latest/developer-guide/plugins/plugin-interfaces.en.html) plugin interface lets you customize behavior at every stage of request processing.
 
 **Where ATS struggles:** The continuation model has a steep learning curve, and the plugin isolation story is weak. A misbehaving plugin degrades the thread it runs on. Configuration is dense, and performance tuning requires understanding internal thread and event queue sizing. For general-purpose reverse proxy use cases outside of caching workloads, the operational complexity is hard to justify.
 
@@ -122,9 +122,9 @@ HAProxy added multi-threading in version 1.8 via the `nbthread` directive. The d
 
 ![HAProxy: single process with shared accept socket via SO_REUSEPORT; nbthread workers each run an independent epoll loop; shared state protected by spinlocks](/assets/img/posts/proxy-concurrency/haproxy-arch.svg)
 
-New connections are distributed using `SO_REUSEPORT` — a socket option that lets multiple threads call `accept()` on the same port, with the kernel distributing connections across them. This removes the accept bottleneck without a shared queue or mutex. Each thread then manages its connections independently.
+New connections are distributed using `SO_REUSEPORT`, a socket option that lets multiple threads call `accept()` on the same port, with the kernel distributing connections across them. This removes the accept bottleneck without a shared queue or mutex. Each thread then manages its connections independently.
 
-Shared state — stick-tables, global request counters, server health information — is protected by per-object spinlocks rather than a global lock. The shared surface is small by design; HAProxy's data model has always minimized it.
+Shared state (stick-tables, global request counters, server health information) is protected by per-object spinlocks rather than a global lock. The shared surface is small by design; HAProxy's data model has always minimized it.
 
 Configuration is explicit:
 
@@ -147,37 +147,37 @@ Hot reload works through process replacement: `haproxy -sf $(cat /var/run/haprox
 
 **Where HAProxy is strong:** Pure efficiency and predictable latency in L4 and L7 load balancing scenarios. For environments where memory budget is constrained (appliances, shared infrastructure), where configuration must be auditable and straightforward, or where the stick-table and ACL system's power is needed without external dependencies, HAProxy is the standard choice. Its runtime API (socket commands) supports dynamic configuration of server weights, server state, and ACLs without a reload.
 
-**Where HAProxy struggles:** The threading model was added to a single-process design; at very high thread counts, spinlock contention on shared state can surface. Lua (the extension scripting language) runs on the event loop thread, so complex Lua logic adds latency to other connections on that thread. HAProxy is not designed for deep L7 programmability — complex request transformation logic that would be straightforward in Envoy's filter chain is awkward to express in HAProxy's ACL/action model.
+**Where HAProxy struggles:** The threading model was added to a single-process design; at very high thread counts, spinlock contention on shared state can surface. Lua (the extension scripting language) runs on the event loop thread, so complex Lua logic adds latency to other connections on that thread. HAProxy is not designed for deep L7 programmability; complex request transformation logic that would be straightforward in Envoy's filter chain is awkward to express in HAProxy's ACL/action model.
 
 ## [Envoy](https://www.envoyproxy.io/): Thread-per-Core with Complete Isolation
 
-Envoy was designed for service mesh: a proxy running as a sidecar alongside every service instance in the fleet. That use case required properties none of the existing proxies optimized for — deep L7 programmability, dynamic reconfiguration without restarts, and a concurrency model that would not allow a bug in one connection's processing to affect any other connection.
+Envoy was designed for service mesh: a proxy running as a sidecar alongside every service instance in the fleet. That use case required properties none of the existing proxies optimized for: deep L7 programmability, dynamic reconfiguration without restarts, and a concurrency model that would not allow a bug in one connection's processing to affect any other connection.
 
 The architecture is thread-per-core with a strict constraint: **worker threads share nothing by design.**
 
 A listener thread accepts incoming connections and dispatches each to a worker thread via a consistent hash. From that moment, the connection belongs entirely to that worker: its TLS session, its upstream connection pool, the entire L7 filter chain executing its request. Workers do not communicate with each other for connection processing.
 
-Each worker runs its own [libevent](https://libevent.org/)-based event loop and holds its own copy of the proxy configuration — delivered as a snapshot via the [xDS protocol](https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol). When the control plane pushes a configuration update (a new backend, a changed route, a rotated certificate), each worker receives and applies it independently. No coordination between workers, no global pause, no lock.
+Each worker runs its own [libevent](https://libevent.org/)-based event loop and holds its own copy of the proxy configuration, delivered as a snapshot via the [xDS protocol](https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol). When the control plane pushes a configuration update (a new backend, a changed route, a rotated certificate), each worker receives and applies it independently. No coordination between workers, no global pause, no lock.
 
 ![Envoy listener thread dispatching to worker threads; each worker is completely isolated with its own event loop, connection pool, filter chain, and xDS config snapshot; no shared state between workers](/assets/img/posts/proxy-concurrency/envoy-arch.svg)
 
-The filter chain model is the other defining feature. Every request passes through a configured sequence of L4 and L7 filters. Each filter can read and modify the request: JWT validation, header manipulation, rate limit checking, gRPC transcoding, circuit breaking. Filters are composable and independently configurable. The per-worker isolation means a filter's state is always thread-local — no locking required within the filter chain.
+The filter chain model is the other defining feature. Every request passes through a configured sequence of L4 and L7 filters. Each filter can read and modify the request: JWT validation, header manipulation, rate limit checking, gRPC transcoding, circuit breaking. Filters are composable and independently configurable. The per-worker isolation means a filter's state is always thread-local, so no locking is required within the filter chain.
 
-The xDS API is the interface between Envoy and its control plane ([Istio](https://istio.io/), custom implementations, or static config with dynamic overrides). Adding a backend endpoint, changing a route's timeout, draining an instance before it is decommissioned — all are xDS updates pushed to each worker independently. This is the operational model that makes zero-downtime deployments at fleet scale tractable.
+The xDS API is the interface between Envoy and its control plane ([Istio](https://istio.io/), custom implementations, or static config with dynamic overrides). Adding a backend endpoint, changing a route's timeout, draining an instance before it is decommissioned: all are xDS updates pushed to each worker independently. This is the operational model that makes zero-downtime deployments at fleet scale tractable.
 
 **Where Envoy is strong:** Complex L7 processing, service mesh sidecars, API gateways where routing rules change frequently, and environments with control-plane infrastructure. The filter chain model handles workloads that would require custom code in HAProxy or ATS. The xDS integration is the right tool when the proxy's configuration is driven programmatically rather than by static files.
 
-**Where Envoy struggles:** Memory footprint is higher than HAProxy, primarily from per-worker state duplication — each worker holds its own upstream connection pool and config snapshot. The operational surface is larger: debugging a misconfigured filter chain is harder than reading a HAProxy ACL. Custom filters require C++ or WASM, a higher bar than Lua scripting. For straightforward L4/L7 load balancing without complex routing logic, Envoy's weight is harder to justify than HAProxy's.
+**Where Envoy struggles:** Memory footprint is higher than HAProxy, primarily from per-worker state duplication: each worker holds its own upstream connection pool and config snapshot. The operational surface is larger: debugging a misconfigured filter chain is harder than reading a HAProxy ACL. Custom filters require C++ or WASM, a higher bar than Lua scripting. For straightforward L4/L7 load balancing without complex routing logic, Envoy's weight is harder to justify than HAProxy's.
 
 ## Robustness Under the Thin Layer
 
 Being thin does not mean being fragile. Each model comes with specific mechanisms for maintaining service through failures.
 
-**Graceful restart** is how all three proxies handle configuration updates and version upgrades without dropping connections. HAProxy's `-sf` flag passes file descriptors to the new process, which takes the listening sockets while the old process drains. ATS's traffic_manager handles restart sequencing. Envoy's hot-restart protocol passes sockets between old and new processes; the drain timer controls how long the old process waits for in-flight requests to complete. The common pattern — new process takes the port, old process finishes its work — is non-negotiable for a proxy in a live path.
+**Graceful restart** is how all three proxies handle configuration updates and version upgrades without dropping connections. HAProxy's `-sf` flag passes file descriptors to the new process, which takes the listening sockets while the old process drains. ATS's traffic_manager handles restart sequencing. Envoy's hot-restart protocol passes sockets between old and new processes; the drain timer controls how long the old process waits for in-flight requests to complete. The common pattern (new process takes the port, old process finishes its work) is non-negotiable for a proxy in a live path.
 
 **Circuit breaking** prevents backend failure from cascading into proxy resource exhaustion. When a backend is slow or failing, the proxy must stop sending it new connections before queues grow unbounded. Envoy's circuit breaker is per-cluster with configurable thresholds: maximum pending requests, active requests, retries, and connections. HAProxy uses `maxconn` per server with queue management and health-check-driven server state transitions. ATS manages this through origin server connection limiting and retry configuration. The implementation differs; the requirement is the same: a proxy that blindly queues connections to a failing backend eventually exhausts memory and takes itself down.
 
-**Connection draining on backend removal** ensures in-flight requests complete when a backend exits the pool. HAProxy's "drain" server state stops new connections while allowing existing ones to finish. Envoy's endpoint discovery transitions endpoints through a draining state before removal. This is operationally critical for deployments — a rolling deployment that removes backends without draining will drop a predictable fraction of requests proportional to the ratio of removed capacity to total capacity.
+**Connection draining on backend removal** ensures in-flight requests complete when a backend exits the pool. HAProxy's "drain" server state stops new connections while allowing existing ones to finish. Envoy's endpoint discovery transitions endpoints through a draining state before removal. This is operationally critical for deployments: a rolling deployment that removes backends without draining will drop a predictable fraction of requests proportional to the ratio of removed capacity to total capacity.
 
 ## Choosing the Right Model
 
