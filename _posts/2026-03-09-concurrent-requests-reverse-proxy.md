@@ -85,15 +85,18 @@ Shared state — stick-tables, global request counters, server health informatio
 
 Configuration is explicit:
 
-```nginx
-global
-    nbthread auto          # one thread per available CPU core
+<div style="border-radius:8px;overflow:hidden;margin:1.5em 0;box-shadow:0 1px 6px rgba(0,0,0,0.15);">
+  <div style="padding:7px 14px;background:#0f172a;display:flex;align-items:center;gap:8px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <span style="font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:0.3px;">haproxy.cfg</span>
+  </div>
+  <pre style="margin:0;padding:16px 18px;background:#1e293b;overflow-x:auto;"><code style="font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:13px;color:#e2e8f0;line-height:1.65;">global
+    nbthread auto          <span style="color:#64748b;"># one thread per available CPU core</span>
 
 frontend http-in
-    bind :80 thread all    # all threads accept on this frontend
-    bind :443 ssl crt /etc/ssl/certs/ thread 1-2  # pin TLS to threads 1-2
-```
-{: file="haproxy.cfg" }
+    bind :80 thread all    <span style="color:#64748b;"># all threads accept on this frontend</span>
+    bind :443 ssl crt /etc/ssl/certs/ thread 1-2  <span style="color:#64748b;"># pin TLS to threads 1-2</span></code></pre>
+</div>
 
 The `thread` directive on `bind` lines lets you pin frontends to specific thread subsets, giving traffic isolation between workloads on a single HAProxy instance without running separate processes.
 
