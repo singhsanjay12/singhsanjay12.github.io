@@ -85,7 +85,7 @@ Shared state — stick-tables, global request counters, server health informatio
 
 Configuration is explicit:
 
-```
+```nginx
 global
     nbthread auto          # one thread per available CPU core
 
@@ -93,6 +93,7 @@ frontend http-in
     bind :80 thread all    # all threads accept on this frontend
     bind :443 ssl crt /etc/ssl/certs/ thread 1-2  # pin TLS to threads 1-2
 ```
+{: file="haproxy.cfg" }
 
 The `thread` directive on `bind` lines lets you pin frontends to specific thread subsets, giving traffic isolation between workloads on a single HAProxy instance without running separate processes.
 
