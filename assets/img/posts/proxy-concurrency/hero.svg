@@ -77,20 +77,20 @@
   <text x="677" y="85" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1e293b" text-anchor="middle">Backend A</text>
   <rect x="588" y="90" width="168" height="5" rx="2" fill="#e2e8f0"/>
   <rect x="588" y="90" width="67"  height="5" rx="2" fill="#4f8ef7" opacity="0.8"/>
-  <text x="760" y="97" font-family="system-ui,sans-serif" font-size="8" fill="#4f8ef7">3 req</text>
+  <text x="775" y="97" font-family="system-ui,sans-serif" font-size="8" fill="#4f8ef7" text-anchor="end">3 req</text>
 
   <!-- B2 active, high load -->
   <rect x="575" y="171" width="205" height="42" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="1.8"/>
   <text x="677" y="187" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1e293b" text-anchor="middle">Backend B</text>
   <rect x="588" y="192" width="168" height="5" rx="2" fill="#e2e8f0"/>
   <rect x="588" y="192" width="118" height="5" rx="2" fill="#f97316" opacity="0.8"/>
-  <text x="760" y="199" font-family="system-ui,sans-serif" font-size="8" fill="#f97316">5 req</text>
+  <text x="775" y="199" font-family="system-ui,sans-serif" font-size="8" fill="#f97316" text-anchor="end">5 req</text>
 
   <!-- B3 idle -->
   <rect x="575" y="272" width="205" height="42" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
   <text x="677" y="288" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#94a3b8" text-anchor="middle">Backend C</text>
   <rect x="588" y="293" width="168" height="5" rx="2" fill="#f1f5f9"/>
-  <text x="760" y="299" font-family="system-ui,sans-serif" font-size="8" fill="#cbd5e1">idle</text>
+  <text x="775" y="299" font-family="system-ui,sans-serif" font-size="8" fill="#cbd5e1" text-anchor="end">idle</text>
 
   <!-- In-flight request dots -->
   <!-- C1→proxy (203,45)→(315,172) at t=0.42: (250, 98.7) -->

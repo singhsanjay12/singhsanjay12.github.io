@@ -37,7 +37,7 @@
   <!-- ET_NET boxes centered at y=40, 120, 200, 280 -->
   <path d="M 260 97  C 295 97  295 40  333 40"  fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
   <path d="M 260 101 C 295 101 295 120 333 120" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
-  <path d="M 260 105 C 295 105 295 200 333 200" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <path d="M 260 105 C 295 105 295 206 333 206" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
   <path d="M 260 109 C 295 109 295 280 333 280" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
 
   <!-- Round-robin label -->
@@ -70,16 +70,17 @@
   <polygon points="539,132 539,141 531,137" fill="#4f8ef7"/>
 
   <!-- ET_NET 2 — overloaded (orange) -->
-  <rect x="335" y="174" width="220" height="52" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <rect x="335" y="174" width="220" height="64" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
   <text x="386" y="194" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#c2410c">ET_NET 2  ⚠ overloaded</text>
-  <text x="386" y="210" font-family="system-ui,sans-serif" font-size="8" fill="#f97316">event loop · 18 conns · plugin blocking</text>
+  <text x="386" y="210" font-family="system-ui,sans-serif" font-size="8" fill="#f97316">event loop · 18 conns</text>
+  <text x="386" y="223" font-family="system-ui,sans-serif" font-size="8" fill="#f97316">plugin blocking</text>
   <circle cx="489" cy="192" r="3.5" fill="#f97316"/>
   <circle cx="500" cy="192" r="3.5" fill="#f97316"/>
   <circle cx="511" cy="192" r="3.5" fill="#f97316"/>
   <circle cx="522" cy="192" r="3.5" fill="#f97316"/>
   <circle cx="533" cy="192" r="3.5" fill="#f97316"/>
-  <path d="M 530 208 A 8 8 0 1 1 539 217" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round"/>
-  <polygon points="539,212 539,221 531,217" fill="#f97316"/>
+  <path d="M 530 220 A 8 8 0 1 1 539 229" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round"/>
+  <polygon points="539,224 539,233 531,229" fill="#f97316"/>
 
   <!-- ET_NET 3 -->
   <rect x="335" y="254" width="220" height="52" rx="6" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
@@ -111,7 +112,7 @@
   <text x="680" y="252" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">= number of ET_NET threads</text>
 
   <!-- Arrow from ET_NET 2 to callout box -->
-  <line x1="557" y1="200" x2="578" y2="185" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="557" y1="206" x2="578" y2="185" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4 3"/>
 
   <!-- Caption -->
   <line x1="40" y1="352" x2="760" y2="352" stroke="#e2e8f0" stroke-width="1"/>

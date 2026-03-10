@@ -70,7 +70,7 @@
   <circle cx="418" cy="176" r="4" fill="#cbd5e1"/>
   <circle cx="418" cy="224" r="4" fill="#4f8ef7"/>
   <circle cx="418" cy="272" r="4" fill="#cbd5e1"/>
-  <text x="418" y="303" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">⋯ thousands</text>
+  <text x="418" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">⋯ thousands</text>
 
   <!-- Fan-in lines to event loop box (left edge x=535) -->
   <line x1="426" y1="32"  x2="533" y2="148" stroke="#4f8ef7" stroke-width="1.4"/>
@@ -88,9 +88,9 @@
   <!-- Event loop box -->
   <rect x="535" y="110" width="200" height="145" rx="10" fill="#1e293b"/>
 
-  <!-- Arc loop icon — small, top-left corner, clear of text -->
-  <path d="M 548 118 A 10 10 0 1 1 559 129" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
-  <polygon points="559,124 559,133 551,129" fill="#6366f1"/>
+  <!-- Arc loop icon — shifted down so topmost extent (y≈121) is clear of box top (y=110) -->
+  <path d="M 558 128 A 9 9 0 1 1 569 139" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="569,134 569,143 561,139" fill="#6366f1"/>
 
   <!-- Labels inside box — centred at x=648 so they clear the arc on the left -->
   <text x="648" y="135" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="white" text-anchor="middle">Event Loop</text>
