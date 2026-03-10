@@ -119,6 +119,26 @@ class SvgTest < Minitest::Test
     end
   end
 
+  # ── Duplicate attributes ──────────────────────────────────────────────────
+
+  # Duplicate attributes on the same XML element are invalid and cause the
+  # entire SVG to fail to parse — the browser renders nothing.
+  # (Caused haproxy-arch.svg to go blank: two font-family= on one <text> tag.)
+  def test_no_duplicate_attributes
+    all_svgs.each do |path|
+      content = File.read(path)
+      # Match each opening tag; \s+(name)= captures attribute names preceded
+      # by whitespace, avoiding false matches inside attribute values.
+      content.scan(/<[a-zA-Z][^>]*>/m) do |tag|
+        attr_names = tag.scan(/\s+([\w-]+)=["']/).flatten
+        duplicates = attr_names.group_by { |n| n }.select { |_, v| v.size > 1 }.keys
+        assert duplicates.empty?,
+          "#{path}: duplicate attribute(s) #{duplicates.inspect} on element: " \
+          "#{tag[0, 80].strip}…"
+      end
+    end
+  end
+
   # ── Bottom margin ─────────────────────────────────────────────────────────
 
   # For the standard viewBox (y = -25 to 395) no text baseline should sit

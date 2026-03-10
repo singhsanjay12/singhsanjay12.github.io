@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -25 800 420" width="800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1.5" fill="#c7d2fe" opacity="0.35"/>
+    </pattern>
+    <marker id="arr" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#4f8ef7"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <rect x="0" y="-25" width="800" height="420" fill="url(#dots)"/>
+
+  <!-- Center divider -->
+  <line x1="400" y1="-20" x2="400" y2="348" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="7 4"/>
+  <text x="400" y="-5" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">VS</text>
+
+  <!-- ===== LEFT: Thread-per-Connection ===== -->
+  <text x="200" y="10" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">Thread-per-Connection</text>
+
+  <!-- Thread 1 -->
+  <line x1="28" y1="45" x2="95" y2="45" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr)"/>
+  <circle cx="47" cy="45" r="4.5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <rect x="100" y="31" width="175" height="28" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="187" y="49" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Thread 1 · idle wait</text>
+
+  <!-- Thread 2 -->
+  <line x1="28" y1="95" x2="95" y2="95" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr)"/>
+  <circle cx="47" cy="95" r="4.5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <rect x="100" y="81" width="175" height="28" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="187" y="99" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Thread 2 · idle wait</text>
+
+  <!-- Thread 3 -->
+  <line x1="28" y1="145" x2="95" y2="145" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr)"/>
+  <circle cx="47" cy="145" r="4.5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <rect x="100" y="131" width="175" height="28" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="187" y="149" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Thread 3 · idle wait</text>
+
+  <!-- Thread 4 -->
+  <line x1="28" y1="195" x2="95" y2="195" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr)"/>
+  <circle cx="47" cy="195" r="4.5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <rect x="100" y="181" width="175" height="28" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="187" y="199" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Thread 4 · idle wait</text>
+
+  <!-- Thread 5 — blocked -->
+  <line x1="28" y1="245" x2="95" y2="245" stroke="#f97316" stroke-width="1.8" marker-end="url(#arr)"/>
+  <circle cx="47" cy="245" r="4.5" fill="#f97316" stroke="white" stroke-width="1.5"/>
+  <rect x="100" y="231" width="175" height="28" rx="5" fill="#fff7ed" stroke="#f97316" stroke-width="1.8"/>
+  <text x="187" y="249" font-family="system-ui,sans-serif" font-size="10" fill="#c2410c" text-anchor="middle">Thread 5 · BLOCKED ⚠</text>
+
+  <!-- Ellipsis -->
+  <text x="187" y="282" font-family="system-ui,sans-serif" font-size="11" fill="#c7d2fe" text-anchor="middle">⋯  N threads total</text>
+
+  <!-- Cost annotation -->
+  <rect x="30" y="295" width="340" height="44" rx="7" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.3"/>
+  <text x="200" y="312" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#b91c1c" text-anchor="middle">Memory: N × ~1 MB stack space</text>
+  <text x="200" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#ef4444" text-anchor="middle">OS schedules N threads · blocked thread wastes CPU</text>
+
+  <!-- ===== RIGHT: Event Loop ===== -->
+  <text x="600" y="10" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1e293b" text-anchor="middle">Event Loop  (epoll / kqueue)</text>
+
+  <!-- Connection source dots — fan in from left -->
+  <circle cx="418" cy="32"  r="4" fill="#4f8ef7"/>
+  <circle cx="418" cy="80"  r="4" fill="#4f8ef7"/>
+  <circle cx="418" cy="128" r="4" fill="#4f8ef7"/>
+  <circle cx="418" cy="176" r="4" fill="#cbd5e1"/>
+  <circle cx="418" cy="224" r="4" fill="#4f8ef7"/>
+  <circle cx="418" cy="272" r="4" fill="#cbd5e1"/>
+  <text x="418" y="289" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">⋯ thousands</text>
+
+  <!-- Fan-in lines to event loop box (left edge x=535) -->
+  <line x1="426" y1="32"  x2="533" y2="148" stroke="#4f8ef7" stroke-width="1.4"/>
+  <line x1="426" y1="80"  x2="533" y2="158" stroke="#4f8ef7" stroke-width="1.4"/>
+  <line x1="426" y1="128" x2="533" y2="168" stroke="#4f8ef7" stroke-width="1.4"/>
+  <line x1="426" y1="176" x2="533" y2="172" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="426" y1="224" x2="533" y2="178" stroke="#4f8ef7" stroke-width="1.4"/>
+  <line x1="426" y1="272" x2="533" y2="185" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="5 4"/>
+
+  <!-- Legend for dashed — white bg so label is readable over the fan-in line -->
+  <line x1="418" y1="176" x2="418" y2="176" stroke="none"/>
+  <rect x="451" y="163" width="22" height="13" rx="2" fill="white" opacity="0.88"/>
+  <text x="455" y="173" font-family="system-ui,sans-serif" font-size="8" fill="#64748b">idle</text>
+
+  <!-- Event loop box -->
+  <rect x="535" y="110" width="200" height="145" rx="10" fill="#1e293b"/>
+
+  <!-- Arc loop icon — shifted down so topmost extent (y≈121) is clear of box top (y=110) -->
+  <path d="M 558 128 A 9 9 0 1 1 569 139" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="569,134 569,143 561,139" fill="#6366f1"/>
+
+  <!-- Labels inside box — centred at x=648 so they clear the arc on the left -->
+  <text x="648" y="135" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="white" text-anchor="middle">Event Loop</text>
+  <text x="648" y="152" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">1 thread · kernel I/O</text>
+  <text x="648" y="170" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">socket becomes readable</text>
+  <text x="648" y="186" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">→ wake up · do work</text>
+  <text x="648" y="202" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">→ return to waiting</text>
+  <!-- Connection count badge -->
+  <rect x="578" y="218" width="140" height="18" rx="9" fill="#6366f1"/>
+  <text x="648" y="231" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="white" text-anchor="middle">N connections · 1 thread</text>
+
+  <!-- Benefit annotation -->
+  <rect x="430" y="295" width="340" height="44" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.3"/>
+  <text x="600" y="312" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#15803d" text-anchor="middle">Memory: fixed · no N multiplier</text>
+  <text x="600" y="328" font-family="system-ui,sans-serif" font-size="9" fill="#16a34a" text-anchor="middle">No context switch · idle conns cost nothing · OS does the waiting</text>
+
+  <!-- Caption -->
+  <line x1="40" y1="352" x2="760" y2="352" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="366" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="italic" fill="#1e293b" text-anchor="middle">Thread-per-connection scales with memory. The event loop scales with OS I/O notifications.</text>
+  <text x="400" y="378" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">orange = thread blocked on slow client · dashed line = idle keepalive connection · blue dot = active request</text>
+</svg>

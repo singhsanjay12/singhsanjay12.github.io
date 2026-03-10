@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -25 800 420" width="800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1.5" fill="#c7d2fe" opacity="0.35"/>
+    </pattern>
+    <marker id="arr-v" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#6366f1"/>
+    </marker>
+    <marker id="arr-x" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#7dd3fc"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <rect x="0" y="-25" width="800" height="420" fill="url(#dots)"/>
+
+  <!-- Title -->
+  <text x="400" y="10" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e293b" text-anchor="middle">Envoy — Thread-per-Core, Complete Worker Isolation</text>
+
+  <!-- Clients -->
+  <text x="30" y="152" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">clients</text>
+  <circle cx="18" cy="167" r="4" fill="#4f8ef7"/>
+  <circle cx="30" cy="167" r="4" fill="#4f8ef7"/>
+  <circle cx="42" cy="167" r="4" fill="#4f8ef7"/>
+  <line x1="52" y1="167" x2="96" y2="167" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr-v)"/>
+
+  <!-- Listener Thread — centre y=167, aligned with client row -->
+  <rect x="99" y="132" width="155" height="70" rx="7" fill="#1e293b"/>
+  <text x="176" y="153" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle">Listener Thread</text>
+  <text x="176" y="168" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">accept · TLS handshake</text>
+  <text x="176" y="181" font-family="system-ui,sans-serif" font-size="8" fill="#6366f1" text-anchor="middle">hash conn → worker</text>
+
+  <!--
+    Dispatch arrows: right edge of listener (x=254) → left edge of workers (x=328).
+    Exit points fan around listener centre (y=167): 159, 164, 170, 175.
+    Worker left-edge centres: W0=51, W1=129, W2=207, W3=285.
+    Both cubic control points are at x=292 — every curve stays inside the 76-px lane.
+    Arrows spread outward from x=254; they never enter any worker box (x≥330).
+  -->
+  <path d="M 254 159 C 292 159 292 51  328 51"  fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+  <path d="M 254 164 C 292 164 292 129 328 129" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+  <path d="M 254 170 C 292 170 292 207 328 207" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+  <path d="M 254 175 C 292 175 292 285 328 285" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+
+  <!-- Worker 0 — y=20–82, centre_y=51 -->
+  <rect x="330" y="20" width="190" height="62" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="425" y="36" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Worker 0</text>
+  <line x1="340" y1="41" x2="510" y2="41" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="425" y="52" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">libevent loop · L4/L7 filter chain</text>
+  <text x="425" y="63" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">upstream conn pool · xDS snapshot</text>
+  <rect x="355" y="67" width="140" height="12" rx="6" fill="#eff6ff"/>
+  <text x="425" y="77" font-family="system-ui,sans-serif" font-size="7.5" font-weight="600" fill="#4f8ef7" text-anchor="middle">5 conns · 0 shared state</text>
+
+  <!-- Barrier 1 — centre of 16-px gap between W0 (bottom=82) and W1 (top=98) -->
+  <line x1="332" y1="90" x2="518" y2="90" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Worker 1 — y=98–160, centre_y=129 -->
+  <rect x="330" y="98" width="190" height="62" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="425" y="114" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Worker 1</text>
+  <line x1="340" y1="119" x2="510" y2="119" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="425" y="130" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">libevent loop · L4/L7 filter chain</text>
+  <text x="425" y="141" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">upstream conn pool · xDS snapshot</text>
+  <rect x="355" y="145" width="140" height="12" rx="6" fill="#eff6ff"/>
+  <text x="425" y="155" font-family="system-ui,sans-serif" font-size="7.5" font-weight="600" fill="#4f8ef7" text-anchor="middle">8 conns · 0 shared state</text>
+
+  <!-- Barrier 2 — centre of 16-px gap between W1 (bottom=160) and W2 (top=176), labelled -->
+  <line x1="332" y1="168" x2="518" y2="168" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="362" y="161" width="126" height="14" rx="7" fill="#fef2f2"/>
+  <text x="425" y="172" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#e74c3c" text-anchor="middle">NO SHARED STATE</text>
+
+  <!-- Worker 2 — y=176–238, centre_y=207 -->
+  <rect x="330" y="176" width="190" height="62" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="425" y="192" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Worker 2</text>
+  <line x1="340" y1="197" x2="510" y2="197" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="425" y="208" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">libevent loop · L4/L7 filter chain</text>
+  <text x="425" y="219" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">upstream conn pool · xDS snapshot</text>
+  <rect x="355" y="223" width="140" height="12" rx="6" fill="#eff6ff"/>
+  <text x="425" y="233" font-family="system-ui,sans-serif" font-size="7.5" font-weight="600" fill="#4f8ef7" text-anchor="middle">6 conns · 0 shared state</text>
+
+  <!-- Barrier 3 — centre of 16-px gap between W2 (bottom=238) and W3 (top=254) -->
+  <line x1="332" y1="246" x2="518" y2="246" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Worker 3 — y=254–316, centre_y=285 -->
+  <rect x="330" y="254" width="190" height="62" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="425" y="270" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Worker 3</text>
+  <line x1="340" y1="275" x2="510" y2="275" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="425" y="286" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">libevent loop · L4/L7 filter chain</text>
+  <text x="425" y="297" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">upstream conn pool · xDS snapshot</text>
+  <rect x="355" y="301" width="140" height="12" rx="6" fill="#eff6ff"/>
+  <text x="425" y="311" font-family="system-ui,sans-serif" font-size="7.5" font-weight="600" fill="#4f8ef7" text-anchor="middle">4 conns · 0 shared state</text>
+
+  <!-- xDS Control Plane — positioned to the right of the worker column -->
+  <rect x="580" y="80" width="155" height="100" rx="7" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.5"/>
+  <text x="657" y="100" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#0369a1" text-anchor="middle">xDS Control</text>
+  <text x="657" y="113" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#0369a1" text-anchor="middle">Plane</text>
+  <line x1="590" y1="119" x2="727" y2="119" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="657" y="131" font-family="system-ui,sans-serif" font-size="8" fill="#0369a1" text-anchor="middle">routes · endpoints</text>
+  <text x="657" y="143" font-family="system-ui,sans-serif" font-size="8" fill="#0369a1" text-anchor="middle">certs · timeouts</text>
+  <text x="657" y="158" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">hot-push to each worker</text>
+
+  <!--
+    xDS arrows: left wall of xDS (x=580) → right edge of each worker (x=520).
+    Exit points staggered on xDS left wall: y=93, 103, 113, 123 — all inside xDS box.
+    Control points at x=555; curves never leave the 60-px lane between x=520 and x=580.
+  -->
+  <path d="M 580 93  C 555 93  555 51  520 51"  fill="none" stroke="#7dd3fc" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr-x)"/>
+  <path d="M 580 103 C 555 103 555 129 520 129" fill="none" stroke="#7dd3fc" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr-x)"/>
+  <path d="M 580 113 C 555 113 555 207 520 207" fill="none" stroke="#7dd3fc" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr-x)"/>
+  <path d="M 580 123 C 555 123 555 285 520 285" fill="none" stroke="#7dd3fc" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#arr-x)"/>
+
+  <!-- Config note -->
+  <rect x="80" y="326" width="640" height="26" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+  <text x="400" y="343" font-family="monospace,system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">--concurrency N  (default: hardware threads)  ·  config via xDS API or static bootstrap YAML</text>
+
+  <!-- Caption -->
+  <line x1="40" y1="357" x2="760" y2="357" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="370" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="italic" fill="#1e293b" text-anchor="middle">Envoy workers are islands: each owns its connections, filter chain, and config snapshot. Nothing shared.</text>
+  <text x="400" y="382" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">xDS pushes config to each worker independently · red barriers = zero cross-worker communication</text>
+</svg>

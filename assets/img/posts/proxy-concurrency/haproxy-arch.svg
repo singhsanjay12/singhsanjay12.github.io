@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -25 800 420" width="800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1.5" fill="#c7d2fe" opacity="0.35"/>
+    </pattern>
+    <marker id="arr-v" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#6366f1"/>
+    </marker>
+    <marker id="arr-g" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#34d399"/>
+    </marker>
+    <marker id="arr-b" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#4f8ef7"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <rect x="0" y="-25" width="800" height="420" fill="url(#dots)"/>
+
+  <!-- Title -->
+  <text x="400" y="10" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e293b" text-anchor="middle">HAProxy — Single Process, nbthread Workers</text>
+
+  <!-- Incoming connections -->
+  <text x="34" y="65" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">clients</text>
+  <circle cx="18" cy="80" r="4" fill="#4f8ef7"/>
+  <circle cx="30" cy="80" r="4" fill="#4f8ef7"/>
+  <circle cx="42" cy="80" r="4" fill="#4f8ef7"/>
+  <line x1="52" y1="80" x2="108" y2="80" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr-b)"/>
+
+  <!-- Process outer border -->
+  <rect x="112" y="22" width="530" height="290" rx="10" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="377" y="40" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="middle">Single Process (haproxy)</text>
+
+  <!-- Shared accept socket -->
+  <rect x="217" y="50" width="318" height="38" rx="6" fill="#1e293b"/>
+  <text x="376" y="66" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle">Shared Accept Socket</text>
+  <text x="376" y="81" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">SO_REUSEPORT · kernel distributes new connections across threads</text>
+
+  <!-- Dispatch lines from socket to 4 threads -->
+  <!-- Thread centers: x=160, x=280, x=400, x=520; y=175 (box top=115) -->
+  <line x1="287" y1="88" x2="172" y2="113" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+  <line x1="330" y1="88" x2="291" y2="113" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+  <line x1="421" y1="88" x2="411" y2="113" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+  <line x1="465" y1="88" x2="532" y2="113" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-v)"/>
+
+  <!-- Thread boxes: width=118, height=155, gap=12 -->
+  <!-- x: 120, 250, 380, 510 -->
+
+  <!-- Thread 0 -->
+  <rect x="120" y="115" width="118" height="155" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="179" y="133" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Thread 0</text>
+  <!-- Epoll arc icon -->
+  <path d="M 162 160 A 14 14 0 1 1 177 175" fill="none" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="177,169 177,181 166,175" fill="#4f8ef7"/>
+  <text x="179" y="198" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">epoll loop</text>
+  <text x="179" y="212" font-family="system-ui,sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="600">8 conns</text>
+  <!-- Backend arrow out -->
+  <line x1="179" y1="248" x2="179" y2="265" stroke="#34d399" stroke-width="1.5" marker-end="url(#arr-g)"/>
+  <text x="179" y="243" font-family="system-ui,sans-serif" font-size="8" fill="#059669" text-anchor="middle">backends ↓</text>
+
+  <!-- Thread 1 -->
+  <rect x="250" y="115" width="118" height="155" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="309" y="133" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Thread 1</text>
+  <path d="M 292 160 A 14 14 0 1 1 307 175" fill="none" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="307,169 307,181 296,175" fill="#4f8ef7"/>
+  <text x="309" y="198" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">epoll loop</text>
+  <text x="309" y="212" font-family="system-ui,sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="600">11 conns</text>
+  <line x1="309" y1="248" x2="309" y2="265" stroke="#34d399" stroke-width="1.5" marker-end="url(#arr-g)"/>
+  <text x="309" y="243" font-family="system-ui,sans-serif" font-size="8" fill="#059669" text-anchor="middle">backends ↓</text>
+
+  <!-- Thread 2 -->
+  <rect x="380" y="115" width="118" height="155" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="439" y="133" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Thread 2</text>
+  <path d="M 422 160 A 14 14 0 1 1 437 175" fill="none" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="437,169 437,181 426,175" fill="#4f8ef7"/>
+  <text x="439" y="198" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">epoll loop</text>
+  <text x="439" y="212" font-family="system-ui,sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="600">7 conns</text>
+  <line x1="439" y1="248" x2="439" y2="265" stroke="#34d399" stroke-width="1.5" marker-end="url(#arr-g)"/>
+  <text x="439" y="243" font-family="system-ui,sans-serif" font-size="8" fill="#059669" text-anchor="middle">backends ↓</text>
+
+  <!-- Thread 3 -->
+  <rect x="510" y="115" width="118" height="155" rx="7" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="569" y="133" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Thread 3</text>
+  <path d="M 552 160 A 14 14 0 1 1 567 175" fill="none" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="567,169 567,181 556,175" fill="#4f8ef7"/>
+  <text x="569" y="198" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">epoll loop</text>
+  <text x="569" y="212" font-family="system-ui,sans-serif" font-size="9" fill="#1e293b" text-anchor="middle" font-weight="600">9 conns</text>
+  <line x1="569" y1="248" x2="569" y2="265" stroke="#34d399" stroke-width="1.5" marker-end="url(#arr-g)"/>
+  <text x="569" y="243" font-family="system-ui,sans-serif" font-size="8" fill="#059669" text-anchor="middle">backends ↓</text>
+
+  <!-- Shared state annotation inside process box -->
+  <rect x="128" y="278" width="516" height="26" rx="5" fill="#fef9c3" stroke="#fde047" stroke-width="1.2"/>
+  <text x="386" y="295" font-family="system-ui,sans-serif" font-size="8.5" fill="#92400e" text-anchor="middle">Threads share: stick-tables · global counters · server health state — each protected by a per-object spinlock</text>
+
+  <!-- Config snippet -->
+  <text x="376" y="330" font-family="monospace,system-ui,sans-serif" font-size="9" fill="#64748b" text-anchor="middle">nbthread auto  ·  bind :80 thread all  ·  bind :443 thread 1-2</text>
+
+  <!-- Hot reload note -->
+  <rect x="648" y="115" width="138" height="60" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+  <text x="717" y="132" font-family="system-ui,sans-serif" font-size="8.5" font-weight="700" fill="#15803d" text-anchor="middle">Hot Reload</text>
+  <text x="717" y="147" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">haproxy -sf PID</text>
+  <text x="717" y="160" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">new proc takes socket</text>
+  <text x="717" y="173" font-family="system-ui,sans-serif" font-size="8" fill="#475569" text-anchor="middle">old proc drains</text>
+
+  <!-- Caption -->
+  <line x1="40" y1="352" x2="760" y2="352" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="366" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="italic" fill="#1e293b" text-anchor="middle">HAProxy is a single process: SO_REUSEPORT distributes connections, each thread runs its own epoll loop.</text>
+  <text x="400" y="378" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">shared state is minimal by design · spinlocks on stick-tables, not on the connection hot path</text>
+</svg>
