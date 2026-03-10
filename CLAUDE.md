@@ -8,16 +8,11 @@
 
 ## GitHub Account
 
-This repo belongs to the personal account **`singhsanjay12`**, not the LinkedIn managed account.
+This repo belongs to the personal account **`singhsanjay12`**.
 
-Before creating any PR, verify the active account:
+Before creating any PR, verify the correct account is active and switch if needed:
 
 ```bash
 gh auth status
-```
-
-If the active account is `ssingh1_LinkedIn`, switch before creating the PR:
-
-```bash
 gh auth switch --user singhsanjay12
 ```
