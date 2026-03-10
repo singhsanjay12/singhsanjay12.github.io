@@ -33,6 +33,28 @@ The simplest way to handle concurrent connections is a thread (or process) per c
 
 The problem is that threads are expensive.
 
+<div style="border-radius:8px;overflow:hidden;margin:1.5em 0;box-shadow:0 1px 6px rgba(0,0,0,0.15);">
+  <div style="padding:7px 14px;background:#0f172a;display:flex;align-items:center;gap:8px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    <span style="font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:0.3px;">thread-per-connection — Python</span>
+  </div>
+  <pre style="margin:0;padding:16px 18px;background:#1e293b;overflow-x:auto;"><code style="font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:13px;color:#e2e8f0;line-height:1.65;"><span style="color:#94a3b8;">import</span> socket, threading
+
+<span style="color:#94a3b8;">def</span> <span style="color:#7dd3fc;">handle</span>(conn):
+    data = conn.recv(<span style="color:#f0abfc;">4096</span>)   <span style="color:#64748b;"># blocks here — thread is stuck until client sends</span>
+    conn.sendall(data.upper())
+    conn.close()
+
+server = socket.socket()
+server.bind((<span style="color:#a3e635;">'0.0.0.0'</span>, <span style="color:#f0abfc;">8080</span>))
+server.listen()
+
+<span style="color:#94a3b8;">while</span> <span style="color:#f0abfc;">True</span>:
+    conn, _ = server.accept()
+    threading.Thread(target=<span style="color:#7dd3fc;">handle</span>, args=(conn,)).start()
+    <span style="color:#64748b;"># a new OS thread for every connection — 10,000 clients = 10,000 threads</span></code></pre>
+</div>
+
 A thread on Linux consumes roughly 8 MB of virtual memory for its default stack. Even with a tuned 512 KB stack, 10,000 connections requires 5 GB of stack space before any application work is done. The OS scheduler now manages 10,000 threads. Context switching between them — saving and restoring registers, TLB pressure, cache eviction — adds up. At high connection counts the scheduler overhead appears directly in latency measurements.
 
 The C10K problem (serving 10,000 concurrent connections efficiently) was a real practical limit for this model in the late 1990s. The solution was not faster hardware. It was a different concurrency model.
@@ -48,6 +70,27 @@ The event loop separates the concepts of holding a connection and doing work on 
 An event loop uses the OS's I/O readiness notification interface — `epoll` on Linux, `kqueue` on macOS and BSD — to monitor many file descriptors simultaneously with a single thread. The OS watches thousands of sockets. When one becomes readable (client sent data) or writable (backend acknowledged data), it notifies the event loop. The loop wakes up, does exactly the work that is ready, and returns to waiting.
 
 No threads blocked on slow connections. No context switches between thousands of threads. One thread, one event loop, as many file descriptors as the OS allows. The `ulimit -n` setting, commonly raised to 65,535 or higher in production, is now the practical limit rather than thread memory.
+
+<div style="border-radius:8px;overflow:hidden;margin:1.5em 0;box-shadow:0 1px 6px rgba(0,0,0,0.15);">
+  <div style="padding:7px 14px;background:#0f172a;display:flex;align-items:center;gap:8px;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    <span style="font-family:system-ui,sans-serif;font-size:11px;color:#94a3b8;font-weight:500;letter-spacing:0.3px;">event loop — Python asyncio</span>
+  </div>
+  <pre style="margin:0;padding:16px 18px;background:#1e293b;overflow-x:auto;"><code style="font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:13px;color:#e2e8f0;line-height:1.65;"><span style="color:#94a3b8;">import</span> asyncio
+
+<span style="color:#94a3b8;">async def</span> <span style="color:#7dd3fc;">handle</span>(reader, writer):
+    data = <span style="color:#94a3b8;">await</span> reader.read(<span style="color:#f0abfc;">4096</span>)  <span style="color:#64748b;"># yields — other connections run while we wait</span>
+    writer.write(data.upper())
+    <span style="color:#94a3b8;">await</span> writer.drain()             <span style="color:#64748b;"># yields again while the kernel flushes the write</span>
+    writer.close()
+
+<span style="color:#94a3b8;">async def</span> <span style="color:#7dd3fc;">main</span>():
+    server = <span style="color:#94a3b8;">await</span> asyncio.start_server(<span style="color:#7dd3fc;">handle</span>, <span style="color:#a3e635;">'0.0.0.0'</span>, <span style="color:#f0abfc;">8080</span>)
+    <span style="color:#94a3b8;">async with</span> server:
+        <span style="color:#94a3b8;">await</span> server.serve_forever()  <span style="color:#64748b;"># one thread, handles thousands of connections</span>
+
+asyncio.run(<span style="color:#7dd3fc;">main</span>())</code></pre>
+</div>
 
 The tradeoff is programming model complexity. A blocking operation inside the event loop blocks the entire loop — every connection on that thread stalls. Everything must be written as non-blocking callbacks or coroutines. This is harder to write correctly and harder to debug than sequential threaded code.
 
