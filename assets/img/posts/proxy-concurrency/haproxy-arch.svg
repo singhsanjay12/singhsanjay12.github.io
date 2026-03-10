@@ -97,7 +97,7 @@
   <text x="386" y="295" font-family="system-ui,sans-serif" font-size="8.5" fill="#92400e" text-anchor="middle">Threads share: stick-tables · global counters · server health state — each protected by a per-object spinlock</text>
 
   <!-- Config snippet -->
-  <text x="376" y="330" font-family="system-ui,sans-serif" font-size="9" fill="#64748b" text-anchor="middle" font-family="monospace">nbthread auto  ·  bind :80 thread all  ·  bind :443 thread 1-2</text>
+  <text x="376" y="330" font-family="monospace,system-ui,sans-serif" font-size="9" fill="#64748b" text-anchor="middle">nbthread auto  ·  bind :80 thread all  ·  bind :443 thread 1-2</text>
 
   <!-- Hot reload note -->
   <rect x="648" y="115" width="138" height="60" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
