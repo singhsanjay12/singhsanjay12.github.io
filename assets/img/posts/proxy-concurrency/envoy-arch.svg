@@ -117,7 +117,7 @@
 
   <!-- Config note -->
   <rect x="70" y="310" width="650" height="30" rx="6" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
-  <text x="395" y="330" font-family="system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle" font-family="monospace">--concurrency N  (default: hardware threads)  ·  config via xDS API or static bootstrap YAML</text>
+  <text x="395" y="330" font-family="monospace,system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">--concurrency N  (default: hardware threads)  ·  config via xDS API or static bootstrap YAML</text>
 
   <!-- Caption -->
   <line x1="40" y1="356" x2="760" y2="356" stroke="#e2e8f0" stroke-width="1"/>
