@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -25 800 420" width="800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse" x="0" y="0">
+      <circle cx="20" cy="20" r="1.5" fill="#c7d2fe" opacity="0.35"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
+  <rect x="0" y="-25" width="800" height="420" fill="url(#dots)"/>
+
+  <!-- Section labels -->
+  <text x="65" y="-8" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="1">CLIENTS</text>
+  <text x="400" y="-8" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="1">REVERSE PROXY</text>
+  <text x="689" y="-8" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#94a3b8" text-anchor="middle" letter-spacing="1">BACKENDS</text>
+
+  <!-- Idle keepalive lines (draw first, under active lines) -->
+  <line x1="110" y1="100" x2="348" y2="181" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <line x1="110" y1="210" x2="348" y2="189" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <line x1="110" y1="315" x2="348" y2="197" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <line x1="452" y1="194" x2="633" y2="305" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="6 4"/>
+
+  <!-- Active connection lines -->
+  <line x1="110" y1="45" x2="348" y2="176" stroke="#4f8ef7" stroke-width="1.8"/>
+  <line x1="110" y1="155" x2="348" y2="185" stroke="#4f8ef7" stroke-width="1.8"/>
+  <line x1="110" y1="265" x2="348" y2="194" stroke="#4f8ef7" stroke-width="1.8"/>
+  <line x1="452" y1="175" x2="633" y2="90" stroke="#4f8ef7" stroke-width="1.8"/>
+  <line x1="452" y1="185" x2="633" y2="195" stroke="#4f8ef7" stroke-width="1.8"/>
+
+  <!-- Client boxes -->
+  <rect x="20" y="32" width="90" height="26" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="65" y="49" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Client 1</text>
+
+  <rect x="20" y="87" width="90" height="26" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+  <text x="65" y="104" font-family="system-ui,sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Client 2</text>
+
+  <rect x="20" y="142" width="90" height="26" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="65" y="159" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Client 3</text>
+
+  <rect x="20" y="197" width="90" height="26" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+  <text x="65" y="214" font-family="system-ui,sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Client 4</text>
+
+  <rect x="20" y="252" width="90" height="26" rx="5" fill="white" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="65" y="269" font-family="system-ui,sans-serif" font-size="10" fill="#475569" text-anchor="middle">Client 5</text>
+
+  <rect x="20" y="302" width="90" height="26" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.2"/>
+  <text x="65" y="319" font-family="system-ui,sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Client 6</text>
+
+  <text x="65" y="343" font-family="system-ui,sans-serif" font-size="11" fill="#c7d2fe" text-anchor="middle">⋯ 9,994 more</text>
+
+  <!-- Proxy box -->
+  <rect x="348" y="155" width="104" height="60" rx="7" fill="#1e293b"/>
+  <text x="400" y="177" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle">Reverse</text>
+  <text x="400" y="192" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle">Proxy</text>
+  <text x="400" y="207" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">event loop</text>
+
+  <!-- Thin-layer annotation -->
+  <line x1="348" y1="145" x2="348" y2="225" stroke="#c7d2fe" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="452" y1="145" x2="452" y2="225" stroke="#c7d2fe" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="400" y="137" font-family="system-ui,sans-serif" font-size="8" fill="#6366f1" text-anchor="middle" font-style="italic">thin layer</text>
+
+  <!-- Backend boxes -->
+  <rect x="633" y="72" width="112" height="36" rx="5" fill="#eff6ff" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="689" y="87" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1e293b" text-anchor="middle">Backend A</text>
+  <text x="689" y="100" font-family="system-ui,sans-serif" font-size="8" fill="#4f8ef7" text-anchor="middle">3 active</text>
+
+  <rect x="633" y="177" width="112" height="36" rx="5" fill="#eff6ff" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="689" y="192" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#1e293b" text-anchor="middle">Backend B</text>
+  <text x="689" y="205" font-family="system-ui,sans-serif" font-size="8" fill="#4f8ef7" text-anchor="middle">5 active</text>
+
+  <rect x="633" y="287" width="112" height="36" rx="5" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="689" y="302" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#94a3b8" text-anchor="middle">Backend C</text>
+  <text x="689" y="315" font-family="system-ui,sans-serif" font-size="8" fill="#cbd5e1" text-anchor="middle">idle</text>
+
+  <!-- Request dots on active lines -->
+  <!-- C1→proxy at 45%: (110+0.45*(348-110), 45+0.45*(176-45)) = (217, 104) -->
+  <circle cx="217" cy="104" r="5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <!-- C3→proxy at 65%: (110+0.65*(238), 155+0.65*(30)) = (264.7, 174.5) -->
+  <circle cx="265" cy="175" r="5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <!-- C5→proxy at 30%: (110+0.3*(238), 265+0.3*(-71)) = (181.4, 243.7) -->
+  <circle cx="181" cy="244" r="5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <!-- proxy→B1 at 50%: (452+0.5*181, 175+0.5*(-85)) = (542.5, 132.5) -->
+  <circle cx="543" cy="133" r="5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+  <!-- proxy→B2 at 40%: (452+0.4*181, 185+0.4*10) = (524.4, 189) -->
+  <circle cx="524" cy="189" r="5" fill="#4f8ef7" stroke="white" stroke-width="1.5"/>
+
+  <!-- Legend -->
+  <line x1="190" y1="28" x2="220" y2="28" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="226" y="32" font-family="system-ui,sans-serif" font-size="9" fill="#475569">active</text>
+  <line x1="275" y1="28" x2="305" y2="28" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text x="311" y="32" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8">idle keepalive</text>
+
+  <!-- Caption -->
+  <line x1="40" y1="358" x2="760" y2="358" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="372" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="italic" fill="#1e293b" text-anchor="middle">The proxy manages thousands of connections simultaneously — adding microseconds, not milliseconds.</text>
+  <text x="400" y="384" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">solid = active request · dashed = idle keepalive · dot = request in flight</text>
+</svg>
