@@ -7,6 +7,12 @@
     <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
       <circle cx="20" cy="20" r="1.5" fill="#c7d2fe" opacity="0.35"/>
     </pattern>
+    <marker id="arr-b" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#6366f1"/>
+    </marker>
+    <marker id="arr-n" viewBox="0 0 8 5" refX="7" refY="2.5" markerWidth="5" markerHeight="5" orient="auto">
+      <polygon points="0,0 8,2.5 0,5" fill="#4f8ef7"/>
+    </marker>
   </defs>
 
   <rect x="0" y="-25" width="800" height="420" fill="url(#bg)"/>
@@ -15,94 +21,100 @@
   <!-- Title -->
   <text x="400" y="10" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1e293b" text-anchor="middle">Apache Traffic Server — Event Thread Architecture</text>
 
-  <!-- Incoming connections from left -->
-  <text x="32" y="82" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">new</text>
-  <text x="32" y="93" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">conns</text>
-  <line x1="55" y1="87" x2="115" y2="87" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr)"/>
-  <circle cx="58" cy="87" r="4" fill="#4f8ef7"/>
-  <circle cx="68" cy="87" r="4" fill="#4f8ef7"/>
-  <circle cx="78" cy="87" r="4" fill="#4f8ef7"/>
+  <!-- Incoming connections -->
+  <text x="34" y="88" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">new conns</text>
+  <circle cx="20" cy="105" r="4" fill="#4f8ef7"/>
+  <circle cx="32" cy="105" r="4" fill="#4f8ef7"/>
+  <circle cx="44" cy="105" r="4" fill="#4f8ef7"/>
+  <line x1="54" y1="105" x2="108" y2="105" stroke="#4f8ef7" stroke-width="1.8" marker-end="url(#arr-n)"/>
 
-  <!-- Accept Thread box -->
-  <rect x="115" y="65" width="150" height="44" rx="6" fill="#1e293b"/>
-  <text x="190" y="83" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle">Accept Thread</text>
-  <text x="190" y="97" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">listen · accept · dispatch</text>
+  <!-- Accept Thread -->
+  <rect x="112" y="82" width="148" height="46" rx="7" fill="#1e293b"/>
+  <text x="186" y="101" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="white" text-anchor="middle">Accept Thread</text>
+  <text x="186" y="117" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">listen · accept · dispatch</text>
 
-  <!-- Distribution arrows from Accept Thread to ET_NET threads -->
-  <!-- Each goes from accept thread right edge (x=265) to ET_NET left edge (x=370) -->
-  <!-- ET_NET thread vertical positions: 45, 115, 185, 255 -->
-  <line x1="265" y1="80" x2="370" y2="50"  stroke="#6366f1" stroke-width="1.5"/>
-  <line x1="265" y1="85" x2="370" y2="120" stroke="#6366f1" stroke-width="1.5"/>
-  <line x1="265" y1="89" x2="370" y2="190" stroke="#6366f1" stroke-width="1.5"/>
-  <line x1="265" y1="94" x2="370" y2="260" stroke="#6366f1" stroke-width="1.5"/>
+  <!-- Dispatch curves from Accept Thread right edge (x=260) to ET_NET boxes left edge (x=335) -->
+  <!-- ET_NET boxes centered at y=40, 120, 200, 280 -->
+  <path d="M 260 97  C 295 97  295 40  333 40"  fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <path d="M 260 101 C 295 101 295 120 333 120" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <path d="M 260 105 C 295 105 295 200 333 200" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <path d="M 260 109 C 295 109 295 280 333 280" fill="none" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arr-b)"/>
 
-  <!-- Arrowheads (simple triangles) -->
-  <polygon points="370,46 362,52 362,58" fill="#6366f1"/>
-  <polygon points="370,116 362,122 362,128" fill="#6366f1"/>
-  <polygon points="370,186 362,192 362,198" fill="#6366f1"/>
-  <polygon points="370,256 362,262 362,268" fill="#6366f1"/>
+  <!-- Round-robin label -->
+  <text x="293" y="158" font-family="system-ui,sans-serif" font-size="8" fill="#6366f1" text-anchor="middle" font-style="italic">round-robin</text>
 
-  <!-- "round-robin dispatch" label -->
-  <text x="318" y="158" font-family="system-ui,sans-serif" font-size="8" fill="#6366f1" text-anchor="middle" font-style="italic">round-robin</text>
-  <text x="318" y="168" font-family="system-ui,sans-serif" font-size="8" fill="#6366f1" text-anchor="middle" font-style="italic">dispatch</text>
-
-  <!-- ET_NET Thread boxes -->
-  <!-- ET_NET 0: cy=50, ET_NET 1: cy=120, ET_NET 2: cy=190, ET_NET 3: cy=260 -->
-  <!-- Box: x=370, y=cy-22, width=200, height=44 -->
+  <!-- ET_NET Thread boxes — single column, 4 threads -->
+  <!-- Each box: x=335, width=220, height=52; centers at y=40,120,200,280 -->
 
   <!-- ET_NET 0 -->
-  <rect x="370" y="28" width="200" height="44" rx="6" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
-  <text x="420" y="45" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#1e293b">ET_NET 0</text>
-  <text x="420" y="59" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8">event loop · 12 conns</text>
-  <!-- Mini conn dots -->
-  <circle cx="532" cy="43" r="3" fill="#4f8ef7"/><circle cx="541" cy="43" r="3" fill="#4f8ef7"/>
-  <circle cx="550" cy="43" r="3" fill="#4f8ef7"/><circle cx="559" cy="43" r="3" fill="#cbd5e1" stroke-dasharray="2 2"/>
+  <rect x="335" y="14" width="220" height="52" rx="6" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="386" y="34" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#1e293b">ET_NET 0</text>
+  <text x="386" y="50" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8">event loop · 12 conns</text>
+  <!-- Conn dots -->
+  <circle cx="500" cy="32" r="3.5" fill="#4f8ef7"/>
+  <circle cx="511" cy="32" r="3.5" fill="#4f8ef7"/>
+  <circle cx="522" cy="32" r="3.5" fill="#4f8ef7"/>
+  <circle cx="533" cy="32" r="3.5" fill="#cbd5e1"/>
+  <!-- Arc loop icon top-right -->
+  <path d="M 530 48 A 8 8 0 1 1 539 57" fill="none" stroke="#4f8ef7" stroke-width="1.8" stroke-linecap="round"/>
+  <polygon points="539,52 539,61 531,57" fill="#4f8ef7"/>
 
   <!-- ET_NET 1 -->
-  <rect x="370" y="98" width="200" height="44" rx="6" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
-  <text x="420" y="115" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#1e293b">ET_NET 1</text>
-  <text x="420" y="129" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8">event loop · 9 conns</text>
-  <circle cx="532" cy="113" r="3" fill="#4f8ef7"/><circle cx="541" cy="113" r="3" fill="#4f8ef7"/>
-  <circle cx="550" cy="113" r="3" fill="#cbd5e1"/>
+  <rect x="335" y="94" width="220" height="52" rx="6" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="386" y="114" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#1e293b">ET_NET 1</text>
+  <text x="386" y="130" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8">event loop · 9 conns</text>
+  <circle cx="500" cy="112" r="3.5" fill="#4f8ef7"/>
+  <circle cx="511" cy="112" r="3.5" fill="#4f8ef7"/>
+  <circle cx="522" cy="112" r="3.5" fill="#cbd5e1"/>
+  <path d="M 530 128 A 8 8 0 1 1 539 137" fill="none" stroke="#4f8ef7" stroke-width="1.8" stroke-linecap="round"/>
+  <polygon points="539,132 539,141 531,137" fill="#4f8ef7"/>
 
-  <!-- ET_NET 2 -->
-  <rect x="370" y="168" width="200" height="44" rx="6" fill="white" stroke="#f97316" stroke-width="1.8"/>
-  <text x="420" y="185" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#1e293b">ET_NET 2</text>
-  <text x="420" y="199" font-family="system-ui,sans-serif" font-size="8" fill="#f97316">event loop · 18 conns  ⚠</text>
-  <circle cx="532" cy="183" r="3" fill="#f97316"/><circle cx="541" cy="183" r="3" fill="#f97316"/>
-  <circle cx="550" cy="183" r="3" fill="#f97316"/><circle cx="559" cy="183" r="3" fill="#f97316"/>
-  <circle cx="568" cy="183" r="3" fill="#f97316"/>
+  <!-- ET_NET 2 — overloaded (orange) -->
+  <rect x="335" y="174" width="220" height="52" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <text x="386" y="194" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#c2410c">ET_NET 2  ⚠ overloaded</text>
+  <text x="386" y="210" font-family="system-ui,sans-serif" font-size="8" fill="#f97316">event loop · 18 conns · plugin blocking</text>
+  <circle cx="489" cy="192" r="3.5" fill="#f97316"/>
+  <circle cx="500" cy="192" r="3.5" fill="#f97316"/>
+  <circle cx="511" cy="192" r="3.5" fill="#f97316"/>
+  <circle cx="522" cy="192" r="3.5" fill="#f97316"/>
+  <circle cx="533" cy="192" r="3.5" fill="#f97316"/>
+  <path d="M 530 208 A 8 8 0 1 1 539 217" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round"/>
+  <polygon points="539,212 539,221 531,217" fill="#f97316"/>
 
   <!-- ET_NET 3 -->
-  <rect x="370" y="238" width="200" height="44" rx="6" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
-  <text x="420" y="255" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#1e293b">ET_NET 3</text>
-  <text x="420" y="269" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8">event loop · 11 conns</text>
-  <circle cx="532" cy="253" r="3" fill="#4f8ef7"/><circle cx="541" cy="253" r="3" fill="#4f8ef7"/>
-  <circle cx="550" cy="253" r="3" fill="#4f8ef7"/>
+  <rect x="335" y="254" width="220" height="52" rx="6" fill="white" stroke="#4f8ef7" stroke-width="1.8"/>
+  <text x="386" y="274" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#1e293b">ET_NET 3</text>
+  <text x="386" y="290" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8">event loop · 11 conns</text>
+  <circle cx="500" cy="272" r="3.5" fill="#4f8ef7"/>
+  <circle cx="511" cy="272" r="3.5" fill="#4f8ef7"/>
+  <circle cx="522" cy="272" r="3.5" fill="#4f8ef7"/>
+  <path d="M 530 288 A 8 8 0 1 1 539 297" fill="none" stroke="#4f8ef7" stroke-width="1.8" stroke-linecap="round"/>
+  <polygon points="539,292 539,301 531,297" fill="#4f8ef7"/>
 
-  <!-- Continuation / callback label on right -->
-  <rect x="600" y="60" width="178" height="210" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
-  <text x="689" y="80" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Continuation Model</text>
-  <line x1="615" y1="87" x2="773" y2="87" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="689" y="104" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">request arrives → schedule</text>
-  <text x="689" y="118" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">continuation (callback)</text>
-  <text x="689" y="140" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">I/O ready → invoke</text>
-  <text x="689" y="154" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">continuation handler</text>
-  <text x="689" y="174" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">handler completes or</text>
-  <text x="689" y="188" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">re-schedules next step</text>
-  <text x="689" y="208" font-family="system-ui,sans-serif" font-size="9" fill="#e74c3c" text-anchor="middle">⚠  blocking in a handler</text>
-  <text x="689" y="222" font-family="system-ui,sans-serif" font-size="9" fill="#e74c3c" text-anchor="middle">stalls all conns on thread</text>
-  <text x="689" y="240" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">thread count = proxy.config</text>
-  <text x="689" y="254" font-family="system-ui,sans-serif" font-size="9" fill="#475569" text-anchor="middle">.exec.thread.limit</text>
+  <!-- Continuation model callout box on right -->
+  <rect x="580" y="20" width="200" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="680" y="40" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#1e293b" text-anchor="middle">Continuation Model</text>
+  <line x1="590" y1="47" x2="770" y2="47" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="680" y="62" font-family="system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">request arrives</text>
+  <text x="680" y="75" font-family="system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">→ schedule callback</text>
+  <text x="680" y="95" font-family="system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">I/O ready</text>
+  <text x="680" y="108" font-family="system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">→ invoke handler</text>
+  <text x="680" y="128" font-family="system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">handler completes</text>
+  <text x="680" y="141" font-family="system-ui,sans-serif" font-size="8.5" fill="#475569" text-anchor="middle">→ schedule next step</text>
+  <line x1="590" y1="155" x2="770" y2="155" stroke="#fca5a5" stroke-width="1"/>
+  <text x="680" y="172" font-family="system-ui,sans-serif" font-size="8.5" fill="#e74c3c" text-anchor="middle" font-weight="600">⚠  Plugin blocking rule:</text>
+  <text x="680" y="187" font-family="system-ui,sans-serif" font-size="8.5" fill="#e74c3c" text-anchor="middle">any blocking call inside</text>
+  <text x="680" y="200" font-family="system-ui,sans-serif" font-size="8.5" fill="#e74c3c" text-anchor="middle">a handler stalls ALL</text>
+  <text x="680" y="213" font-family="system-ui,sans-serif" font-size="8.5" fill="#e74c3c" text-anchor="middle">connections on that thread</text>
+  <line x1="590" y1="224" x2="770" y2="224" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="680" y="240" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">proxy.config.exec.thread.limit</text>
+  <text x="680" y="252" font-family="system-ui,sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">= number of ET_NET threads</text>
 
-  <!-- Arrows from ET_NET boxes to continuation panel -->
-  <line x1="570" y1="50"  x2="598" y2="120" stroke="#e2e8f0" stroke-width="1"/>
-  <line x1="570" y1="120" x2="598" y2="140" stroke="#e2e8f0" stroke-width="1"/>
-  <line x1="570" y1="190" x2="598" y2="160" stroke="#e2e8f0" stroke-width="1"/>
-  <line x1="570" y1="260" x2="598" y2="180" stroke="#e2e8f0" stroke-width="1"/>
+  <!-- Arrow from ET_NET 2 to callout box -->
+  <line x1="557" y1="200" x2="578" y2="185" stroke="#f97316" stroke-width="1.2" stroke-dasharray="4 3"/>
 
   <!-- Caption -->
-  <line x1="40" y1="358" x2="760" y2="358" stroke="#e2e8f0" stroke-width="1"/>
-  <text x="400" y="372" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="italic" fill="#1e293b" text-anchor="middle">ATS distributes connections across event threads. A blocking plugin call stalls every connection on that thread.</text>
-  <text x="400" y="384" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">orange ET_NET 2 = overloaded thread · thread count set via proxy.config.exec.thread.limit</text>
+  <line x1="40" y1="352" x2="760" y2="352" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="366" font-family="Georgia,serif" font-size="12" font-weight="700" font-style="italic" fill="#1e293b" text-anchor="middle">ATS distributes connections across event threads. A blocking plugin call stalls every connection on that thread.</text>
+  <text x="400" y="378" font-family="system-ui,sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">orange ET_NET 2 = thread blocked by plugin · thread count set via proxy.config.exec.thread.limit</text>
 </svg>
