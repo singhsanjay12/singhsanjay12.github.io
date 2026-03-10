@@ -29,7 +29,7 @@ A proxy that allocates generously because it is convenient survives normal traff
 
 ## Thread-per-Connection: The Obvious Model That Does Not Scale
 
-The simplest way to handle concurrent connections is a thread (or process) per connection. Apache HTTPd used this (prefork MPM), it is straightforward to reason about, and each connection gets isolated execution with no shared state to worry about. A blocking read waiting for a slow client just blocks that thread. Other connections continue on their own threads.
+The simplest way to handle concurrent connections is a thread (or process) per connection. [Apache HTTPd](https://httpd.apache.org/) used this (prefork MPM), it is straightforward to reason about, and each connection gets isolated execution with no shared state to worry about. A blocking read waiting for a slow client just blocks that thread. Other connections continue on their own threads.
 
 The problem is that threads are expensive.
 
@@ -57,7 +57,7 @@ server.listen()
 
 A thread on Linux consumes roughly 8 MB of virtual memory for its default stack. Even with a tuned 512 KB stack, 10,000 connections requires 5 GB of stack space before any application work is done. The OS scheduler now manages 10,000 threads. Context switching between them — saving and restoring registers, TLB pressure, cache eviction — adds up. At high connection counts the scheduler overhead appears directly in latency measurements.
 
-The C10K problem (serving 10,000 concurrent connections efficiently) was a real practical limit for this model in the late 1990s. The solution was not faster hardware. It was a different concurrency model.
+The [C10K problem](http://www.kegel.com/c10k.html) (serving 10,000 concurrent connections efficiently) was a real practical limit for this model in the late 1990s. The solution was not faster hardware. It was a different concurrency model.
 
 ![Thread-per-connection: each connection owns one thread, memory scales with N; event loop: one thread manages thousands via kernel I/O readiness notifications](/assets/img/posts/proxy-concurrency/thread-models.svg)
 
@@ -67,7 +67,7 @@ Most of the time, a connection is not doing anything. It is waiting — for the 
 
 The event loop separates the concepts of holding a connection and doing work on it.
 
-An event loop uses the OS's I/O readiness notification interface — `epoll` on Linux, `kqueue` on macOS and BSD — to monitor many file descriptors simultaneously with a single thread. The OS watches thousands of sockets. When one becomes readable (client sent data) or writable (backend acknowledged data), it notifies the event loop. The loop wakes up, does exactly the work that is ready, and returns to waiting.
+An event loop uses the OS's I/O readiness notification interface — [`epoll`](https://man7.org/linux/man-pages/man7/epoll.7.html) on Linux, [`kqueue`](https://man.freebsd.org/cgi/man.cgi?kqueue) on macOS and BSD — to monitor many file descriptors simultaneously with a single thread. The OS watches thousands of sockets. When one becomes readable (client sent data) or writable (backend acknowledged data), it notifies the event loop. The loop wakes up, does exactly the work that is ready, and returns to waiting.
 
 No threads blocked on slow connections. No context switches between thousands of threads. One thread, one event loop, as many file descriptors as the OS allows. The `ulimit -n` setting, commonly raised to 65,535 or higher in production, is now the practical limit rather than thread memory.
 
@@ -96,7 +96,7 @@ The tradeoff is programming model complexity. A blocking operation inside the ev
 
 Each proxy covered here takes this base model and makes different tradeoffs around it.
 
-## Apache Traffic Server: Event Threads and the Continuation System
+## [Apache Traffic Server](https://trafficserver.apache.org/): Event Threads and the Continuation System
 
 ATS does not use a single event loop. It uses a pool of event threads — one per CPU core by default, configured via `proxy.config.exec.thread.limit` — each running its own independent event loop.
 
@@ -108,11 +108,11 @@ The programming model inside ATS is the **continuation system**. A continuation 
 
 The consequence for plugin authors is significant. ATS plugins hook into the request pipeline by registering continuations. If a plugin's handler makes a blocking system call — a synchronous DNS lookup, a blocking HTTP request to an external service, a filesystem read — it blocks the entire ET_NET thread. Every connection on that thread stops making progress until the blocking call returns. This is not a theoretical concern; it is the most common cause of latency spikes in production ATS deployments.
 
-**Where ATS is strong:** CDN-scale HTTP caching and forward proxying. The continuation model is purpose-built for cache hit/miss processing. The cache integration is deep — content storage, freshness evaluation, and origin fetching are all built into the continuation chain. Organizations running CDN edge nodes at billions of requests per day have done so on ATS for years. The TSAPI plugin interface lets you customize behavior at every stage of request processing.
+**Where ATS is strong:** CDN-scale HTTP caching and forward proxying. The continuation model is purpose-built for cache hit/miss processing. The cache integration is deep — content storage, freshness evaluation, and origin fetching are all built into the continuation chain. Organizations running CDN edge nodes at billions of requests per day have done so on ATS for years. The [TSAPI](https://docs.trafficserver.apache.org/en/latest/developer-guide/plugins/plugin-interfaces.en.html) plugin interface lets you customize behavior at every stage of request processing.
 
 **Where ATS struggles:** The continuation model has a steep learning curve, and the plugin isolation story is weak. A misbehaving plugin degrades the thread it runs on. Configuration is dense, and performance tuning requires understanding internal thread and event queue sizing. For general-purpose reverse proxy use cases outside of caching workloads, the operational complexity is hard to justify.
 
-## HAProxy: Single-Process Discipline, Then Careful Parallelism
+## [HAProxy](https://www.haproxy.org/): Single-Process Discipline, Then Careful Parallelism
 
 HAProxy's original design was a single-process, single-thread event loop. One process, one epoll loop, all connections. Everything the proxy did was handled in sequence within that event loop.
 
@@ -149,7 +149,7 @@ Hot reload works through process replacement: `haproxy -sf $(cat /var/run/haprox
 
 **Where HAProxy struggles:** The threading model was added to a single-process design; at very high thread counts, spinlock contention on shared state can surface. Lua (the extension scripting language) runs on the event loop thread, so complex Lua logic adds latency to other connections on that thread. HAProxy is not designed for deep L7 programmability — complex request transformation logic that would be straightforward in Envoy's filter chain is awkward to express in HAProxy's ACL/action model.
 
-## Envoy: Thread-per-Core with Complete Isolation
+## [Envoy](https://www.envoyproxy.io/): Thread-per-Core with Complete Isolation
 
 Envoy was designed for service mesh: a proxy running as a sidecar alongside every service instance in the fleet. That use case required properties none of the existing proxies optimized for — deep L7 programmability, dynamic reconfiguration without restarts, and a concurrency model that would not allow a bug in one connection's processing to affect any other connection.
 
@@ -157,13 +157,13 @@ The architecture is thread-per-core with a strict constraint: **worker threads s
 
 A listener thread accepts incoming connections and dispatches each to a worker thread via a consistent hash. From that moment, the connection belongs entirely to that worker: its TLS session, its upstream connection pool, the entire L7 filter chain executing its request. Workers do not communicate with each other for connection processing.
 
-Each worker runs its own libevent-based event loop and holds its own copy of the proxy configuration — delivered as a snapshot via the xDS protocol. When the control plane pushes a configuration update (a new backend, a changed route, a rotated certificate), each worker receives and applies it independently. No coordination between workers, no global pause, no lock.
+Each worker runs its own [libevent](https://libevent.org/)-based event loop and holds its own copy of the proxy configuration — delivered as a snapshot via the [xDS protocol](https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol). When the control plane pushes a configuration update (a new backend, a changed route, a rotated certificate), each worker receives and applies it independently. No coordination between workers, no global pause, no lock.
 
 ![Envoy listener thread dispatching to worker threads; each worker is completely isolated with its own event loop, connection pool, filter chain, and xDS config snapshot; no shared state between workers](/assets/img/posts/proxy-concurrency/envoy-arch.svg)
 
 The filter chain model is the other defining feature. Every request passes through a configured sequence of L4 and L7 filters. Each filter can read and modify the request: JWT validation, header manipulation, rate limit checking, gRPC transcoding, circuit breaking. Filters are composable and independently configurable. The per-worker isolation means a filter's state is always thread-local — no locking required within the filter chain.
 
-The xDS API is the interface between Envoy and its control plane (Istio, custom implementations, or static config with dynamic overrides). Adding a backend endpoint, changing a route's timeout, draining an instance before it is decommissioned — all are xDS updates pushed to each worker independently. This is the operational model that makes zero-downtime deployments at fleet scale tractable.
+The xDS API is the interface between Envoy and its control plane ([Istio](https://istio.io/), custom implementations, or static config with dynamic overrides). Adding a backend endpoint, changing a route's timeout, draining an instance before it is decommissioned — all are xDS updates pushed to each worker independently. This is the operational model that makes zero-downtime deployments at fleet scale tractable.
 
 **Where Envoy is strong:** Complex L7 processing, service mesh sidecars, API gateways where routing rules change frequently, and environments with control-plane infrastructure. The filter chain model handles workloads that would require custom code in HAProxy or ATS. The xDS integration is the right tool when the proxy's configuration is driven programmatically rather than by static files.
 
@@ -192,5 +192,7 @@ The three architectures are not interchangeable. Each is optimized for a specifi
 The concurrency model is not incidental to these choices. ATS's continuation system is inseparable from its cache architecture. HAProxy's single-process model is what makes its ACL evaluation so cheap and its memory footprint so small. Envoy's worker isolation is what makes its filter chain safely extensible without inter-connection interference. The proxy you choose is a choice about which of these properties matters most for your traffic pattern.
 
 ---
+
+*I covered LinkedIn's experience with these proxies at scale in the HAProxy User Spotlight Series: [Modernizing LinkedIn's Traffic Stack](https://www.haproxy.com/user-spotlight-series/modernizing-linkedins-traffic-stack).*
 
 *Working through proxy architecture decisions at scale? I am on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or reachable by [email](mailto:hello@singh-sanjay.com).*
