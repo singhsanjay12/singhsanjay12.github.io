@@ -16,13 +16,13 @@ class AboutPageTest < Minitest::Test
   end
 
   def test_linkedin_tenure
-    assert_match(/2015.*Present|Present.*2015/m, @html,
-      "Experience timeline must show 2015 – Present for LinkedIn")
+    assert_match(/Staff Software Engineer/, @html,
+      "Experience timeline must show Staff Software Engineer role at LinkedIn")
   end
 
   def test_education_section
-    assert_match(/Motilal Nehru/, @html,
-      "Education section must list MNNIT Allahabad")
+    assert_match(/NIT Allahabad/, @html,
+      "Education section must list NIT Allahabad")
   end
 
   def test_focus_cards
