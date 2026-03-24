@@ -7,7 +7,7 @@ order: 4
   <p>
     I'm <strong>Sanjay Singh</strong>, a Staff Software Engineer at LinkedIn building infrastructure that operates at massive scale. My work sits at the intersection of distributed systems, platform engineering, and security — designing systems that are reliable, observable, and hard to compromise.
   </p>
-  <p>
+  <p class="about-quote">
     I care about building things that last: systems that are simple enough to reason about, secure by default, and resilient when things inevitably go wrong.
   </p>
 </div>
@@ -53,10 +53,10 @@ order: 4
       </div>
       <p class="timeline-company"><i class="fab fa-linkedin"></i> LinkedIn · Sunnyvale, CA</p>
       <ul>
-        <li>Built <strong>Trust Bridge</strong> — a reverse proxy integrating mTLS and SSO to enforce Zero Trust access control across enterprise services without application-level changes.</li>
-        <li>Led migration of stateless workloads to Kubernetes, designing optimized routing, autoscaling, and policy enforcement strategies.</li>
-        <li>Designed and operated LinkedIn's <strong>edge reverse proxy</strong>, handling all incoming production traffic with dynamic routing and load balancing.</li>
-        <li>Rolled out <strong>mTLS authorization</strong> and SSO authentication at scale across production, significantly strengthening the security posture.</li>
+        <li>Built <strong>Trust Bridge</strong> — an HAProxy-based reverse proxy enforcing Zero Trust access via mTLS and SSO, with no application-level changes required.</li>
+        <li>Led stateless workload migration to Kubernetes using <strong>Temporal workflows</strong> for predictable, automated execution — covering routing, autoscaling, and policy enforcement at scale.</li>
+        <li>Designed and operated LinkedIn's <strong>edge reverse proxy</strong> (ATS and HAProxy), handling all incoming production traffic with dynamic routing and load balancing.</li>
+        <li>Built dynamic service discovery and client-side load balancing for service-to-service communication; evolving it into a <strong>service mesh</strong> with Envoy and a custom control plane.</li>
       </ul>
     </div>
   </div>
@@ -70,8 +70,7 @@ order: 4
   <div class="education-icon"><i class="fas fa-graduation-cap"></i></div>
   <div class="education-body">
     <h4>B.Tech, Computer Science</h4>
-    <p class="education-school">Motilal Nehru National Institute of Technology (NIT Allahabad)</p>
-    <p class="education-date">2011 – 2015</p>
+    <p class="education-school"><a href="https://www.mnnit.ac.in/" target="_blank" rel="noopener">NIT Allahabad</a> — studied core CS fundamentals spanning algorithms, operating systems, networks, and distributed computing.</p>
   </div>
 </div>
 
