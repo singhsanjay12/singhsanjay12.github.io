@@ -1,7 +1,7 @@
 ---
 title: "DNS or a Service Registry? How Services Should Find Each Other, and When Each One Breaks"
 description: "Service discovery has two families of answers: plain DNS and a dedicated registry like Consul, etcd, or xDS. They look interchangeable on a diagram. They are not. Here is what each one actually guarantees, the options in each camp, and how to choose."
-date: 2026-03-16 12:00:00 +0000
+date: 2026-06-23 12:00:00 +0000
 categories: [Distributed Systems, Service Discovery]
 tags: [service-discovery, dns, consul, etcd, kubernetes, load-balancing, distributed-systems, registry]
 image:
