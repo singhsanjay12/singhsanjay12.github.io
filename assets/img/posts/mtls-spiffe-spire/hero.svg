@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6366f1"/>
+    </marker>
+    <marker id="arrowg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#22c55e"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="400" fill="url(#bg)"/>
+
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#312e81">Workload Identity at Scale: SPIFFE + SPIRE</text>
+  <text x="400" y="58" text-anchor="middle" font-size="13" fill="#64748b">attest the workload, issue a short-lived SVID, use it for mTLS, rotate continuously</text>
+
+  <!-- SPIRE Server -->
+  <rect x="40" y="150" width="180" height="100" rx="10" fill="#312e81"/>
+  <text x="130" y="183" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">SPIRE Server</text>
+  <text x="130" y="206" text-anchor="middle" font-size="11.5" fill="#c7d2fe">Trust domain CA</text>
+  <text x="130" y="224" text-anchor="middle" font-size="11.5" fill="#c7d2fe">Registration entries</text>
+
+  <!-- SPIRE Agent + workload (node box) -->
+  <rect x="300" y="120" width="220" height="200" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="410" y="142" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">node</text>
+
+  <rect x="324" y="156" width="172" height="62" rx="8" fill="#4f46e5"/>
+  <text x="410" y="182" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">SPIRE Agent</text>
+  <text x="410" y="202" text-anchor="middle" font-size="11" fill="#c7d2fe">node + workload attest</text>
+
+  <rect x="324" y="238" width="172" height="62" rx="8" fill="#6366f1"/>
+  <text x="410" y="263" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Workload</text>
+  <text x="410" y="283" text-anchor="middle" font-size="11" fill="#e0e7ff">Workload API socket</text>
+
+  <!-- agent <-> server -->
+  <line x1="300" y1="190" x2="222" y2="190" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="261" y="180" text-anchor="middle" font-size="10.5" fill="#4f46e5">attest</text>
+  <line x1="220" y1="212" x2="298" y2="240" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="259" y="240" text-anchor="middle" font-size="10.5" fill="#4f46e5">SVID</text>
+
+  <!-- agent -> workload -->
+  <line x1="410" y1="218" x2="410" y2="236" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Peer workload -->
+  <rect x="600" y="156" width="160" height="100" rx="10" fill="#1e293b"/>
+  <text x="680" y="190" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">Peer Service</text>
+  <text x="680" y="212" text-anchor="middle" font-size="11" fill="#94a3b8">verifies SPIFFE ID</text>
+  <text x="680" y="230" text-anchor="middle" font-size="11" fill="#94a3b8">in URI SAN</text>
+
+  <!-- mTLS handshake -->
+  <line x1="520" y1="265" x2="600" y2="225" stroke="#22c55e" stroke-width="2.5" marker-end="url(#arrowg)"/>
+  <line x1="600" y1="245" x2="520" y2="285" stroke="#22c55e" stroke-width="2.5" marker-end="url(#arrowg)"/>
+  <text x="560" y="305" text-anchor="middle" font-size="11.5" font-weight="600" fill="#22c55e">mutual TLS</text>
+
+  <!-- SVID id label -->
+  <rect x="300" y="338" width="460" height="30" rx="8" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"/>
+  <text x="530" y="358" text-anchor="middle" font-size="12" fill="#4f46e5" font-weight="600">SVID  spiffe://prod.example.com/ns/shop/sa/payments</text>
+
+  <!-- rotation badge -->
+  <rect x="40" y="290" width="180" height="48" rx="8" fill="#f8fafc" stroke="#22c55e" stroke-width="1.5"/>
+  <circle cx="66" cy="314" r="10" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+  <path d="M66 305 L66 314 L72 318" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <text x="138" y="310" text-anchor="middle" font-size="11.5" font-weight="700" fill="#312e81">short TTL: 1h</text>
+  <text x="138" y="326" text-anchor="middle" font-size="10.5" fill="#64748b">auto-rotates, no CRL</text>
+</svg>
