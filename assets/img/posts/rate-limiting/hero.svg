@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="400" fill="#eef2ff" opacity="0.5"/>
+
+  <text x="40" y="48" font-size="22" font-weight="700" fill="#312e81">Token Bucket</text>
+  <text x="40" y="72" font-size="13" fill="#64748b">refills steadily, admits a burst, drops when empty</text>
+
+  <!-- refill arrow into bucket -->
+  <text x="150" y="118" font-size="12" fill="#4f46e5" font-weight="600" text-anchor="middle">refill R/s</text>
+  <line x1="150" y1="128" x2="150" y2="158" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+  <path d="M142 150 L150 162 L158 150 Z" fill="#6366f1"/>
+
+  <!-- bucket -->
+  <path d="M95 162 L205 162 L192 305 L108 305 Z" fill="#ffffff" stroke="#4f46e5" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M101 235 L199 235 L192 305 L108 305 Z" fill="#6366f1" opacity="0.85"/>
+  <!-- tokens -->
+  <circle cx="130" cy="262" r="9" fill="#312e81"/>
+  <circle cx="158" cy="258" r="9" fill="#312e81"/>
+  <circle cx="172" cy="282" r="9" fill="#312e81"/>
+  <circle cx="138" cy="288" r="9" fill="#312e81"/>
+  <text x="150" y="332" font-size="12" fill="#64748b" text-anchor="middle">capacity B</text>
+
+  <!-- incoming requests -->
+  <text x="300" y="150" font-size="12" fill="#64748b" text-anchor="middle">requests</text>
+  <circle cx="250" cy="195" r="11" fill="#94a3b8"/>
+  <circle cx="290" cy="195" r="11" fill="#94a3b8"/>
+  <circle cx="330" cy="195" r="11" fill="#94a3b8"/>
+  <line x1="208" y1="220" x2="360" y2="220" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5 5"/>
+
+  <!-- admit / drop split -->
+  <line x1="360" y1="220" x2="420" y2="178" stroke="#22c55e" stroke-width="3" stroke-linecap="round"/>
+  <path d="M412 172 L424 174 L416 184 Z" fill="#22c55e"/>
+  <rect x="425" y="158" width="120" height="38" rx="8" fill="#22c55e"/>
+  <text x="485" y="182" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">admit  200</text>
+
+  <line x1="360" y1="220" x2="420" y2="262" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+  <path d="M412 256 L424 266 L416 268 Z" fill="#ef4444"/>
+  <rect x="425" y="243" width="120" height="38" rx="8" fill="#ef4444"/>
+  <text x="485" y="267" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">drop  429</text>
+
+  <!-- divider -->
+  <line x1="585" y1="40" x2="585" y2="360" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- sliding window panel -->
+  <text x="610" y="48" font-size="20" font-weight="700" fill="#312e81">Sliding Window</text>
+  <text x="610" y="70" font-size="13" fill="#64748b">counts the last interval, no</text>
+  <text x="610" y="88" font-size="13" fill="#64748b">boundary burst</text>
+
+  <!-- timeline -->
+  <line x1="610" y1="250" x2="770" y2="250" stroke="#94a3b8" stroke-width="2"/>
+  <!-- request ticks -->
+  <line x1="624" y1="250" x2="624" y2="225" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+  <line x1="648" y1="250" x2="648" y2="225" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+  <line x1="672" y1="250" x2="672" y2="225" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+  <line x1="696" y1="250" x2="696" y2="225" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+  <line x1="720" y1="250" x2="720" y2="225" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+  <line x1="744" y1="250" x2="744" y2="225" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- sliding window box -->
+  <rect x="660" y="200" width="100" height="80" rx="8" fill="#6366f1" opacity="0.15" stroke="#4f46e5" stroke-width="2"/>
+  <text x="710" y="195" font-size="12" fill="#4f46e5" font-weight="600" text-anchor="middle">window</text>
+  <line x1="660" y1="288" x2="660" y2="300" stroke="#4f46e5" stroke-width="2"/>
+  <line x1="760" y1="288" x2="760" y2="300" stroke="#4f46e5" stroke-width="2"/>
+  <line x1="660" y1="300" x2="760" y2="300" stroke="#4f46e5" stroke-width="2"/>
+  <text x="710" y="320" font-size="12" fill="#64748b" text-anchor="middle">last 60s = now</text>
+
+  <text x="610" y="350" font-size="13" fill="#312e81" font-weight="600">count = 4  &#8594;  under limit, admit</text>
+</svg>
