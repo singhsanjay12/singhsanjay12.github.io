@@ -11,6 +11,11 @@ image:
 
 On March 23 I stood in front of a room at RSA Conference 2026 and made an argument I have been turning over for two years: **Zero Trust is not a thing you deploy. It is a thing you keep doing.** The talk was titled *Beyond Zero Trust: Continuous Validation for Modern Enterprise Security*, and this post is the written version of it, including the parts the room disagreed with.
 
+[![On stage at RSA Conference 2026 presenting Beyond Zero Trust, with a slide titled From Flat Network to Enforced Trust Zones](/assets/img/posts/rsac-2026/rsac-talk-stage.jpg)](https://www.rsaconference.com/Library/presentation/USA/2026/Beyond%20Zero%20Trust%20Continuous%20Validation%20for%20Modern%20Enterprise%20Security)
+_On stage at RSAC 2026, walking through how a flat network becomes enforced trust zones._
+
+> 🎤 **Watch the full session on demand:** [Beyond Zero Trust: Continuous Validation for Modern Enterprise Security](https://www.rsaconference.com/Library/presentation/USA/2026/Beyond%20Zero%20Trust%20Continuous%20Validation%20for%20Modern%20Enterprise%20Security) on the RSA Conference library.
+
 If you have read my earlier posts on building a Zero Trust enforcement point with a [reverse proxy](/2025/08/03/zero-trust-with-reverse-proxy.html) and the [control plane that backs it](/2025/10/20/zero-trust-control-plane-and-sessions.html), this is the natural next chapter. Those posts were about closing the perimeter and revoking access fast. This talk was about the uncomfortable space in between: everything that happens to a session *after* it is allowed in.
 
 ## Authentication Is a Moment. Trust Is a Duration.
@@ -67,6 +72,6 @@ The framing I will keep using is the one I opened with. A login is a photograph.
 
 ---
 
-*This talk built directly on my two-part series on Zero Trust with a reverse proxy: [Part One](/2025/08/03/zero-trust-with-reverse-proxy.html) on the enforcement point, and [Part Two](/2025/10/20/zero-trust-control-plane-and-sessions.html) on the control plane and sessions.*
+*The full talk is [available to watch on demand](https://www.rsaconference.com/Library/presentation/USA/2026/Beyond%20Zero%20Trust%20Continuous%20Validation%20for%20Modern%20Enterprise%20Security) in the RSA Conference library. It built directly on my two-part series on Zero Trust with a reverse proxy: [Part One](/2025/08/03/zero-trust-with-reverse-proxy.html) on the enforcement point, and [Part Two](/2025/10/20/zero-trust-control-plane-and-sessions.html) on the control plane and sessions.*
 
 *Were you in the room at RSAC, or working through continuous validation in your own stack? I am on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or reachable by [email](mailto:hello@singh-sanjay.com).*
