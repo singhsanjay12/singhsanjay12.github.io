@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" font-family="system-ui, sans-serif">
+  <rect x="0" y="0" width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="400" fill="#eef2ff" opacity="0.45"/>
+
+  <text x="400" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#312e81">kube-proxy: one virtual IP, three dataplanes</text>
+
+  <!-- Client packet -->
+  <rect x="36" y="160" width="150" height="80" rx="10" fill="#1e293b"/>
+  <text x="111" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#e2e8f0">packet to</text>
+  <text x="111" y="210" text-anchor="middle" font-size="13" font-weight="700" fill="#a5b4fc">ClusterIP</text>
+  <text x="111" y="228" text-anchor="middle" font-size="11" fill="#94a3b8">10.96.0.21:8080</text>
+
+  <!-- arrow client -> dataplanes -->
+  <line x1="186" y1="200" x2="250" y2="200" stroke="#64748b" stroke-width="2.5"/>
+  <polygon points="250,200 240,195 240,205" fill="#64748b"/>
+
+  <!-- Dataplane stack label -->
+  <text x="375" y="74" text-anchor="middle" font-size="11" font-weight="600" fill="#64748b" letter-spacing="0.5">DNAT to a ready pod via one of:</text>
+
+  <!-- iptables box -->
+  <rect x="258" y="86" width="234" height="76" rx="9" fill="#ffffff" stroke="#6366f1" stroke-width="2"/>
+  <text x="272" y="112" font-size="13" font-weight="700" fill="#4f46e5">iptables</text>
+  <text x="272" y="132" font-size="10.5" fill="#64748b">linear rule chains, O(n)</text>
+  <text x="272" y="149" font-size="10.5" fill="#64748b">scaling cliff at thousands</text>
+
+  <!-- ipvs box -->
+  <rect x="258" y="170" width="234" height="76" rx="9" fill="#ffffff" stroke="#6366f1" stroke-width="2"/>
+  <text x="272" y="196" font-size="13" font-weight="700" fill="#4f46e5">IPVS</text>
+  <text x="272" y="216" font-size="10.5" fill="#64748b">in-kernel hash table, O(1)</text>
+  <text x="272" y="233" font-size="10.5" fill="#64748b">least-conn / wrr algorithms</text>
+
+  <!-- ebpf box -->
+  <rect x="258" y="254" width="234" height="76" rx="9" fill="#312e81"/>
+  <text x="272" y="280" font-size="13" font-weight="700" fill="#a5b4fc">eBPF / Cilium</text>
+  <text x="272" y="300" font-size="10.5" fill="#c7d2fe">eBPF maps, no iptables</text>
+  <text x="272" y="317" font-size="10.5" fill="#c7d2fe">socket-level, lower latency</text>
+
+  <!-- arrows dataplanes -> pods -->
+  <line x1="492" y1="124" x2="560" y2="138" stroke="#64748b" stroke-width="2.5"/>
+  <polygon points="560,138 549,135 551,145" fill="#64748b"/>
+  <line x1="492" y1="208" x2="560" y2="208" stroke="#64748b" stroke-width="2.5"/>
+  <polygon points="560,208 550,203 550,213" fill="#64748b"/>
+  <line x1="492" y1="292" x2="560" y2="278" stroke="#64748b" stroke-width="2.5"/>
+  <polygon points="560,278 551,271 549,281" fill="#64748b"/>
+
+  <!-- pods -->
+  <g>
+    <rect x="566" y="118" width="190" height="46" rx="9" fill="#ffffff" stroke="#22c55e" stroke-width="2"/>
+    <circle cx="588" cy="141" r="7" fill="#22c55e"/>
+    <text x="606" y="138" font-size="11.5" font-weight="600" fill="#1e293b">pod 10.1.7.4:8443</text>
+    <text x="606" y="153" font-size="10" fill="#64748b">ready</text>
+  </g>
+  <g>
+    <rect x="566" y="185" width="190" height="46" rx="9" fill="#ffffff" stroke="#22c55e" stroke-width="2"/>
+    <circle cx="588" cy="208" r="7" fill="#22c55e"/>
+    <text x="606" y="205" font-size="11.5" font-weight="600" fill="#1e293b">pod 10.1.7.9:8443</text>
+    <text x="606" y="220" font-size="10" fill="#64748b">ready</text>
+  </g>
+  <g>
+    <rect x="566" y="252" width="190" height="46" rx="9" fill="#ffffff" stroke="#22c55e" stroke-width="2"/>
+    <circle cx="588" cy="275" r="7" fill="#22c55e"/>
+    <text x="606" y="272" font-size="11.5" font-weight="600" fill="#1e293b">pod 10.1.8.2:8443</text>
+    <text x="606" y="287" font-size="10" fill="#64748b">ready</text>
+  </g>
+
+  <text x="661" y="328" text-anchor="middle" font-size="10.5" font-weight="600" fill="#94a3b8">EndpointSlice (health-filtered backends)</text>
+
+  <text x="400" y="378" text-anchor="middle" font-size="11" fill="#64748b">nothing listens on the ClusterIP: the kernel rewrites it, per connection, into a real pod</text>
+</svg>
