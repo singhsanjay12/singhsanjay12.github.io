@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-label="An identity provider pushing a session-revoked security event to a proxy enforcement point that cuts a live session mid-stream">
+  <defs>
+    <linearGradient id="caebg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="caeshadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="400" fill="url(#caebg)"/>
+
+  <text x="40" y="52" font-family="system-ui,sans-serif" font-size="24" font-weight="800" fill="#1e293b">Continuous Access Evaluation</text>
+  <text x="40" y="78" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#4f46e5">A pushed event cuts a live session mid-stream</text>
+
+  <!-- Identity Provider -->
+  <rect x="48" y="150" width="170" height="100" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" filter="url(#caeshadow)"/>
+  <rect x="48" y="150" width="170" height="34" rx="12" fill="#312e81"/>
+  <text x="133" y="172" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#f8fafc" text-anchor="middle">Identity Provider</text>
+  <circle cx="133" cy="213" r="20" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <path d="M133 202 a9 9 0 0 1 9 9 v3 h-18 v-3 a9 9 0 0 1 9 -9 z" fill="#6366f1"/>
+  <circle cx="133" cy="206" r="5" fill="#6366f1"/>
+
+  <!-- Security event signal -->
+  <line x1="218" y1="200" x2="372" y2="200" stroke="#ef4444" stroke-width="3" stroke-dasharray="7 6" stroke-linecap="round"/>
+  <polygon points="372,200 360,193 360,207" fill="#ef4444"/>
+  <rect x="232" y="120" width="142" height="30" rx="15" fill="#ef4444"/>
+  <text x="303" y="140" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">session-revoked</text>
+  <text x="303" y="178" font-family="system-ui,sans-serif" font-size="11" fill="#64748b" text-anchor="middle">SSF stream · CAEP event</text>
+
+  <!-- Enforcement point / proxy -->
+  <rect x="382" y="150" width="170" height="100" rx="12" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" filter="url(#caeshadow)"/>
+  <rect x="382" y="150" width="170" height="34" rx="12" fill="#312e81"/>
+  <text x="467" y="172" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#f8fafc" text-anchor="middle">Enforcement Point</text>
+  <text x="467" y="210" font-family="system-ui,sans-serif" font-size="12" fill="#64748b" text-anchor="middle">re-evaluates session</text>
+  <text x="467" y="230" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#ef4444" text-anchor="middle">cut now</text>
+
+  <!-- Live session being cut -->
+  <line x1="552" y1="200" x2="640" y2="200" stroke="#22c55e" stroke-width="4" stroke-linecap="round"/>
+  <line x1="660" y1="200" x2="744" y2="200" stroke="#cbd5e1" stroke-width="4" stroke-linecap="round" stroke-dasharray="5 6"/>
+  <circle cx="650" cy="200" r="20" fill="#ffffff" stroke="#ef4444" stroke-width="3" filter="url(#caeshadow)"/>
+  <path d="M643 193 l14 14 M657 193 l-14 14" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Client endpoint (cut off) -->
+  <rect x="700" y="172" width="56" height="56" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4 4"/>
+  <rect x="712" y="184" width="32" height="22" rx="3" fill="#e2e8f0"/>
+  <rect x="722" y="210" width="12" height="6" rx="2" fill="#cbd5e1"/>
+  <text x="728" y="248" font-family="system-ui,sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">client</text>
+
+  <text x="552" y="148" font-family="system-ui,sans-serif" font-size="11" fill="#22c55e" font-weight="700" text-anchor="middle">live session</text>
+
+  <text x="40" y="320" font-family="system-ui,sans-serif" font-size="14" fill="#475569">The gap between "this session should die" and "this session is dead" shrinks from minutes to seconds.</text>
+  <text x="40" y="344" font-family="system-ui,sans-serif" font-size="13" fill="#64748b">Push the security event, do not wait for the token to expire.</text>
+</svg>
