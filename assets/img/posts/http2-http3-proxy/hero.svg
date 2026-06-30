@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="46" fill="#312e81"/>
+  <text x="400" y="29" text-anchor="middle" fill="#eef2ff" font-size="18" font-weight="600">One TCP connection vs independent QUIC streams under loss</text>
+
+  <!-- HTTP/2 over TCP panel -->
+  <rect x="24" y="66" width="360" height="310" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+  <text x="204" y="92" text-anchor="middle" fill="#312e81" font-size="15" font-weight="600">HTTP/2 over TCP</text>
+  <text x="204" y="112" text-anchor="middle" fill="#64748b" font-size="11">streams share one ordered byte stream</text>
+
+  <!-- three multiplexed streams on one TCP connection -->
+  <g>
+    <text x="48" y="150" fill="#475569" font-size="11">stream 1</text>
+    <text x="48" y="196" fill="#475569" font-size="11">stream 2</text>
+    <text x="48" y="242" fill="#475569" font-size="11">stream 3</text>
+
+    <!-- stream 1 packets -->
+    <rect x="108" y="138" width="34" height="18" rx="3" fill="#22c55e"/>
+    <rect x="148" y="138" width="34" height="18" rx="3" fill="#ef4444"/>
+    <rect x="188" y="138" width="34" height="18" rx="3" fill="#94a3b8"/>
+    <rect x="228" y="138" width="34" height="18" rx="3" fill="#94a3b8"/>
+    <rect x="268" y="138" width="34" height="18" rx="3" fill="#94a3b8"/>
+
+    <!-- stream 2 packets, blocked behind the loss -->
+    <rect x="108" y="184" width="34" height="18" rx="3" fill="#22c55e"/>
+    <rect x="148" y="184" width="34" height="18" rx="3" fill="#94a3b8"/>
+    <rect x="188" y="184" width="34" height="18" rx="3" fill="#94a3b8"/>
+
+    <!-- stream 3 packets, blocked -->
+    <rect x="108" y="230" width="34" height="18" rx="3" fill="#22c55e"/>
+    <rect x="148" y="230" width="34" height="18" rx="3" fill="#94a3b8"/>
+  </g>
+
+  <!-- lost packet marker -->
+  <line x1="165" y1="128" x2="165" y2="262" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="165" y="284" text-anchor="middle" fill="#ef4444" font-size="11" font-weight="600">packet lost</text>
+  <text x="204" y="332" text-anchor="middle" fill="#475569" font-size="11">all streams wait for retransmit</text>
+  <text x="204" y="352" text-anchor="middle" fill="#ef4444" font-size="12" font-weight="600">TCP head-of-line blocking</text>
+
+  <!-- HTTP/3 over QUIC panel -->
+  <rect x="416" y="66" width="360" height="310" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+  <text x="596" y="92" text-anchor="middle" fill="#312e81" font-size="15" font-weight="600">HTTP/3 over QUIC (UDP)</text>
+  <text x="596" y="112" text-anchor="middle" fill="#64748b" font-size="11">each stream is independently ordered</text>
+
+  <g>
+    <text x="440" y="150" fill="#475569" font-size="11">stream 1</text>
+    <text x="440" y="196" fill="#475569" font-size="11">stream 2</text>
+    <text x="440" y="242" fill="#475569" font-size="11">stream 3</text>
+
+    <!-- stream 1 with a loss but only it stalls -->
+    <rect x="500" y="138" width="34" height="18" rx="3" fill="#22c55e"/>
+    <rect x="540" y="138" width="34" height="18" rx="3" fill="#ef4444"/>
+    <rect x="580" y="138" width="34" height="18" rx="3" fill="#94a3b8"/>
+
+    <!-- stream 2 keeps flowing -->
+    <rect x="500" y="184" width="34" height="18" rx="3" fill="#22c55e"/>
+    <rect x="540" y="184" width="34" height="18" rx="3" fill="#6366f1"/>
+    <rect x="580" y="184" width="34" height="18" rx="3" fill="#4f46e5"/>
+    <rect x="620" y="184" width="34" height="18" rx="3" fill="#6366f1"/>
+
+    <!-- stream 3 keeps flowing -->
+    <rect x="500" y="230" width="34" height="18" rx="3" fill="#22c55e"/>
+    <rect x="540" y="230" width="34" height="18" rx="3" fill="#6366f1"/>
+    <rect x="580" y="230" width="34" height="18" rx="3" fill="#4f46e5"/>
+  </g>
+
+  <line x1="557" y1="128" x2="557" y2="162" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="596" y="284" text-anchor="middle" fill="#475569" font-size="11">only stream 1 waits for retransmit</text>
+  <text x="596" y="332" text-anchor="middle" fill="#22c55e" font-size="12" font-weight="600">streams 2 and 3 keep delivering</text>
+  <text x="596" y="352" text-anchor="middle" fill="#4f46e5" font-size="11">no transport-level HOL blocking</text>
+</svg>
