@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-label="A client asking where is service B, with two answers: a DNS record that is cached and lags, and a service registry that pushes live, health-aware endpoints">
+  <defs>
+    <linearGradient id="dvrbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="dvrshadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="400" fill="url(#dvrbg)"/>
+
+  <text x="400" y="44" font-family="system-ui,sans-serif" font-size="20" font-weight="800" fill="#1e293b" text-anchor="middle">"Where is service B, right now?"</text>
+
+  <!-- Client -->
+  <rect x="40" y="170" width="120" height="60" rx="10" fill="#ffffff" stroke="#6366f1" stroke-width="2.5" filter="url(#dvrshadow)"/>
+  <text x="100" y="198" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1e293b" text-anchor="middle">Client</text>
+  <text x="100" y="216" font-family="system-ui,sans-serif" font-size="11" fill="#64748b" text-anchor="middle">service A</text>
+
+  <!-- Branch lines -->
+  <path d="M160 188 C 230 188, 250 110, 320 110" fill="none" stroke="#94a3b8" stroke-width="2.5"/>
+  <path d="M160 212 C 230 212, 250 292, 320 292" fill="none" stroke="#94a3b8" stroke-width="2.5"/>
+
+  <!-- DNS path (top) -->
+  <rect x="320" y="78" width="180" height="66" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="2.5" filter="url(#dvrshadow)"/>
+  <text x="410" y="104" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#0c4a6e" text-anchor="middle">DNS</text>
+  <text x="410" y="124" font-family="system-ui,sans-serif" font-size="11" fill="#64748b" text-anchor="middle">cached A / SRV record</text>
+
+  <g font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">
+    <rect x="540" y="70" width="220" height="36" rx="8" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+    <text x="650" y="92" fill="#854d0e">pull + TTL: simple, universal, lags</text>
+    <rect x="540" y="116" width="220" height="24" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="650" y="132" fill="#64748b">no health signal, no metadata</text>
+  </g>
+  <line x1="500" y1="111" x2="540" y2="88" stroke="#cbd5e1" stroke-width="2"/>
+
+  <!-- Registry path (bottom) -->
+  <rect x="320" y="258" width="180" height="66" rx="10" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5" filter="url(#dvrshadow)"/>
+  <text x="410" y="284" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#312e81" text-anchor="middle">Service Registry</text>
+  <text x="410" y="304" font-family="system-ui,sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Consul / etcd / xDS</text>
+
+  <g font-family="system-ui,sans-serif" font-size="11" text-anchor="middle">
+    <rect x="540" y="246" width="220" height="36" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="650" y="268" fill="#166534">watch + push: live, health-aware</text>
+    <rect x="540" y="292" width="220" height="24" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+    <text x="650" y="308" fill="#64748b">needs client integration + ops</text>
+  </g>
+  <line x1="500" y1="291" x2="540" y2="270" stroke="#cbd5e1" stroke-width="2"/>
+
+  <text x="400" y="372" font-family="system-ui,sans-serif" font-size="13" fill="#475569" text-anchor="middle">Same question, two answers. The right one depends on how fast the truth changes.</text>
+</svg>
