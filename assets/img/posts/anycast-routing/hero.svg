@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="58" fill="#eef2ff"/>
+  <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#312e81">One IP, Many PoPs: Anycast via BGP</text>
+  <text x="400" y="48" text-anchor="middle" font-size="12" fill="#64748b">203.0.113.10 advertised from every site; the network routes each client to the nearest one</text>
+
+  <!-- The shared advertised prefix banner -->
+  <rect x="280" y="78" width="240" height="34" rx="8" fill="#4f46e5"/>
+  <text x="400" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#ffffff">advertise 203.0.113.10/32</text>
+
+  <!-- Clients -->
+  <g>
+    <rect x="40" y="170" width="120" height="58" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <circle cx="62" cy="192" r="7" fill="#6366f1"/>
+    <text x="78" y="196" font-size="12" font-weight="600" fill="#1e293b">Client EU</text>
+    <text x="52" y="216" font-size="10" fill="#64748b">topologically near PoP A</text>
+  </g>
+  <g>
+    <rect x="40" y="300" width="120" height="58" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+    <circle cx="62" cy="322" r="7" fill="#6366f1"/>
+    <text x="78" y="326" font-size="12" font-weight="600" fill="#1e293b">Client US</text>
+    <text x="52" y="346" font-size="10" fill="#64748b">topologically near PoP C</text>
+  </g>
+
+  <!-- Routing fabric label -->
+  <text x="300" y="160" text-anchor="middle" font-size="11" fill="#94a3b8" font-weight="600">BGP picks the shortest AS path</text>
+
+  <!-- PoPs (datacenters), all hold the same IP -->
+  <g>
+    <rect x="560" y="130" width="190" height="56" rx="8" fill="#312e81"/>
+    <text x="655" y="153" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">PoP A (Frankfurt)</text>
+    <text x="655" y="172" text-anchor="middle" font-size="11" fill="#c7d2fe">203.0.113.10</text>
+  </g>
+  <g>
+    <rect x="560" y="206" width="190" height="56" rx="8" fill="#4f46e5"/>
+    <text x="655" y="229" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">PoP B (Singapore)</text>
+    <text x="655" y="248" text-anchor="middle" font-size="11" fill="#c7d2fe">203.0.113.10</text>
+  </g>
+  <g>
+    <rect x="560" y="282" width="190" height="56" rx="8" fill="#6366f1"/>
+    <text x="655" y="305" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">PoP C (Virginia)</text>
+    <text x="655" y="324" text-anchor="middle" font-size="11" fill="#e0e7ff">203.0.113.10</text>
+  </g>
+
+  <!-- Routing paths -->
+  <path d="M160 199 C 320 199, 420 158, 558 158" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <path d="M160 329 C 320 329, 420 310, 558 310" fill="none" stroke="#22c55e" stroke-width="3"/>
+  <!-- dashed alternate / re-converged path -->
+  <path d="M160 199 C 340 240, 430 280, 558 300" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 5"/>
+
+  <text x="360" y="372" text-anchor="middle" font-size="10" fill="#94a3b8">solid: chosen route   dashed: a re-converged path can move a client mid-session</text>
+</svg>
