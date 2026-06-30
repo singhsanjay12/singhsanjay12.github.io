@@ -323,3 +323,12 @@
     height: 20px;
   }
 }
+
+/* ── Image loading placeholder fix ───────────────────────── */
+/* Chirpy clears the `.shimmer` skeleton on an image's `load` event, but for
+   cached images that event fires before the theme JS attaches, so the
+   placeholder keeps animating forever — a shadow sweeping across the image on
+   every reload. Remove the animated overlay so loaded images render cleanly. */
+.shimmer::before {
+  content: none !important;
+}
