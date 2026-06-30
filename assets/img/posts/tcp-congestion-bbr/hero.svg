@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="24" y="20" width="752" height="40" rx="8" fill="#eef2ff"/>
+  <text x="400" y="46" text-anchor="middle" font-size="18" font-weight="700" fill="#312e81">TCP Congestion Control: filling the buffer vs modeling the pipe</text>
+
+  <!-- LEFT PANEL: Cubic loss-based sawtooth -->
+  <rect x="24" y="80" width="368" height="296" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="48" y="110" font-size="15" font-weight="700" fill="#1e293b">Cubic: loss-based</text>
+  <text x="48" y="130" font-size="11.5" fill="#64748b">grows until the buffer overflows, then backs off</text>
+
+  <!-- buffer fill bar -->
+  <rect x="48" y="146" width="320" height="22" rx="4" fill="#eef2ff" stroke="#c7d2fe"/>
+  <rect x="48" y="146" width="300" height="22" rx="4" fill="#ef4444" opacity="0.85"/>
+  <text x="208" y="161" text-anchor="middle" font-size="10.5" font-weight="600" fill="#ffffff">buffer full: bufferbloat + drops</text>
+
+  <!-- sawtooth cwnd plot -->
+  <line x1="60" y1="350" x2="368" y2="350" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="60" y1="350" x2="60" y2="196" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="60" y1="206" x2="368" y2="206" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="364" y="200" text-anchor="end" font-size="10" fill="#ef4444">drop threshold</text>
+  <polyline points="60,348 120,210 122,300 182,210 184,300 244,208 246,298 306,208 308,300 360,224" fill="none" stroke="#4f46e5" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="120" cy="210" r="4" fill="#ef4444"/>
+  <circle cx="182" cy="210" r="4" fill="#ef4444"/>
+  <circle cx="244" cy="208" r="4" fill="#ef4444"/>
+  <circle cx="306" cy="208" r="4" fill="#ef4444"/>
+  <text x="76" y="368" font-size="10.5" fill="#64748b">cwnd over time: probe up, lose a packet, halve, repeat</text>
+
+  <!-- RIGHT PANEL: BBR model-based -->
+  <rect x="408" y="80" width="368" height="296" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="432" y="110" font-size="15" font-weight="700" fill="#1e293b">BBR: model-based</text>
+  <text x="432" y="130" font-size="11.5" fill="#64748b">paces to bottleneck bandwidth and min RTT</text>
+
+  <!-- buffer fill bar: nearly empty -->
+  <rect x="432" y="146" width="320" height="22" rx="4" fill="#eef2ff" stroke="#c7d2fe"/>
+  <rect x="432" y="146" width="96" height="22" rx="4" fill="#22c55e" opacity="0.9"/>
+  <text x="592" y="161" text-anchor="middle" font-size="10.5" font-weight="600" fill="#312e81">queue stays small: low latency</text>
+
+  <!-- steady plot at BDP line -->
+  <line x1="444" y1="350" x2="752" y2="350" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="444" y1="350" x2="444" y2="196" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="444" y1="232" x2="752" y2="232" stroke="#22c55e" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="748" y="226" text-anchor="end" font-size="10" fill="#16a34a">BDP = btlBW x minRTT</text>
+  <polyline points="444,348 484,250 520,236 560,234 600,235 640,233 700,234 744,233" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="600" cy="235" r="4" fill="#94a3b8"/>
+  <text x="606" y="252" font-size="9.5" fill="#64748b">random loss: ignored, no collapse</text>
+  <text x="460" y="368" font-size="10.5" fill="#64748b">cwnd over time: settle at the pipe, hold steady</text>
+
+  <!-- divider arrow -->
+  <text x="400" y="240" text-anchor="middle" font-size="22" font-weight="700" fill="#94a3b8">vs</text>
+</svg>
