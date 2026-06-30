@@ -11,7 +11,7 @@ image:
 
 Inside a Kubernetes cluster, every request starts with the same question I keep coming back to: **where is the service I need to call, right now?** Kubernetes answers it with a layered system that most people use without ever looking inside. A `Service` object gives you a name. CoreDNS turns that name into an address. A control loop keeps the list of real backends behind it accurate. And kube-proxy quietly rewrites that address into an actual pod. Understanding how those layers fit together is the difference between trusting the magic and debugging it at 3am.
 
-This post is the Kubernetes-specific companion to my earlier writing on [DNS as a discovery mechanism](/2026/02/18/dns-the-silent-killer-of-distributed-systems.html) and [where DNS load balancing stops being enough](/2026/02/24/when-dns-load-balancing-is-not-enough.html). The cluster reuses DNS, but wraps it around something DNS alone could never do.
+This post is the Kubernetes-specific companion to my earlier writing on [DNS as a discovery mechanism](/2026/02/18/dns-the-silent-killer-of-distributed-systems.html) and [where DNS load balancing stops being enough](/2026/02/24/when-dns-load-balancing-is-not-enough.html). If you have read [DNS or a Service Registry?](/2026/06/23/dns-vs-service-registry.html), this is what that choice looks like once you are inside a cluster: Kubernetes reuses DNS, but wraps it around the kind of live registry that post argued you sometimes need.
 
 ## The Objects That Make It Work
 
@@ -198,12 +198,12 @@ spec:
 
 The honest summary is short. For discovery *inside* a single cluster, you almost never need anything beyond what ships in the box: Services, EndpointSlices, CoreDNS, and kube-proxy already give you health-aware, push-updated discovery behind a stable name. Use a headless Service when a client needs the raw membership list, and remember the `dnsPolicy` when you go host-network.
 
-You reach past the built-ins for the cases that cross the cluster boundary: integrating a non-Kubernetes estate (an external registry like Consul), needing client-side load balancing with rich endpoint metadata (a mesh and xDS), or spanning multiple clusters (multi-cluster Services or a federated mesh). In every one of those, the underlying pattern is the same one the cluster taught you: a stable name in front, a live registry of healthy endpoints behind, and a control loop keeping the two honest.
+You reach past the built-ins for the cases that cross the cluster boundary: integrating a non-Kubernetes estate (an external registry like Consul), needing client-side load balancing with rich endpoint metadata (a mesh and xDS), or spanning multiple clusters (multi-cluster Services or a federated mesh). The decision framework for that DNS-versus-registry choice is the subject of its own [companion post](/2026/06/23/dns-vs-service-registry.html). In every one of those, the underlying pattern is the same one the cluster taught you: a stable name in front, a live registry of healthy endpoints behind, and a control loop keeping the two honest.
 
 <p style="font-family: Georgia, serif; font-style: italic; font-size: 1.05em; border-left: 3px solid #c7d2fe; padding-left: 1em; margin-top: 2em; color: #1e293b;">Kubernetes did not replace DNS for service discovery. It put DNS back where it belongs: a friendly name on the front of a live, health-aware registry that someone else keeps accurate for you.</p>
 
 ---
 
-*This builds on my earlier pieces on [It's Always DNS](/2026/02/18/dns-the-silent-killer-of-distributed-systems.html), [when DNS load balancing is not enough](/2026/02/24/when-dns-load-balancing-is-not-enough.html), and [health checking in client vs server-side load balancing](/2026/01/12/health-checks-client-vs-server-side-lb.html).*
+*This builds on my earlier pieces on [DNS or a Service Registry?](/2026/06/23/dns-vs-service-registry.html), [It's Always DNS](/2026/02/18/dns-the-silent-killer-of-distributed-systems.html), [when DNS load balancing is not enough](/2026/02/24/when-dns-load-balancing-is-not-enough.html), and [health checking in client vs server-side load balancing](/2026/01/12/health-checks-client-vs-server-side-lb.html).*
 
 *Running discovery across clusters or bridging Kubernetes with an external registry? I am on [LinkedIn](https://www.linkedin.com/in/singhsanjay12) or reachable by [email](mailto:hello@singh-sanjay.com).*
