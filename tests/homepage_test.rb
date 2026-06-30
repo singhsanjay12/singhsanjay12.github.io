@@ -6,12 +6,12 @@ class HomepageTest < Minitest::Test
   end
 
   def test_light_theme_is_default
-    # Chirpy renders the default theme on the <html> tag. Older versions use
-    # data-mode="light"; newer versions (Bootstrap 5.3 native theming) use
-    # data-bs-theme="light". Accept either so a theme bump doesn't break CI.
-    assert_match(/data-(bs-theme|mode)="light"/, @html,
-      "Homepage <html> must declare the light theme " \
-      "(data-mode=\"light\" or data-bs-theme=\"light\")")
+    # Guards the deployed default theme. Chirpy 7.4.1 (pinned in Gemfile)
+    # renders data-mode="light". If a theme bump changes this attribute
+    # (7.5+ moved to data-bs-theme and rendered dark by default), this test
+    # should fail loudly so we re-verify light mode before shipping.
+    assert_match(/data-mode="light"/, @html,
+      "Homepage <html> must have data-mode=\"light\"")
   end
 
   def test_avatar_tag_present
