@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="64" fill="#eef2ff"/>
+  <text x="400" y="33" text-anchor="middle" font-size="21" font-weight="700" fill="#312e81">One Retry Becomes an Outage</text>
+  <text x="400" y="52" text-anchor="middle" font-size="13" fill="#64748b">A failing backend turns a wave of retries into a self-sustaining storm</text>
+
+  <!-- Clients column -->
+  <text x="120" y="98" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Clients</text>
+  <g fill="#6366f1">
+    <rect x="70" y="112" width="100" height="30" rx="6"/>
+  </g>
+  <g fill="#4f46e5">
+    <rect x="70" y="150" width="100" height="30" rx="6"/>
+    <rect x="70" y="188" width="100" height="30" rx="6"/>
+  </g>
+  <g fill="#312e81">
+    <rect x="70" y="226" width="100" height="30" rx="6"/>
+    <rect x="70" y="264" width="100" height="30" rx="6"/>
+    <rect x="70" y="302" width="100" height="30" rx="6"/>
+  </g>
+  <text x="120" y="132" text-anchor="middle" font-size="12" fill="#ffffff" font-weight="600">try</text>
+  <text x="120" y="170" text-anchor="middle" font-size="12" fill="#ffffff" font-weight="600">+ retry</text>
+  <text x="120" y="208" text-anchor="middle" font-size="12" fill="#ffffff" font-weight="600">+ retry</text>
+  <text x="120" y="246" text-anchor="middle" font-size="12" fill="#ffffff" font-weight="600">+ retry</text>
+  <text x="120" y="284" text-anchor="middle" font-size="12" fill="#ffffff" font-weight="600">+ retry</text>
+  <text x="120" y="322" text-anchor="middle" font-size="12" fill="#ffffff" font-weight="600">+ retry</text>
+  <text x="120" y="358" text-anchor="middle" font-size="12" fill="#ef4444" font-weight="700">load multiplies</text>
+
+  <!-- Arrows fanning into backend -->
+  <defs>
+    <marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="ahr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#ef4444"/>
+    </marker>
+  </defs>
+  <path d="M175 127 H 360" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M175 165 H 360" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#ahr)"/>
+  <path d="M175 203 H 360" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#ahr)"/>
+  <path d="M175 241 H 360" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#ahr)"/>
+  <path d="M175 279 H 360" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#ahr)"/>
+  <path d="M175 317 H 360" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#ahr)"/>
+
+  <!-- Failing backend -->
+  <rect x="370" y="150" width="150" height="150" rx="12" fill="#fff" stroke="#ef4444" stroke-width="3"/>
+  <text x="445" y="195" text-anchor="middle" font-size="15" font-weight="700" fill="#1e293b">Backend</text>
+  <text x="445" y="218" text-anchor="middle" font-size="13" fill="#ef4444" font-weight="600">overloaded</text>
+  <text x="445" y="245" text-anchor="middle" font-size="12" fill="#64748b">cap 8k rps</text>
+  <text x="445" y="265" text-anchor="middle" font-size="12" fill="#ef4444" font-weight="600">facing 14k</text>
+  <circle cx="445" cy="172" r="6" fill="#ef4444"/>
+
+  <!-- Feedback loop -->
+  <path d="M520 175 C 600 130, 600 320, 520 275" stroke="#ef4444" stroke-width="2.5" fill="none" stroke-dasharray="6 5" marker-end="url(#ahr)"/>
+  <text x="610" y="220" font-size="12" fill="#ef4444" font-weight="700">more</text>
+  <text x="610" y="237" font-size="12" fill="#ef4444" font-weight="700">retries</text>
+
+  <!-- Guardrails box -->
+  <rect x="660" y="150" width="118" height="150" rx="12" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="719" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#312e81">The fix</text>
+  <g font-size="11.5" fill="#1e293b">
+    <text x="672" y="198">backoff</text>
+    <text x="672" y="218">+ jitter</text>
+    <text x="672" y="238">retry budget</text>
+    <text x="672" y="258">deadlines</text>
+    <text x="672" y="278">idempotency</text>
+    <text x="672" y="296" fill="#22c55e" font-weight="700">breaks the loop</text>
+  </g>
+</svg>
