@@ -1,7 +1,7 @@
 ---
 title: "Retries, Timeouts, and the Thundering Herd: How One Retry Becomes an Outage"
 description: "A retry is a load multiplier that fires exactly when a system is least able to absorb it. Here is how naive retries cause retry storms and metastable failures, and the backoff, jitter, budgets, deadlines, and idempotency that keep retries from taking you down."
-date: 2026-04-13 12:00:00 +0000
+date: 2026-09-10 12:00:00 +0000
 categories: [Distributed Systems, Reliability]
 tags: [reliability, retries, timeouts, backoff, resilience, distributed-systems]
 image:
