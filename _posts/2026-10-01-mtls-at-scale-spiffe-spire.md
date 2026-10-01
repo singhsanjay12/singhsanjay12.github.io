@@ -1,7 +1,7 @@
 ---
 title: "mTLS at Scale Is a Certificate Problem: SPIFFE, SPIRE, and Rotation"
 description: "mTLS gives you mutual cryptographic identity, but the hard part is issuing and rotating certificates for thousands of workloads. Here is how SPIFFE and SPIRE turn that into automatic, short-lived identity, and why short TTLs beat revocation lists."
-date: 2026-10-01 12:00:00 +0000
+date: 2026-10-01 00:00:00 +0000
 categories: [Security, Zero Trust]
 tags: [mtls, spiffe, spire, certificates, identity, zero-trust, security]
 image:
