@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <linearGradient id="srv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#4f46e5"/>
+    </linearGradient>
+    <marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0 0 L6 3 L0 6 z" fill="#64748b"/>
+    </marker>
+    <marker id="arG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0 0 L6 3 L0 6 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arR" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0 0 L6 3 L0 6 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#bg)"/>
+
+  <text x="400" y="40" text-anchor="middle" font-size="21" font-weight="700" fill="#312e81">Load Shedding at the Concurrency Limit</text>
+  <text x="400" y="63" text-anchor="middle" font-size="13" fill="#64748b">admit up to capacity, shed the excess fast, protect goodput</text>
+
+  <!-- incoming requests -->
+  <text x="92" y="112" text-anchor="middle" font-size="12" font-weight="600" fill="#1e293b">offered load</text>
+  <g fill="#94a3b8">
+    <circle cx="60" cy="150" r="9"/>
+    <circle cx="92" cy="150" r="9"/>
+    <circle cx="124" cy="150" r="9"/>
+    <circle cx="60" cy="190" r="9"/>
+    <circle cx="92" cy="190" r="9"/>
+    <circle cx="124" cy="190" r="9"/>
+    <circle cx="60" cy="230" r="9"/>
+    <circle cx="92" cy="230" r="9"/>
+    <circle cx="124" cy="230" r="9"/>
+  </g>
+
+  <!-- queue / admission gate -->
+  <rect x="215" y="128" width="120" height="124" rx="10" fill="#ffffff" stroke="#6366f1" stroke-width="2"/>
+  <text x="275" y="120" text-anchor="middle" font-size="12" font-weight="600" fill="#4f46e5">queue + gate</text>
+  <rect x="232" y="148" width="86" height="16" rx="4" fill="#c7d2fe"/>
+  <rect x="232" y="172" width="86" height="16" rx="4" fill="#c7d2fe"/>
+  <rect x="232" y="196" width="86" height="16" rx="4" fill="#a5b4fc"/>
+  <rect x="232" y="220" width="86" height="16" rx="4" fill="#818cf8"/>
+  <text x="275" y="270" text-anchor="middle" font-size="10.5" fill="#64748b">CoDel: drop stale, oldest-first</text>
+
+  <line x1="138" y1="190" x2="210" y2="190" stroke="#64748b" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- server at concurrency limit -->
+  <rect x="430" y="120" width="160" height="160" rx="14" fill="url(#srv)"/>
+  <text x="510" y="156" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">server</text>
+  <text x="510" y="178" text-anchor="middle" font-size="12" fill="#e0e7ff">concurrency limit L</text>
+  <line x1="450" y1="194" x2="570" y2="194" stroke="#c7d2fe" stroke-width="1" opacity="0.5"/>
+  <text x="510" y="216" text-anchor="middle" font-size="11" fill="#e0e7ff">L = &#955; &#215; W (Little)</text>
+  <text x="510" y="238" text-anchor="middle" font-size="11" fill="#e0e7ff">adaptive: latency</text>
+  <text x="510" y="254" text-anchor="middle" font-size="11" fill="#e0e7ff">gradient sets L</text>
+
+  <line x1="338" y1="178" x2="426" y2="178" stroke="#22c55e" stroke-width="2.5" marker-end="url(#arG)"/>
+  <text x="382" y="170" text-anchor="middle" font-size="10.5" font-weight="600" fill="#22c55e">admit</text>
+
+  <!-- shed path -->
+  <path d="M338 226 C 380 226, 390 320, 440 320" fill="none" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arR)"/>
+  <rect x="445" y="302" width="150" height="36" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="520" y="324" text-anchor="middle" font-size="12" font-weight="600" fill="#ef4444">503 fast, no queue</text>
+
+  <!-- goodput out -->
+  <line x1="590" y1="178" x2="660" y2="178" stroke="#22c55e" stroke-width="2.5" marker-end="url(#arG)"/>
+  <g fill="#22c55e">
+    <circle cx="690" cy="150" r="9"/>
+    <circle cx="722" cy="150" r="9"/>
+    <circle cx="690" cy="190" r="9"/>
+    <circle cx="722" cy="190" r="9"/>
+  </g>
+  <text x="706" y="222" text-anchor="middle" font-size="12" font-weight="600" fill="#16a34a">goodput</text>
+
+  <!-- latency gauge -->
+  <rect x="612" y="248" width="170" height="92" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="697" y="270" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1e293b">latency p99</text>
+  <path d="M635 320 A 62 62 0 0 1 759 320" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+  <path d="M635 320 A 62 62 0 0 1 705 262" fill="none" stroke="#22c55e" stroke-width="10"/>
+  <line x1="697" y1="320" x2="724" y2="282" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="697" cy="320" r="5" fill="#1e293b"/>
+  <text x="641" y="335" font-size="9.5" fill="#22c55e">healthy</text>
+  <text x="725" y="335" text-anchor="end" font-size="9.5" fill="#ef4444">collapse</text>
+
+  <text x="400" y="384" text-anchor="middle" font-size="11.5" fill="#64748b">Past saturation, accepting more load drops goodput to zero. Admit what you can serve, shed the rest early.</text>
+</svg>
