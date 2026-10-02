@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="64" fill="#eef2ff"/>
+  <text x="400" y="32" text-anchor="middle" font-size="22" font-weight="700" fill="#312e81">The Power of Two Choices</text>
+  <text x="400" y="52" text-anchor="middle" font-size="13" fill="#64748b">Sample two servers at random, route to the less loaded one</text>
+
+  <!-- Incoming request -->
+  <rect x="40" y="180" width="120" height="48" rx="10" fill="#4f46e5"/>
+  <text x="100" y="203" text-anchor="middle" font-size="14" font-weight="600" fill="#ffffff">Request</text>
+  <text x="100" y="220" text-anchor="middle" font-size="11" fill="#c7d2fe">incoming</text>
+
+  <!-- Sampling node -->
+  <circle cx="280" cy="204" r="44" fill="#ffffff" stroke="#6366f1" stroke-width="2.5"/>
+  <text x="280" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">pick 2</text>
+  <text x="280" y="217" text-anchor="middle" font-size="11" fill="#64748b">at random</text>
+
+  <!-- arrow request -> sample -->
+  <line x1="160" y1="204" x2="232" y2="204" stroke="#94a3b8" stroke-width="2.5"/>
+  <polygon points="232,204 222,199 222,209" fill="#94a3b8"/>
+
+  <!-- Sampled server A (chosen, lighter) -->
+  <rect x="520" y="92" width="150" height="76" rx="12" fill="#dcfce7" stroke="#22c55e" stroke-width="2.5"/>
+  <text x="595" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">Server A</text>
+  <text x="595" y="138" text-anchor="middle" font-size="12" fill="#15803d">load: 5</text>
+  <text x="595" y="156" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">chosen</text>
+
+  <!-- Sampled server B (rejected, heavier) -->
+  <rect x="520" y="240" width="150" height="76" rx="12" fill="#fee2e2" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="595" y="266" text-anchor="middle" font-size="14" font-weight="700" fill="#991b1b">Server B</text>
+  <text x="595" y="286" text-anchor="middle" font-size="12" fill="#b91c1c">load: 20</text>
+  <text x="595" y="304" text-anchor="middle" font-size="11" font-weight="600" fill="#991b1b">left alone</text>
+
+  <!-- arrows sample -> A and B -->
+  <line x1="320" y1="186" x2="516" y2="130" stroke="#22c55e" stroke-width="3"/>
+  <polygon points="516,130 504,130 510,140" fill="#22c55e"/>
+  <line x1="320" y1="222" x2="516" y2="278" stroke="#cbd5e1" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <polygon points="516,278 504,268 510,278" fill="#cbd5e1"/>
+
+  <!-- Unsampled fleet -->
+  <g fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5">
+    <rect x="350" y="338" width="34" height="30" rx="6"/>
+    <rect x="392" y="338" width="34" height="30" rx="6"/>
+    <rect x="434" y="338" width="34" height="30" rx="6"/>
+    <rect x="476" y="338" width="34" height="30" rx="6"/>
+    <rect x="518" y="338" width="34" height="30" rx="6"/>
+  </g>
+  <text x="300" y="358" text-anchor="end" font-size="11" fill="#94a3b8">rest of fleet:</text>
+  <text x="566" y="358" text-anchor="start" font-size="11" fill="#94a3b8">never queried</text>
+
+  <!-- footnote -->
+  <text x="400" y="392" text-anchor="middle" font-size="12" fill="#1e293b">max load drops from O(log n / log log n) to O(log log n)</text>
+</svg>
