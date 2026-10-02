@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="64" fill="#eef2ff"/>
+  <text x="32" y="38" font-size="20" font-weight="700" fill="#312e81">The autoscaler is always late</text>
+  <text x="32" y="54" font-size="12" fill="#64748b">A traffic spike outruns the scale-up chain, and capacity arrives after the gap</text>
+
+  <!-- demand vs capacity chart -->
+  <g transform="translate(32,96)">
+    <rect x="0" y="0" width="430" height="160" rx="8" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="16" y="24" font-size="12" font-weight="600" fill="#1e293b">demand vs ready capacity</text>
+
+    <!-- axes -->
+    <line x1="40" y1="130" x2="410" y2="130" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="40" y1="44" x2="40" y2="130" stroke="#94a3b8" stroke-width="1"/>
+    <text x="225" y="150" font-size="10" fill="#64748b" text-anchor="middle">time</text>
+
+    <!-- the gap region -->
+    <path d="M150 130 L150 58 L255 95 L255 130 Z" fill="#ef4444" opacity="0.14"/>
+    <text x="200" y="122" font-size="10" font-weight="600" fill="#ef4444" text-anchor="middle">gap</text>
+
+    <!-- demand: sharp spike (red) -->
+    <path d="M40 122 L120 120 L150 58 L210 56 L260 116 L410 118" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linejoin="round"/>
+    <!-- capacity: lagging staircase (green) -->
+    <path d="M40 122 L150 122 L150 110 L210 110 L210 95 L255 95 L255 70 L320 70 L320 56 L410 56" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linejoin="round"/>
+
+    <circle cx="150" cy="58" r="3.5" fill="#ef4444"/>
+    <circle cx="320" cy="56" r="3.5" fill="#22c55e"/>
+
+    <!-- legend -->
+    <line x1="250" y1="30" x2="270" y2="30" stroke="#ef4444" stroke-width="2.5"/>
+    <text x="276" y="34" font-size="10" fill="#64748b">demand</text>
+    <line x1="330" y1="30" x2="350" y2="30" stroke="#22c55e" stroke-width="2.5"/>
+    <text x="356" y="34" font-size="10" fill="#64748b">ready capacity</text>
+  </g>
+
+  <!-- the lagging chain -->
+  <g transform="translate(494,96)">
+    <rect x="0" y="0" width="274" height="160" rx="8" fill="#312e81"/>
+    <text x="16" y="26" font-size="12" font-weight="600" fill="#c7d2fe">the lag chain</text>
+
+    <g font-size="11" fill="#e0e7ff">
+      <circle cx="22" cy="50" r="4" fill="#6366f1"/>
+      <text x="36" y="54">scrape interval</text>
+      <circle cx="22" cy="75" r="4" fill="#6366f1"/>
+      <text x="36" y="79">HPA sync + averaging</text>
+      <circle cx="22" cy="100" r="4" fill="#6366f1"/>
+      <text x="36" y="104">schedule + image pull</text>
+      <circle cx="22" cy="125" r="4" fill="#22c55e"/>
+      <text x="36" y="129">readiness probe passes</text>
+    </g>
+    <line x1="22" y1="54" x2="22" y2="121" stroke="#4f46e5" stroke-width="2"/>
+  </g>
+
+  <!-- pipeline boxes -->
+  <g transform="translate(32,288)">
+    <g>
+      <rect x="0" y="0" width="120" height="56" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="60" y="26" font-size="13" font-weight="600" fill="#312e81" text-anchor="middle">metric</text>
+      <text x="60" y="44" font-size="11" fill="#64748b" text-anchor="middle">scrape</text>
+    </g>
+    <g transform="translate(165,0)">
+      <rect x="0" y="0" width="120" height="56" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="60" y="26" font-size="13" font-weight="600" fill="#312e81" text-anchor="middle">HPA</text>
+      <text x="60" y="44" font-size="11" fill="#64748b" text-anchor="middle">decision</text>
+    </g>
+    <g transform="translate(330,0)">
+      <rect x="0" y="0" width="120" height="56" rx="8" fill="#ffffff" stroke="#6366f1" stroke-width="1.5"/>
+      <text x="60" y="26" font-size="13" font-weight="600" fill="#312e81" text-anchor="middle">pod</text>
+      <text x="60" y="44" font-size="11" fill="#64748b" text-anchor="middle">schedule</text>
+    </g>
+    <g transform="translate(495,0)">
+      <rect x="0" y="0" width="120" height="56" rx="8" fill="#ffffff" stroke="#22c55e" stroke-width="1.5"/>
+      <text x="60" y="26" font-size="13" font-weight="600" fill="#166534" text-anchor="middle">pod</text>
+      <text x="60" y="44" font-size="11" fill="#64748b" text-anchor="middle">ready</text>
+    </g>
+    <g transform="translate(660,0)">
+      <rect x="0" y="0" width="108" height="56" rx="8" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+      <text x="54" y="26" font-size="13" font-weight="600" fill="#312e81" text-anchor="middle">shed the</text>
+      <text x="54" y="44" font-size="11" fill="#64748b" text-anchor="middle">gap (429)</text>
+    </g>
+
+    <g fill="#94a3b8">
+      <path d="M122 28 L161 28" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M161 28 l-6 -4 v8 z"/>
+      <path d="M287 28 L326 28" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M326 28 l-6 -4 v8 z"/>
+      <path d="M452 28 L491 28" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M491 28 l-6 -4 v8 z"/>
+      <path d="M617 28 L656 28" stroke="#94a3b8" stroke-width="2"/>
+      <path d="M656 28 l-6 -4 v8 z"/>
+    </g>
+  </g>
+</svg>
