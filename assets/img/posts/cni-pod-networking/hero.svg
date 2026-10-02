@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-label="A packet leaving a pod via a veth pair to the node's bridge, then either VXLAN-encapsulated across an overlay or routed natively to another node via BGP, landing in a destination pod">
+  <defs>
+    <linearGradient id="cnibg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eef2ff"/>
+      <stop offset="1" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="cnishadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.12"/>
+    </filter>
+    <marker id="cniarrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0 0 L7 3 L0 6 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="cniarrowi" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0 0 L7 3 L0 6 z" fill="#6366f1"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="400" fill="url(#cnibg)"/>
+  <text x="400" y="36" font-family="system-ui,sans-serif" font-size="21" font-weight="800" fill="#1e293b" text-anchor="middle">How a Packet Leaves a Pod</text>
+
+  <!-- source node -->
+  <rect x="28" y="62" width="280" height="190" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cnishadow)"/>
+  <text x="44" y="84" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#64748b">node A</text>
+
+  <!-- source pod netns -->
+  <g font-family="system-ui,sans-serif">
+    <rect x="46" y="98" width="110" height="64" rx="9" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+    <text x="101" y="124" font-size="13" font-weight="700" fill="#312e81" text-anchor="middle">pod</text>
+    <text x="101" y="142" font-size="10" fill="#64748b" text-anchor="middle">eth0 · 10.1.2.7</text>
+  </g>
+  <text x="101" y="180" font-family="system-ui,sans-serif" font-size="9.5" fill="#94a3b8" text-anchor="middle">netns</text>
+
+  <!-- veth -->
+  <line x1="156" y1="130" x2="196" y2="130" stroke="#6366f1" stroke-width="2.5" marker-end="url(#cniarrowi)"/>
+  <text x="176" y="120" font-family="system-ui,sans-serif" font-size="9" fill="#6366f1" text-anchor="middle">veth</text>
+
+  <!-- node bridge / routing -->
+  <g font-family="system-ui,sans-serif">
+    <rect x="200" y="98" width="92" height="64" rx="9" fill="#ffffff" stroke="#6366f1" stroke-width="2.5"/>
+    <text x="246" y="122" font-size="12" font-weight="700" fill="#312e81" text-anchor="middle">bridge</text>
+    <text x="246" y="140" font-size="9.5" fill="#64748b" text-anchor="middle">route table</text>
+  </g>
+  <text x="246" y="232" font-family="system-ui,sans-serif" font-size="9.5" fill="#94a3b8" text-anchor="middle">eth0 · node IP</text>
+  <line x1="246" y1="162" x2="246" y2="210" stroke="#94a3b8" stroke-width="2" marker-end="url(#cniarrow)"/>
+
+  <!-- destination node -->
+  <rect x="492" y="62" width="280" height="190" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cnishadow)"/>
+  <text x="508" y="84" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#64748b">node B</text>
+
+  <g font-family="system-ui,sans-serif">
+    <rect x="556" y="98" width="92" height="64" rx="9" fill="#ffffff" stroke="#6366f1" stroke-width="2.5"/>
+    <text x="602" y="122" font-size="12" font-weight="700" fill="#312e81" text-anchor="middle">bridge</text>
+    <text x="602" y="140" font-size="9.5" fill="#64748b" text-anchor="middle">route table</text>
+  </g>
+  <g font-family="system-ui,sans-serif">
+    <rect x="654" y="98" width="100" height="64" rx="9" fill="#ffffff" stroke="#22c55e" stroke-width="2.5"/>
+    <text x="704" y="124" font-size="13" font-weight="700" fill="#166534" text-anchor="middle">pod</text>
+    <text x="704" y="142" font-size="10" fill="#3f6212" text-anchor="middle">10.1.9.4</text>
+  </g>
+  <line x1="648" y1="130" x2="650" y2="130" stroke="#6366f1" stroke-width="2.5" marker-end="url(#cniarrowi)"/>
+  <text x="602" y="232" font-family="system-ui,sans-serif" font-size="9.5" fill="#94a3b8" text-anchor="middle">eth0 · node IP</text>
+  <line x1="602" y1="210" x2="602" y2="162" stroke="#94a3b8" stroke-width="2" marker-end="url(#cniarrow)"/>
+
+  <!-- two paths across the fabric -->
+  <!-- overlay path -->
+  <g font-family="system-ui,sans-serif">
+    <rect x="318" y="276" width="164" height="46" rx="9" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="400" y="295" font-size="11.5" font-weight="700" fill="#312e81" text-anchor="middle">VXLAN / Geneve overlay</text>
+    <text x="400" y="312" font-size="9.5" fill="#4f46e5" text-anchor="middle">encap pod packet in UDP, any fabric</text>
+  </g>
+  <path d="M246 252 C 246 300, 300 299, 314 299" fill="none" stroke="#6366f1" stroke-width="2" marker-end="url(#cniarrowi)"/>
+  <path d="M486 299 C 540 299, 602 300, 602 252" fill="none" stroke="#6366f1" stroke-width="2" marker-end="url(#cniarrow)"/>
+
+  <!-- BGP native route path -->
+  <g font-family="system-ui,sans-serif">
+    <rect x="318" y="200" width="164" height="44" rx="9" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+    <text x="400" y="219" font-size="11.5" font-weight="700" fill="#166534" text-anchor="middle">BGP native routing</text>
+    <text x="400" y="235" font-size="9.5" fill="#3f6212" text-anchor="middle">fabric routes pod CIDRs, no encap</text>
+  </g>
+  <line x1="292" y1="222" x2="314" y2="222" stroke="#94a3b8" stroke-width="2" marker-end="url(#cniarrow)"/>
+  <line x1="486" y1="222" x2="552" y2="222" stroke="#94a3b8" stroke-width="2" marker-end="url(#cniarrow)"/>
+
+  <text x="400" y="358" font-family="system-ui,sans-serif" font-size="13" fill="#475569" text-anchor="middle">Every pod gets a routable IP. The CNI plugin makes that real, then encapsulates or routes it across nodes.</text>
+  <text x="400" y="380" font-family="system-ui,sans-serif" font-size="10.5" fill="#94a3b8" text-anchor="middle">Services and kube-proxy sit on top of this pod-to-pod layer.</text>
+</svg>
