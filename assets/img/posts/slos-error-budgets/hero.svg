@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <rect x="0" y="0" width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="400" fill="#eef2ff" opacity="0.5"/>
+
+  <!-- SLI source -->
+  <rect x="40" y="158" width="150" height="84" rx="10" fill="#312e81"/>
+  <text x="115" y="190" text-anchor="middle" fill="#c7d2fe" font-size="12" font-weight="600" letter-spacing="0.5">SLI</text>
+  <text x="115" y="211" text-anchor="middle" fill="#e2e8f0" font-size="12">good / total</text>
+  <text x="115" y="229" text-anchor="middle" fill="#94a3b8" font-size="11">at the user edge</text>
+
+  <!-- arrow SLI -> SLO -->
+  <line x1="190" y1="200" x2="252" y2="200" stroke="#6366f1" stroke-width="3"/>
+  <polygon points="252,200 242,195 242,205" fill="#6366f1"/>
+
+  <!-- SLO target -->
+  <rect x="256" y="150" width="170" height="100" rx="10" fill="#ffffff" stroke="#4f46e5" stroke-width="2"/>
+  <text x="341" y="180" text-anchor="middle" fill="#4f46e5" font-size="12" font-weight="600" letter-spacing="0.5">SLO TARGET</text>
+  <text x="341" y="210" text-anchor="middle" fill="#1e293b" font-size="24" font-weight="700">99.9%</text>
+  <text x="341" y="233" text-anchor="middle" fill="#64748b" font-size="11">over 28 days</text>
+
+  <!-- arrow SLO -> budget -->
+  <line x1="426" y1="200" x2="488" y2="200" stroke="#6366f1" stroke-width="3"/>
+  <polygon points="488,200 478,195 478,205" fill="#6366f1"/>
+
+  <!-- Error budget gauge (draining) -->
+  <text x="600" y="78" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="600">ERROR BUDGET</text>
+  <rect x="500" y="92" width="200" height="34" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="500" y="92" width="118" height="34" rx="8" fill="#22c55e"/>
+  <rect x="610" y="92" width="90" height="34" fill="#22c55e"/>
+  <rect x="610" y="92" width="90" height="34" fill="#ef4444" opacity="0.85"/>
+  <line x1="610" y1="86" x2="610" y2="132" stroke="#1e293b" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="555" y="114" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="600">remaining</text>
+  <text x="655" y="114" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="600">burned</text>
+  <text x="500" y="146" fill="#22c55e" font-size="11" font-weight="600">ship</text>
+  <text x="700" y="146" text-anchor="end" fill="#ef4444" font-size="11" font-weight="600">freeze</text>
+
+  <!-- arrow budget -> alerts -->
+  <line x1="600" y1="160" x2="600" y2="236" stroke="#6366f1" stroke-width="3"/>
+  <polygon points="600,236 595,226 605,226" fill="#6366f1"/>
+
+  <!-- Burn-rate alerts -->
+  <text x="600" y="262" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="600">BURN-RATE ALERTS</text>
+
+  <!-- fast burn -->
+  <rect x="476" y="278" width="118" height="86" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="505" cy="304" r="7" fill="#ef4444"/>
+  <text x="535" y="308" fill="#ef4444" font-size="12" font-weight="700">FAST</text>
+  <text x="535" y="324" text-anchor="middle" fill="#64748b" font-size="11">burn &#8805; 14</text>
+  <text x="535" y="342" text-anchor="middle" fill="#64748b" font-size="11">5m and 1h</text>
+  <text x="535" y="358" text-anchor="middle" fill="#1e293b" font-size="11" font-weight="600">page now</text>
+
+  <!-- slow burn -->
+  <rect x="606" y="278" width="118" height="86" rx="10" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="635" cy="304" r="7" fill="#f59e0b"/>
+  <text x="665" y="308" fill="#b45309" font-size="12" font-weight="700">SLOW</text>
+  <text x="665" y="324" text-anchor="middle" fill="#64748b" font-size="11">burn &#8805; 3</text>
+  <text x="665" y="342" text-anchor="middle" fill="#64748b" font-size="11">1h and 6h</text>
+  <text x="665" y="358" text-anchor="middle" fill="#1e293b" font-size="11" font-weight="600">open ticket</text>
+
+  <!-- title -->
+  <text x="40" y="48" fill="#1e293b" font-size="22" font-weight="700">SLOs and Error Budgets</text>
+  <text x="40" y="72" fill="#6366f1" font-size="13" font-weight="500">SLI to target to budget to burn-rate alert</text>
+
+  <!-- footer caption -->
+  <text x="40" y="300" fill="#64748b" font-size="11">Multi-window keeps</text>
+  <text x="40" y="316" fill="#64748b" font-size="11">a blip from paging:</text>
+  <text x="40" y="338" fill="#475569" font-size="11" font-weight="600">react to the rate,</text>
+  <text x="40" y="354" fill="#475569" font-size="11" font-weight="600">not the threshold.</text>
+</svg>
