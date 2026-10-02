@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="400" fill="#eef2ff" opacity="0.5"/>
+
+  <text x="400" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="#312e81">Cache Stampede vs Coalesced Fetch</text>
+
+  <!-- Divider -->
+  <line x1="400" y1="64" x2="400" y2="372" stroke="#c7d2fe" stroke-width="2" stroke-dasharray="5 5"/>
+
+  <!-- ===== LEFT: stampede ===== -->
+  <text x="200" y="86" text-anchor="middle" font-size="14" font-weight="600" fill="#ef4444">Hot key expired: every miss hammers origin</text>
+
+  <!-- expired key -->
+  <rect x="148" y="104" width="104" height="40" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="200" y="123" text-anchor="middle" font-size="12" font-weight="600" fill="#ef4444">key:feed</text>
+  <text x="200" y="137" text-anchor="middle" font-size="10" fill="#94a3b8">TTL expired</text>
+
+  <!-- requests -->
+  <g fill="#6366f1">
+    <circle cx="60" cy="200" r="13"/>
+    <circle cx="110" cy="200" r="13"/>
+    <circle cx="160" cy="200" r="13"/>
+    <circle cx="210" cy="200" r="13"/>
+    <circle cx="260" cy="200" r="13"/>
+    <circle cx="310" cy="200" r="13"/>
+  </g>
+  <text x="200" y="234" text-anchor="middle" font-size="11" fill="#64748b">N concurrent requests, all miss</text>
+
+  <!-- arrows to origin -->
+  <g stroke="#ef4444" stroke-width="2" marker-end="url(#redArrow)">
+    <line x1="60" y1="216" x2="180" y2="288"/>
+    <line x1="110" y1="216" x2="190" y2="288"/>
+    <line x1="160" y1="216" x2="198" y2="288"/>
+    <line x1="210" y1="216" x2="206" y2="288"/>
+    <line x1="260" y1="216" x2="214" y2="288"/>
+    <line x1="310" y1="216" x2="222" y2="288"/>
+  </g>
+
+  <!-- origin overloaded -->
+  <rect x="140" y="296" width="120" height="56" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2.5"/>
+  <text x="200" y="320" text-anchor="middle" font-size="13" font-weight="700" fill="#ef4444">Origin</text>
+  <text x="200" y="338" text-anchor="middle" font-size="11" fill="#ef4444">overloaded</text>
+
+  <!-- ===== RIGHT: coalesced ===== -->
+  <text x="600" y="86" text-anchor="middle" font-size="14" font-weight="600" fill="#22c55e">Single-flight: one recompute shields origin</text>
+
+  <!-- requests -->
+  <g fill="#6366f1">
+    <circle cx="460" cy="130" r="13"/>
+    <circle cx="510" cy="130" r="13"/>
+    <circle cx="560" cy="130" r="13"/>
+    <circle cx="610" cy="130" r="13"/>
+    <circle cx="660" cy="130" r="13"/>
+    <circle cx="710" cy="130" r="13"/>
+  </g>
+  <text x="600" y="162" text-anchor="middle" font-size="11" fill="#64748b">N requests join one in-flight fetch</text>
+
+  <!-- arrows into coalescer -->
+  <g stroke="#94a3b8" stroke-width="1.5" marker-end="url(#slateArrow)">
+    <line x1="460" y1="146" x2="560" y2="186"/>
+    <line x1="510" y1="146" x2="575" y2="186"/>
+    <line x1="560" y1="146" x2="590" y2="186"/>
+    <line x1="610" y1="146" x2="610" y2="186"/>
+    <line x1="660" y1="146" x2="625" y2="186"/>
+    <line x1="710" y1="146" x2="640" y2="186"/>
+  </g>
+
+  <!-- coalescer / lease -->
+  <rect x="510" y="192" width="180" height="44" rx="8" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+  <text x="600" y="210" text-anchor="middle" font-size="12" font-weight="600" fill="#4f46e5">coalescer + lease</text>
+  <text x="600" y="226" text-anchor="middle" font-size="10" fill="#64748b">only first caller computes</text>
+
+  <!-- single arrow to origin -->
+  <line x1="600" y1="236" x2="600" y2="294" stroke="#22c55e" stroke-width="3" marker-end="url(#greenArrow)"/>
+  <text x="664" y="270" text-anchor="middle" font-size="11" font-weight="600" fill="#22c55e">1 fetch</text>
+
+  <!-- origin healthy -->
+  <rect x="540" y="300" width="120" height="56" rx="8" fill="#dcfce7" stroke="#22c55e" stroke-width="2.5"/>
+  <text x="600" y="324" text-anchor="middle" font-size="13" font-weight="700" fill="#312e81">Origin</text>
+  <text x="600" y="342" text-anchor="middle" font-size="11" fill="#22c55e">protected</text>
+
+  <defs>
+    <marker id="redArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#ef4444"/>
+    </marker>
+    <marker id="slateArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="greenArrow" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#22c55e"/>
+    </marker>
+  </defs>
+</svg>
