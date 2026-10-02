@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="56" fill="#312e81"/>
+  <text x="32" y="34" fill="#eef2ff" font-size="18" font-weight="600">One trace, traceparent propagated hop to hop</text>
+
+  <!-- traceparent header pill -->
+  <rect x="32" y="74" width="736" height="34" rx="6" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="46" y="96" fill="#4f46e5" font-size="13" font-weight="600">traceparent:</text>
+  <text x="150" y="96" fill="#1e293b" font-size="13" font-family="monospace">00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01</text>
+
+  <!-- service lane labels -->
+  <text x="32" y="150" fill="#64748b" font-size="13" font-weight="600">api-gateway</text>
+  <text x="32" y="196" fill="#64748b" font-size="13" font-weight="600">orders</text>
+  <text x="32" y="242" fill="#64748b" font-size="13" font-weight="600">inventory</text>
+  <text x="32" y="288" fill="#64748b" font-size="13" font-weight="600">payments</text>
+  <text x="32" y="334" fill="#64748b" font-size="13" font-weight="600">ledger (slow)</text>
+
+  <!-- gridline -->
+  <line x1="170" y1="124" x2="170" y2="350" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 4"/>
+
+  <!-- spans: waterfall -->
+  <rect x="170" y="138" width="580" height="22" rx="4" fill="#6366f1"/>
+  <text x="182" y="153" fill="#eef2ff" font-size="12">GET /checkout  span 00f067aa</text>
+
+  <rect x="210" y="184" width="500" height="22" rx="4" fill="#4f46e5"/>
+  <text x="222" y="199" fill="#eef2ff" font-size="12">place order  child span</text>
+
+  <rect x="240" y="230" width="150" height="22" rx="4" fill="#22c55e"/>
+  <text x="252" y="245" fill="#f8fafc" font-size="12">reserve  fast</text>
+
+  <rect x="400" y="276" width="120" height="22" rx="4" fill="#22c55e"/>
+  <text x="412" y="291" fill="#f8fafc" font-size="12">charge</text>
+
+  <rect x="520" y="322" width="190" height="22" rx="4" fill="#1e293b"/>
+  <text x="532" y="337" fill="#f8fafc" font-size="12">write entry  p99 culprit</text>
+
+  <!-- propagation arrows between hops -->
+  <path d="M210 160 L210 184" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/>
+  <path d="M240 206 L240 230" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/>
+  <path d="M400 206 L400 276" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/>
+  <path d="M520 298 L520 322" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <text x="170" y="372" fill="#64748b" font-size="11">t=0</text>
+  <text x="730" y="372" fill="#64748b" font-size="11">wall time</text>
+</svg>
