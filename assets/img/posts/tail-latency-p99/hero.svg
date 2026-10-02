@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" viewBox="0 0 800 400" font-family="system-ui, -apple-system, sans-serif">
+  <rect width="800" height="400" fill="#f8fafc"/>
+  <rect x="0" y="0" width="800" height="400" fill="#eef2ff" opacity="0.5"/>
+
+  <!-- Title -->
+  <text x="40" y="46" font-size="22" font-weight="700" fill="#312e81">Tail latency: where your users actually live</text>
+  <text x="40" y="70" font-size="13" fill="#64748b">A long-tailed distribution, and a fan-out whose slowest backend sets the clock</text>
+
+  <!-- ============ LEFT: latency distribution with long tail ============ -->
+  <g transform="translate(40,110)">
+    <text x="0" y="-8" font-size="13" font-weight="600" fill="#1e293b">Latency distribution</text>
+
+    <!-- axes -->
+    <line x1="0" y1="200" x2="330" y2="200" stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="0" y1="200" x2="0" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="165" y="232" font-size="11" fill="#64748b" text-anchor="middle">response time</text>
+
+    <!-- distribution curve: tall peak near left, long thin tail to the right -->
+    <path d="M0,200 C18,200 28,40 50,40 C72,40 88,150 120,178 C160,190 210,196 330,199 L330,200 Z"
+          fill="#6366f1" opacity="0.18"/>
+    <path d="M0,200 C18,200 28,40 50,40 C72,40 88,150 120,178 C160,190 210,196 330,199"
+          fill="none" stroke="#4f46e5" stroke-width="2.5"/>
+
+    <!-- median marker -->
+    <line x1="50" y1="40" x2="50" y2="200" stroke="#22c55e" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <circle cx="50" cy="40" r="4" fill="#22c55e"/>
+    <text x="55" y="34" font-size="11" font-weight="600" fill="#22c55e">p50</text>
+
+    <!-- p99 marker, way out in the tail -->
+    <line x1="245" y1="195" x2="245" y2="200" stroke="#ef4444" stroke-width="1.5"/>
+    <circle cx="245" cy="195" r="4" fill="#ef4444"/>
+    <text x="232" y="184" font-size="11" font-weight="700" fill="#ef4444">p99</text>
+
+    <!-- tail shading callout -->
+    <rect x="180" y="150" width="150" height="50" fill="#ef4444" opacity="0.08"/>
+    <text x="312" y="170" font-size="10.5" fill="#ef4444" text-anchor="end" font-weight="600">the long tail</text>
+    <text x="312" y="184" font-size="10.5" fill="#ef4444" text-anchor="end">few requests,</text>
+    <text x="312" y="197" font-size="10.5" fill="#ef4444" text-anchor="end">real pain</text>
+  </g>
+
+  <!-- divider -->
+  <line x1="415" y1="120" x2="415" y2="350" stroke="#c7d2fe" stroke-width="1.5"/>
+
+  <!-- ============ RIGHT: fan-out, slowest backend sets response ============ -->
+  <g transform="translate(450,110)">
+    <text x="0" y="-8" font-size="13" font-weight="600" fill="#1e293b">Fan-out: the slowest backend wins</text>
+
+    <!-- client node -->
+    <rect x="0" y="80" width="74" height="44" rx="8" fill="#312e81"/>
+    <text x="37" y="100" font-size="11" font-weight="600" fill="#eef2ff" text-anchor="middle">request</text>
+    <text x="37" y="115" font-size="10" fill="#94a3b8" text-anchor="middle">fan-out</text>
+
+    <!-- edges to backends -->
+    <line x1="74" y1="102" x2="190" y2="24"  stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="74" y1="102" x2="190" y2="78"  stroke="#94a3b8" stroke-width="1.5"/>
+    <line x1="74" y1="102" x2="190" y2="132" stroke="#ef4444" stroke-width="2.5"/>
+    <line x1="74" y1="102" x2="190" y2="186" stroke="#94a3b8" stroke-width="1.5"/>
+
+    <!-- backends -->
+    <g font-size="10" text-anchor="middle">
+      <rect x="190" y="6"   width="96" height="36" rx="7" fill="#22c55e" opacity="0.85"/>
+      <text x="238" y="22" fill="#ffffff" font-weight="600">backend A</text>
+      <text x="238" y="35" fill="#ffffff">9 ms</text>
+
+      <rect x="190" y="60"  width="96" height="36" rx="7" fill="#22c55e" opacity="0.85"/>
+      <text x="238" y="76" fill="#ffffff" font-weight="600">backend B</text>
+      <text x="238" y="89" fill="#ffffff">11 ms</text>
+
+      <rect x="190" y="114" width="96" height="36" rx="7" fill="#ef4444"/>
+      <text x="238" y="130" fill="#ffffff" font-weight="700">backend C</text>
+      <text x="238" y="143" fill="#ffffff">820 ms (GC)</text>
+
+      <rect x="190" y="168" width="96" height="36" rx="7" fill="#22c55e" opacity="0.85"/>
+      <text x="238" y="184" fill="#ffffff" font-weight="600">backend D</text>
+      <text x="238" y="197" fill="#ffffff">10 ms</text>
+    </g>
+
+    <!-- response time box -->
+    <rect x="20" y="232" width="266" height="44" rx="8" fill="#1e293b"/>
+    <text x="153" y="252" font-size="11" fill="#94a3b8" text-anchor="middle">end-to-end response = max of all backends</text>
+    <text x="153" y="268" font-size="13" font-weight="700" fill="#ef4444" text-anchor="middle">820 ms</text>
+  </g>
+
+  <!-- bottom strip -->
+  <text x="40" y="375" font-size="11.5" fill="#64748b">P(slow) = 1 - (0.99 to the power N):  N=1 -&gt; 1%   N=100 -&gt; 63%   N=500 -&gt; 99%</text>
+</svg>
